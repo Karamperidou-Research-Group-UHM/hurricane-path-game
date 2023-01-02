@@ -1,3 +1,5 @@
+import Hurricane from '../gameobjects/hurricane.js';
+
 // The game area of the game.
 const gameArea = {
   // Creates a canvas html element in main.html.
@@ -20,9 +22,12 @@ const gameArea = {
   }
 };
 
+let hurricane;
+
 // Loads all objects and starts the game.
 const startGame = () => {
   /** Create all objects in this area. */
+  hurricane = new Hurricane(100, 100, 50, 50, 'red', gameArea);
 
   // Starts the game area.
   gameArea.start();
@@ -34,6 +39,7 @@ const updateGame = () => {
   gameArea.clear();
 
   /** Update all objects in this area. */
+  hurricane.update();
 };
 
 // Starts the game when the window loads.
