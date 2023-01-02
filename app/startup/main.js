@@ -22,12 +22,18 @@ const gameArea = {
 
 // Loads all objects and starts the game.
 const startGame = () => {
+  /** Create all objects in this area. */
 
+  // Starts the game area.
+  gameArea.start();
 };
 
 // Updates the game area of the game.
 const updateGame = () => {
+  // Clears the game area every refresh.
+  gameArea.clear();
 
+  /** Update all objects in this area. */
 };
 
 // Starts the game when the window loads.
