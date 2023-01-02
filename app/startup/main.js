@@ -23,6 +23,14 @@ const gameArea = {
 };
 
 let hurricane;
+let testPoints = [
+  { x: 0, y: 0 },
+  { x: 100, y: 0 },
+  { x: 100, y: 100 },
+  { x: 200, y: 200 },
+  { x: 0, y: 0 },
+];
+let index = 0;
 
 // Loads all objects and starts the game.
 const startGame = () => {
@@ -37,7 +45,11 @@ const startGame = () => {
 const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
-
+  hurricane.move(testPoints[index]);
+  if (Math.floor(hurricane.x) === testPoints[index].x && Math.floor(hurricane.y) === testPoints[index].y) {
+    console.log("HEY");
+    index++;
+  }
   /** Update all objects in this area. */
   hurricane.update();
 };
