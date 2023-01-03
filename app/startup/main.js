@@ -1,4 +1,5 @@
 import Hurricane from '../gameobjects/hurricane.js';
+import WindArrow from '../gameobjects/windArrow.js';
 import HurricaneMovement from '../components/hurricaneMovement.js';
 
 // The game area of the game.
@@ -25,11 +26,13 @@ const gameArea = {
 
 let hurricane;
 let hurricaneMovement;
+let windArrow;
 let index = 0;
 
 // Loads all objects and starts the game.
 const startGame = () => {
   /** Create all objects in this area. */
+  windArrow = new WindArrow(200, 200, 10, 10, 'blue', gameArea);
   hurricane = new Hurricane(700, 450, 50, 50, 'red', gameArea);
   hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 450 });
 
@@ -46,6 +49,7 @@ const updateGame = () => {
   hurricaneMovement.addNewTarget({ x: -1 * index, y: 450 - index })
   index += 10;
   /** Update all objects in this area. */
+  windArrow.update();
   hurricane.update();
 };
 
