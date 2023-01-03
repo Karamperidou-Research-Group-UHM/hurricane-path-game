@@ -41,7 +41,6 @@ export default class Hurricane extends GameObject {
       this.lastPoint = target;
       return true;
     }
-
     return false;
   }
 
