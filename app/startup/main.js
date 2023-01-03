@@ -49,8 +49,8 @@ const updateGame = () => {
   hurricaneMovement.addNewTarget({ x: -1 * index, y: 450 - index })
   index += 10;
   /** Update all objects in this area. */
-  windArrow.update();
   hurricane.update();
+  windArrow.update();
 };
 
 // Starts the game when the window loads.

@@ -26,6 +26,7 @@ export default class WindArrow extends GameObject {
 
   /** Updates the wind arrow's image. */
   update() {
+    // this.rotate(180);
     super.update();
   }
 }
