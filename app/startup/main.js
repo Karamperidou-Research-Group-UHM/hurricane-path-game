@@ -25,13 +25,6 @@ const gameArea = {
 
 let hurricane;
 let hurricaneMovement;
-let testPoints = [
-  { x: 0, y: 0 },
-  { x: 100, y: 0 },
-  { x: 100, y: 100 },
-  { x: 200, y: 200 },
-  { x: 0, y: 0 },
-];
 let index = 0;
 
 // Loads all objects and starts the game.
