@@ -46,15 +46,7 @@ const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
 
-  // Checks if the index is less than the points array.
-  if (index < testPoints.length) {
-    // Moves hurricane to the coordinates at index.
-    const isAtPoint = hurricane.move(testPoints[index]);
-    // Moves to the next index in the array if the hurricane is at the last point.
-    if (isAtPoint) {
-      index++;
-    }
-  }
+
   /** Update all objects in this area. */
   hurricane.update();
 };

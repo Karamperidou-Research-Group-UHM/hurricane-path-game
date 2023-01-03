@@ -3,7 +3,6 @@ export default class HurricaneMovement {
   /** Creates a new HurricaneMovement instance. */
   constructor(hurricaneGameObject, initialTarget) {
     this.hurricaneGameObject = hurricaneGameObject;
-    this.initialTarget = initialTarget;
     this.currentPointIndex = 0;
     this.points = [initialTarget];
   }
@@ -20,6 +19,14 @@ export default class HurricaneMovement {
 
   /** Moves the hurricane in the path given in points. */
   moveHurricane() {
-
+    // Checks if the index is less than the points array.
+    if (this.currentPointIndex < this.points.length) {
+      // Moves hurricane to the coordinates at index.
+      const isAtPoint = this.hurricaneGameObject.move(this.points[this.currentPointIndex]);
+      // Moves to the next index in the array if the hurricane is at the last point.
+      if (isAtPoint) {
+        this.currentPointIndex++;
+      }
+    }
   }
 }
