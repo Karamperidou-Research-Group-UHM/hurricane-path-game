@@ -1,4 +1,5 @@
 import Hurricane from '../gameobjects/hurricane.js';
+import HurricaneMovement from '../components/hurricaneMovement.js';
 
 // The game area of the game.
 const gameArea = {
@@ -23,6 +24,7 @@ const gameArea = {
 };
 
 let hurricane;
+let hurricaneMovement;
 let testPoints = [
   { x: 0, y: 0 },
   { x: 100, y: 0 },
@@ -35,7 +37,8 @@ let index = 0;
 // Loads all objects and starts the game.
 const startGame = () => {
   /** Create all objects in this area. */
-  hurricane = new Hurricane(100, 100, 50, 50, 'red', gameArea);
+  hurricane = new Hurricane(700, 450, 50, 50, 'red', gameArea);
+  hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 450 });
 
   // Starts the game area.
   gameArea.start();
@@ -46,7 +49,7 @@ const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
 
-
+  hurricaneMovement.moveHurricane();
   /** Update all objects in this area. */
   hurricane.update();
 };
