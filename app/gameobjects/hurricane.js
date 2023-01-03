@@ -25,7 +25,7 @@ export default class Hurricane extends GameObject {
     ctx.translate(-1 * centerX, -1 * centerY);
   }
 
-  /** Moves the Hurricane object to the next point given. Returns true if hurricane is at target point and false otherwise. */
+  /** Moves the Hurricane object to the next point given. */
   move(target) {
     // Finds the change is x and y between the target point and last point.
     const dx = target.x - this.lastPoint.x;
@@ -35,13 +35,6 @@ export default class Hurricane extends GameObject {
     // Moves the hurricane in the direction.
     this.x += this.speed * Math.sin(direction);
     this.y += this.speed * Math.cos(direction);
-
-    // If the hurricane's coordinates are at the given point, set lastPoint to target and return true.
-    if (Math.floor(this.x) === target.x && Math.floor(this.y) === target.y) {
-      this.lastPoint = target;
-      return true;
-    }
-    return false;
   }
 
   /** Updates the Hurricane object. */
