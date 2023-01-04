@@ -3,8 +3,8 @@ import GameObject from './gameObject.js';
 /** Created properties and methods for a pressure system game object. */
 export default class PressureSystem extends GameObject {
   /** Creates a new PressureSystem instance. */
-  constructor(x, y, width, height, image, gameArea,pressureType) {
-    super(x, y, width, height, image, gameArea);
+  constructor(x, y, width, height, image, gameArea, isImage, pressureType) {
+    super(x, y, width, height, image, gameArea, isImage);
     this.radiusX = width;
     this.radiusY = height;
     this.pressureType = pressureType;

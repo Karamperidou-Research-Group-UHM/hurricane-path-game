@@ -13,7 +13,7 @@ export default class WindArrows {
     // Creates 11 rows of 42 wind arrows each.
     for (let i = 0; i < 12; i++) {
       for (let j = 0; j < 42; j++) {
-        const windArrow = new WindArrow((j * 20) + 10, (i * 50) + 5, 10, 10, 'blue', this.gameArea);
+        const windArrow = new WindArrow((j * 20) - 8, (i * 50), 42, 30, '../images/WindArrow.png', this.gameArea, true);
         this.windArrows.push(windArrow);
       }
     }

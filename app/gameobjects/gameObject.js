@@ -1,19 +1,26 @@
 /** Properties and methods for a game object. */
 export default class GameObject {
   /** Creates a new game object. */
-  constructor(x, y, width, height, image, gameArea) {
+  constructor(x, y, width, height, image, gameArea, isImage) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    this.image = image;
+    this.image = new Image();
+    this.image.src = image;
     this.gameArea = gameArea;
+    this.isImage = isImage;
   }
 
   /** Updates the game object. */
   update() {
     const ctx = this.gameArea.context;
-    ctx.fillStyle = this.image;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+
+    if (this.isImage) {
+      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    } else {
+      ctx.fillStyle = this.image;
+      ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
   }
 }

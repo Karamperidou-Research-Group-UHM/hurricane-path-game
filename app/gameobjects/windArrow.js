@@ -3,8 +3,8 @@ import GameObject from './gameObject.js';
 /** Creates properties and methods for a wind arrow game object. */
 export default class WindArrow extends GameObject {
   /** Creates a wind arrow game object. */
-  constructor(x, y, width, height, image, gameArea) {
-    super(x, y, width, height, image, gameArea);
+  constructor(x, y, width, height, image, gameArea, isImage) {
+    super(x, y, width, height, image, gameArea, isImage);
     this.initalAngle = 180;
     // this.rotate(this.initalAngle);
   }
