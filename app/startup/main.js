@@ -35,7 +35,7 @@ let index = 0;
 /** Loads all objects and starts the game. */
 const startGame = () => {
   /** Create all objects in this area. */
-  hurricane = new Hurricane(700, 450, 50, 50, 'red', gameArea, false);
+  hurricane = new Hurricane(700, 450, 100, 100, 'https://scied.ucar.edu/sites/default/files/interactives/predict-hurricane/assets/images/hurricane.png', gameArea, true);
   hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 450 });
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
