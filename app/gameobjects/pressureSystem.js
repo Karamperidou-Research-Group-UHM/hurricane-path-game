@@ -10,6 +10,11 @@ export default class PressureSystem extends GameObject {
     this.pressureType = pressureType;
   }
 
+  /** Accessor method for pressureType. */
+  getPressureType() {
+    return this.pressureType;
+  }
+
   /** Moves the pressure system based on where the mouse drags it. */
   move(newX, newY) {
     // Makes sure the newX and newY coordinates are within the bounds of the canvas.
@@ -28,7 +33,7 @@ export default class PressureSystem extends GameObject {
       this.radiusY += amount;
     }
   }
-  
+
   /** Updates the image of the game object. */
   update() {
     const ctx = this.gameArea.context;
