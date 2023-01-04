@@ -27,6 +27,7 @@ const gameArea = {
 
 let hurricane;
 let highPressureSys;
+let lowPressureSys;
 let hurricaneMovement;
 let windArrows;
 let index = 0;
@@ -39,6 +40,7 @@ const startGame = () => {
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
   highPressureSys = new PressureSystem(700, 100, 50, 50, 'red', gameArea, 'high');
+  lowPressureSys = new PressureSystem(100, 400, 50, 50, 'aqua', gameArea, 'low');
 
   // Starts the game area.
   gameArea.start();
@@ -53,9 +55,14 @@ const updateGame = () => {
   hurricaneMovement.addNewTarget({ x: -1 * index, y: 450 - index })
   index += 10;
 
+  if (index % 100 === 0) {
+    highPressureSys.changeSize(10);
+  }
+
   /** Update all objects in this area. */
   hurricane.update();
   highPressureSys.update();
+  lowPressureSys.update();
   windArrows.updateWindArrows();
 };
 
