@@ -54,7 +54,7 @@ const updateGame = () => {
   hurricaneMovement.moveHurricane();
   hurricaneMovement.addNewTarget({ x: -1 * index, y: 450 - index })
   index += 10;
-  
+
   /** Update all objects in this area. */
   hurricane.update();
   highPressureSys.update();
