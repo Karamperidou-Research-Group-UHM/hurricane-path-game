@@ -50,7 +50,7 @@ const startGame = () => {
 const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
-
+  windArrows.updateWindArrows();
   hurricaneMovement.moveHurricane();
   hurricaneMovement.addNewTarget({ x: -1 * index, y: 450 - index })
   index += 10;
@@ -59,7 +59,6 @@ const updateGame = () => {
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
-  windArrows.updateWindArrows();
 };
 
 // Starts the game when the window loads.
