@@ -40,7 +40,7 @@ const startGame = () => {
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
   highPressureSys = new PressureSystem(500, 0, 350, 270, '../images/HighPressureSystem.png', gameArea, true, 'high');
-  lowPressureSys = new PressureSystem(100, 400, 50, 50, 'blue', gameArea, false, 'low');
+  lowPressureSys = new PressureSystem(20, 300, 350, 270, '../images/LowPressureSystem.png', gameArea, true, 'low');
 
   // Starts the game area.
   gameArea.start();
