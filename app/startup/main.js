@@ -1,6 +1,7 @@
 import Hurricane from '../gameobjects/hurricane.js';
 import HurricaneMovement from '../components/hurricaneMovement.js';
 import WindArrows from '../components/windArrows.js';
+import PressureSystem from '../gameobjects/pressureSystem.js';
 
 /** The game area of the game. */
 const gameArea = {
@@ -25,6 +26,7 @@ const gameArea = {
 };
 
 let hurricane;
+let highPressureSys;
 let hurricaneMovement;
 let windArrows;
 let index = 0;
@@ -36,6 +38,7 @@ const startGame = () => {
   hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 450 });
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
+  highPressureSys = new PressureSystem(700, 100, 50, 50, 'red', gameArea, 'high');
 
   // Starts the game area.
   gameArea.start();
@@ -52,6 +55,7 @@ const updateGame = () => {
 
   /** Update all objects in this area. */
   hurricane.update();
+  highPressureSys.update();
   windArrows.updateWindArrows();
 };
 
