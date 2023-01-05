@@ -3,6 +3,8 @@ import HurricaneMovement from '../components/hurricaneMovement.js';
 import WindArrows from '../components/windArrows.js';
 import PressureSystem from '../gameobjects/pressureSystem.js';
 
+let screenPressed = false;
+
 /** The game area of the game. */
 const gameArea = {
   // Creates a canvas html element in main.html.
@@ -17,6 +19,19 @@ const gameArea = {
 
     // Calls updateGame every 20 milliseconds (refreshes game area every 20 ms).
     this.interval = setInterval(updateGame, 20);
+
+    // Events for mouse.
+    this.canvas.addEventListener('mousedown', function (event) {
+      console.log('mousedown');
+      console.log(event);
+      screenPressed = true;
+    });
+
+    this.canvas.addEventListener('mousedown', function (event) {
+      console.log('mouseup');
+      console.log(event);
+      screenPressed = false;
+    });
   },
 
   // Clears the game area.
