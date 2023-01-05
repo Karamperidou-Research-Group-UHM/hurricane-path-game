@@ -24,8 +24,9 @@ export default class PressureSystem extends GameObject {
   /** Moves the pressure system based on where the mouse drags it. */
   move(newX, newY) {
     // Makes sure the newX and newY coordinates are within the object image.
-    if (this.inBounds || (newX <= this.x + 2 * this.radiusX && newX >= this.x && newY <= this.y + 2 * this.radiusY && newY >= this.y)) {
+    if (this.inBounds || (newX <= this.x + this.radiusX && newX >= this.x - this.radiusX && newY <= this.y + this.radiusY && newY >= this.y - this.radiusY)) {
       this.inBounds = true;
+      const ctx = this.gameArea.context;
       this.x = newX;
       this.y = newY;
     }

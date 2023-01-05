@@ -24,8 +24,8 @@ const gameArea = {
 
     // Mouse down event.
     this.canvas.addEventListener('mousedown', function (event) {
-      x = event.offsetX;
-      y = event.offsetY;
+      x = event.clientX;
+      y = event.clientY;
       screenPressed = true;
     });
 
@@ -69,8 +69,8 @@ const mouseMoveEvents = (event) => {
     // Moves objects to mouse coordinates if they are within the bounds.
     highPressureSys.move(x, y);
     lowPressureSys.move(x, y);
-    x = event.offsetX;
-    y = event.offsetY;
+    x = event.clientX;
+    y = event.clientY;
   }
 };
 
