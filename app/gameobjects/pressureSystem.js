@@ -17,11 +17,11 @@ export default class PressureSystem extends GameObject {
 
   /** Moves the pressure system based on where the mouse drags it. */
   move(newX, newY) {
-    // Makes sure the newX and newY coordinates are within the bounds of the canvas.
-    if (newX <= this.gameArea.canvas.width && newX >= 0 && newY <= this.gameArea.canvas.height && newY >= 0) {
+    // Makes sure the newX and newY coordinates are within the object image.
+    // if (newX <= this.x + 2 * this.radiusX && newX >= this.x && newY <= this.y + 2 * this.radiusY && newY >= this.y) {
       this.x = newX;
       this.y = newY;
-    }
+    // }
   }
 
   /** Changes the size of the pressure system given the amount. */

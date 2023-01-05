@@ -4,6 +4,8 @@ import WindArrows from '../components/windArrows.js';
 import PressureSystem from '../gameobjects/pressureSystem.js';
 
 let screenPressed = false;
+let x = 0;
+let y = 0;
 
 /** The game area of the game. */
 const gameArea = {
@@ -22,15 +24,18 @@ const gameArea = {
 
     // Events for mouse.
     this.canvas.addEventListener('mousedown', function (event) {
-      console.log('mousedown');
-      console.log(event);
+      x = event.offsetX;
+      y = event.offsetY;
       screenPressed = true;
     });
+    this.canvas.addEventListener('mousemove', (event) => clickEvents(event));
 
-    this.canvas.addEventListener('mousedown', function (event) {
-      console.log('mouseup');
-      console.log(event);
-      screenPressed = false;
+    this.canvas.addEventListener('mouseup', function (event) {
+      if (screenPressed) {
+        screenPressed = false;
+        x = 0;
+        y = 0;
+      }
     });
   },
 
@@ -46,6 +51,16 @@ let lowPressureSys;
 let hurricaneMovement;
 let windArrows;
 let index = 0;
+
+/** All mouse click events. */
+const clickEvents = (event) => {
+  if (screenPressed) {
+    highPressureSys.move(x, y);
+    lowPressureSys.move(x, y);
+    x = event.offsetX;
+    y = event.offsetY;
+  }
+};
 
 /** Loads all objects and starts the game. */
 const startGame = () => {
