@@ -26,7 +26,6 @@ export default class PressureSystem extends GameObject {
     // Makes sure the newX and newY coordinates are within the object image.
     if (this.inBounds || (newX <= this.x + this.radiusX && newX >= this.x - this.radiusX && newY <= this.y + this.radiusY && newY >= this.y - this.radiusY)) {
       this.inBounds = true;
-      const ctx = this.gameArea.context;
       this.x = newX;
       this.y = newY;
     }
