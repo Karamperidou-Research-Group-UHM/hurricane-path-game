@@ -8,6 +8,12 @@ export default class PressureSystem extends GameObject {
     this.radiusX = width;
     this.radiusY = height;
     this.pressureType = pressureType;
+    this.inBounds = false;
+  }
+
+  /** Mutator method for inBounds. */
+  setInBounds(newState) {
+    this.inBounds = newState;
   }
 
   /** Accessor method for pressureType. */
@@ -18,10 +24,11 @@ export default class PressureSystem extends GameObject {
   /** Moves the pressure system based on where the mouse drags it. */
   move(newX, newY) {
     // Makes sure the newX and newY coordinates are within the object image.
-    // if (newX <= this.x + 2 * this.radiusX && newX >= this.x && newY <= this.y + 2 * this.radiusY && newY >= this.y) {
+    if (this.inBounds || (newX <= this.x + 2 * this.radiusX && newX >= this.x && newY <= this.y + 2 * this.radiusY && newY >= this.y)) {
+      this.inBounds = true;
       this.x = newX;
       this.y = newY;
-    // }
+    }
   }
 
   /** Changes the size of the pressure system given the amount. */

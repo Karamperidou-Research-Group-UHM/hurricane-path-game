@@ -22,21 +22,18 @@ const gameArea = {
     // Calls updateGame every 20 milliseconds (refreshes game area every 20 ms).
     this.interval = setInterval(updateGame, 20);
 
-    // Events for mouse.
+    // Mouse down event.
     this.canvas.addEventListener('mousedown', function (event) {
       x = event.offsetX;
       y = event.offsetY;
       screenPressed = true;
     });
-    this.canvas.addEventListener('mousemove', (event) => clickEvents(event));
 
-    this.canvas.addEventListener('mouseup', function (event) {
-      if (screenPressed) {
-        screenPressed = false;
-        x = 0;
-        y = 0;
-      }
-    });
+    // Mouse move event.
+    this.canvas.addEventListener('mousemove', (event) => mouseMoveEvents(event));
+
+    // Mouse up event.
+    this.canvas.addEventListener('mouseup', (event) => mouseEndEvents(event));
   },
 
   // Clears the game area.
@@ -52,9 +49,24 @@ let hurricaneMovement;
 let windArrows;
 let index = 0;
 
-/** All mouse click events. */
-const clickEvents = (event) => {
+/** All mouse up events. */
+const mouseEndEvents = (event) => {
+  // Checks if screen was pressed.
   if (screenPressed) {
+    // Resets moveable objects and screenPressed to false.
+    highPressureSys.setInBounds(false);
+    lowPressureSys.setInBounds(false);
+    screenPressed = false;
+    x = 0;
+    y = 0;
+  }
+};
+
+/** All mouse move events. */
+const mouseMoveEvents = (event) => {
+  // Checks if screen was pressed.
+  if (screenPressed) {
+    // Moves objects to mouse coordinates if they are within the bounds.
     highPressureSys.move(x, y);
     lowPressureSys.move(x, y);
     x = event.offsetX;
