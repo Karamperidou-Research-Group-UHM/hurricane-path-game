@@ -8,8 +8,93 @@
       border: 1px solid;
     }
   </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </head>
 <body>
-<script type="module" src="main.js"></script>
+  <script type="module" src="main.js"></script>
+  <div class="accordion" id="accordionExample"><div class="accordion-item">
+    <h2 class="accordion-header" id="1">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        How are hurricanes developed?
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        A hurricane is a weather event that draws heat from tropical waters, they form over the ocean and begin as a tropical wave.
+        The initial tropical wave is a low pressure area that moves through the moisture-rich tropics, these tropics determine the speed of the hurricane.
+        Once the tropical wave picks up to a speed of <strong>74 miles per hour (mph)</strong>, it is then classified as a hurricane.
+        <br><br>
+        Source: <a href="https://oceanservice.noaa.gov/facts/how-hurricanes-form.html" target="_blank">How do hurricanes form?</a>
+      </div>
+    </div>
+  </div><div class="accordion-item">
+    <h2 class="accordion-header" id="2">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        How is a hurricane's path determined?
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        Hurricanes that form between 5 to 30 degrees north latitude generally move west due to the East trade winds.
+        Hurricanes that reach above 30 degrees north latitude often start moving northeast.
+        Hurricanes move east to west and gain power moving west.
+        By the time hurricanes reach North America (for Atlantic hurricanes), they move in the north direction due to the coriolis force (forces counter-clockwise rotation) steering winds at higher levels.
+        <br><br>
+        Source: <a href="https://www.nhc.noaa.gov/climo/" target="_blank">Tropical Cyclone Climatology</a>
+      </div>
+    </div>
+  </div><div class="accordion-item">
+    <h2 class="accordion-header" id="3">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        What is a high pressure system?
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        A high pressure system has higher pressure at its center than the areas around it. Winds blow away from high pressure.
+        Swirling in the opposite direction from a low pressure system, the winds of a high pressure system rotate clockwise north of the equator and counterclockwise south of the equator.
+        <br><br>
+        Source: <a href="https://scied.ucar.edu/learning-zone/how-weather-works/highs-and-lows-air-pressure#:~:text=A%20high%20pressure%20system%20has,counterclockwise%20south%20of%20the%20equator." target="_blank">The Highs and Lows of Air Pressure</a>
+      </div>
+    </div>
+  </div><div class="accordion-item">
+    <h2 class="accordion-header" id="4">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+        What is a low pressure system?
+      </button>
+    </h2>
+    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        A low pressure system has lower pressure at its center than the areas around it. Winds blow towards the low pressure, and the air rises in the atmosphere where they meet.
+        As the air rises, the water vapor within it condenses, forming clouds and often precipitation. Because of Earth’s spin and the Coriolis effect, winds of a low pressure system swirl counterclockwise north of the equator and clockwise south of the equator.
+        <br><br>
+        Source: <a href="https://scied.ucar.edu/learning-zone/how-weather-works/highs-and-lows-air-pressure#:~:text=A%20high%20pressure%20system%20has,counterclockwise%20south%20of%20the%20equator." target="_blank">The Highs and Lows of Air Pressure</a>
+      </div>
+    </div>
+  </div><div class="accordion-item">
+    <h2 class="accordion-header" id="5">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+        What determines the size/category of a hurricane?
+      </button>
+    </h2>
+    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        A hurricane's category is based off of it's wind speed. Category 3-5 constitute a major hurricane.
+        <br>
+        <ul>
+          <li>Category 1: 74-95 mph</li>
+          <li>Category 2: 96-110 mph</li>
+          <li>Category 3: 111-129 mph</li>
+          <li>Category 4: 130-156 mph</li>
+          <li>Category 5: 157+ mph</li>
+        </ul>
+        Source: <a href="https://www.nhc.noaa.gov/aboutsshws.php" target="_blank">Saffir-Simpson Hurricane Wind Scale</a>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
+
+// accordion code source: https://getbootstrap.com/docs/5.2/components/accordion/
