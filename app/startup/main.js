@@ -35,13 +35,15 @@ let index = 0;
 /** Loads all objects and starts the game. */
 const startGame = () => {
   /** Create all objects in this area. */
-  hurricane = new Hurricane(700, 450, 100, 100, 'https://scied.ucar.edu/sites/default/files/interactives/predict-hurricane/assets/images/hurricane.png', gameArea, true);
+  // hurricane = new Hurricane(700, 450, 100, 100, 'https://scied.ucar.edu/sites/default/files/interactives/predict-hurricane/assets/images/hurricane.png', gameArea, true);
+  hurricane = new Hurricane(700, 450, 50, 50, 'red', gameArea, false);
   hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 450 });
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
-  highPressureSys = new PressureSystem(500, 0, 350, 270, '../images/HighPressureSystem.png', gameArea, true, 'high');
-  lowPressureSys = new PressureSystem(20, 300, 350, 270, '../images/LowPressureSystem.png', gameArea, true, 'low');
-
+  // highPressureSys = new PressureSystem(500, 0, 350, 270, '../images/HighPressureSystem.png', gameArea, true, 'high');
+  // lowPressureSys = new PressureSystem(20, 300, 350, 270, '../images/LowPressureSystem.png', gameArea, true, 'low');
+  highPressureSys = new PressureSystem(600, 100, 50, 50, 'blue', gameArea, false, 'high');
+  lowPressureSys = new PressureSystem(100, 400, 50, 50, 'red', gameArea, false, 'low');
   // Starts the game area.
   gameArea.start();
 };
