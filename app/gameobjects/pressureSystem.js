@@ -1,4 +1,5 @@
 import GameObject from './gameObject.js';
+import CollisionDetection from '../components/collisionDetection.js';
 
 /** Created properties and methods for a pressure system game object. */
 export default class PressureSystem extends GameObject {
@@ -9,6 +10,7 @@ export default class PressureSystem extends GameObject {
     this.radiusY = height;
     this.pressureType = pressureType;
     this.inBounds = false;
+    this.colDetection = new CollisionDetection();
   }
 
   /** Mutator method for inBounds. */
@@ -25,9 +27,11 @@ export default class PressureSystem extends GameObject {
   move(newX, newY) {
     // Makes sure the newX and newY coordinates are within the object image.
     if (this.inBounds || (newX <= this.x + this.radiusX && newX >= this.x - this.radiusX && newY <= this.y + this.radiusY && newY >= this.y - this.radiusY)) {
-      this.inBounds = true;
-      this.x = newX;
-      this.y = newY;
+      if (this.colDetection.detectCollisonCanvas(this, this.gameArea, 'ellipse') === -1) {
+        this.inBounds = true;
+        this.x = newX;
+        this.y = newY;
+      }
     }
   }
 
