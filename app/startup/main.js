@@ -64,16 +64,51 @@ const mouseEndEvents = (event) => {
   }
 };
 
+let highMove = false;
+let lowMove = false;
+
 /** All mouse move events. */
 const mouseMoveEvents = (event) => {
   // Checks if screen was pressed.
   if (screenPressed) {
-    // Moves objects to mouse coordinates if they are within the bounds.
-    highPressureSys.move(x, y);
-    lowPressureSys.move(x, y);
-
-    x = event.clientX;
-    y = event.clientY;
+    if (!colDetect.detectCollision(highPressureSys, lowPressureSys, 'ellipse')) {
+      // Moves objects to mouse coordinates if they are within the bounds.
+      highMove = highPressureSys.move(x, y, false);
+      lowMove = lowPressureSys.move(x, y, false);
+      x = event.clientX;
+      y = event.clientY;
+    } else {
+      // Checks where each system is relative to each other on the x axis when collided and adjusts their position accordingly.
+      if (highPressureSys.x <= lowPressureSys.x) {
+        if (highMove) {
+          lowMove = lowPressureSys.move(10, 0, true);
+        } else if (lowMove) {
+          highMove = highPressureSys.move(-10, 0, true);
+        }
+      } else {
+        if (highMove) {
+          lowMove = lowPressureSys.move(-10, 0, true);
+        } else if (lowMove) {
+          highMove = highPressureSys.move(10, 0, true);
+        }
+      }
+      // Checks where each system is relative to each other on the y axis when collided and adjusts their position accordingly.
+      if (highPressureSys.y <= lowPressureSys.y) {
+        if (highMove) {
+          lowMove = lowPressureSys.move(0, 10, true);
+        } else if (lowMove) {
+          highMove = highPressureSys.move(0, -10, true);
+        }
+      } else {
+        if (highMove) {
+          lowMove = lowPressureSys.move(0, -10, true);
+        } else if (lowMove) {
+          highMove = highPressureSys.move(0, 10, true);
+        }
+      }
+      x = event.clientX;
+      y = event.clientY;
+    }
   }
 };
 
@@ -101,10 +136,6 @@ const updateGame = () => {
   hurricaneMovement.moveHurricane();
   hurricaneMovement.addNewTarget({ x: -1 * index, y: 450 - index })
   index += 10;
-
-  if (colDetect.detectCollision(highPressureSys, lowPressureSys, 'ellipse')) {
-    console.log("HIT");
-  }
 
   /** Update all objects in this area. */
   hurricane.update();
