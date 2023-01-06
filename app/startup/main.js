@@ -3,6 +3,7 @@ import HurricaneMovement from '../components/hurricaneMovement.js';
 import WindArrows from '../components/windArrows.js';
 import PressureSystem from '../gameobjects/pressureSystem.js';
 import CollisionDetection from '../components/collisionDetection.js';
+import SeasonLabel from '../gameobjects/seasonLabel.js';
 
 let colDetect = new CollisionDetection();
 let screenPressed = false;
@@ -47,8 +48,9 @@ const gameArea = {
 let hurricane;
 let highPressureSys;
 let lowPressureSys;
-let hurricaneMovement;
+let seasonLabel;
 let windArrows;
+let hurricaneMovement;
 let index = 0;
 
 /** All mouse up events. */
@@ -120,6 +122,7 @@ const startGame = () => {
   hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 450 });
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
+  seasonLabel = new SeasonLabel(gameArea);
   // highPressureSys = new PressureSystem(500, 0, 350, 270, '../images/HighPressureSystem.png', gameArea, true, 'high');
   // lowPressureSys = new PressureSystem(20, 300, 350, 270, '../images/LowPressureSystem.png', gameArea, true, 'low');
   highPressureSys = new PressureSystem(600, 100, 50, 50, 'blue', gameArea, false, 'high');
@@ -141,6 +144,7 @@ const updateGame = () => {
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
+  seasonLabel.update();
 };
 
 // Starts the game when the window loads.
