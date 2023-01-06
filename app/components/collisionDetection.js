@@ -1,8 +1,13 @@
 /** Provides methods for collisions between objects and an object and a canvas. */
 export default class CollisionDetection {
   /** Detects a collision between two objects and return true if they have collided. */
-  detectCollision(obj1, obj2) {
-    /** TODO */
+  detectCollision(obj1, obj2, objType) {
+    if (objType === 'ellipse') {
+      // Gets the square distance between the centers of both circles.
+      const squareDistance = ((obj1.x - obj2.x) * (obj1.x - obj2.x)) + ((obj1.y - obj2.y) * (obj1.y - obj2.y));
+      // Returns true if the square distance between the circles is less than or equal to the sum of their radii.
+      return squareDistance <= (obj1.width + obj2.width) * (obj1.width + obj2.width);
+    }
   }
 
   /** Detects a collision between an object and the canvas in a gameArea. Returns where the obj is out of bounds. */

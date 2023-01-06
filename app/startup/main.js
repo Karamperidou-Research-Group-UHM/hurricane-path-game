@@ -2,7 +2,9 @@ import Hurricane from '../gameobjects/hurricane.js';
 import HurricaneMovement from '../components/hurricaneMovement.js';
 import WindArrows from '../components/windArrows.js';
 import PressureSystem from '../gameobjects/pressureSystem.js';
+import CollisionDetection from '../components/collisionDetection.js';
 
+let colDetect = new CollisionDetection();
 let screenPressed = false;
 let x = 0;
 let y = 0;
@@ -99,6 +101,10 @@ const updateGame = () => {
   hurricaneMovement.moveHurricane();
   hurricaneMovement.addNewTarget({ x: -1 * index, y: 450 - index })
   index += 10;
+
+  if (colDetect.detectCollision(highPressureSys, lowPressureSys, 'ellipse')) {
+    console.log("HIT");
+  }
 
   /** Update all objects in this area. */
   hurricane.update();
