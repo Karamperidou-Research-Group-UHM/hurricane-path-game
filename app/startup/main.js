@@ -2,9 +2,7 @@ import Hurricane from '../gameobjects/hurricane.js';
 import HurricaneMovement from '../components/hurricaneMovement.js';
 import WindArrows from '../components/windArrows.js';
 import PressureSystem from '../gameobjects/pressureSystem.js';
-import CollisionDetection from '../components/collisionDetection.js';
 
-let colDetection = new CollisionDetection();
 let screenPressed = false;
 let x = 0;
 let y = 0;
