@@ -20,7 +20,8 @@ export default class SeasonLabel {
   /** Updates the season label. */
   update() {
     const ctx = this.gameArea.context;
-    ctx.font = '48px serif';
+    ctx.fillStyle = 'black';
+    ctx.font = '40px serif';
     ctx.fillText(this.seasons[this.currentIndex], 700, 50);
   }
 }
