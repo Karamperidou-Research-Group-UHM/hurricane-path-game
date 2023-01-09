@@ -40,6 +40,11 @@ export default class Hurricane extends GameObject {
   /** Updates the Hurricane object. */
   update() {
     // this.rotate();
-    super.update();
+    // super.update();
+    const ctx = this.gameArea.context;
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.ellipse(this.x, this.y, this.width, this.height, 0, 0, 2 * Math.PI);
+    ctx.fill();
   }
 }
