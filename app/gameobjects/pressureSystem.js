@@ -25,6 +25,7 @@ export default class PressureSystem extends GameObject {
 
   /** Moves the pressure system based on where the mouse drags it. */
   move(newX, newY, isAdjusted) {
+    // Checks if the object was hit by something else other than the user's mouse.
     if (isAdjusted) {
       this.x += newX;
       this.y += newY;
