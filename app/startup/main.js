@@ -26,11 +26,7 @@ const gameArea = {
     this.interval = setInterval(updateGame, 20);
 
     // Mouse down event.
-    this.canvas.addEventListener('mousedown', function (event) {
-      x = event.clientX;
-      y = event.clientY;
-      screenPressed = true;
-    });
+    this.canvas.addEventListener('mousedown', (event) => mouseDownEvents(event));
 
     // Mouse move event.
     this.canvas.addEventListener('mousemove', (event) => mouseMoveEvents(event));
@@ -52,6 +48,14 @@ let seasonLabel;
 let windArrows;
 let hurricaneMovement;
 let index = 0;
+
+/** All mouse down events. */
+const mouseDownEvents = (event) => {
+  x = event.clientX;
+  y = event.clientY;
+  screenPressed = true;
+  seasonLabel.changeSeason(x, y);
+};
 
 /** All mouse up events. */
 const mouseEndEvents = (event) => {
