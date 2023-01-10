@@ -1,4 +1,5 @@
 import GameObject from './gameObject.js';
+import CollisionDetection from '../components/collisionDetection.js';
 
 /** Created properties and methods for a pressure system game object. */
 export default class PressureSystem extends GameObject {
@@ -8,6 +9,13 @@ export default class PressureSystem extends GameObject {
     this.radiusX = width;
     this.radiusY = height;
     this.pressureType = pressureType;
+    this.inBounds = false;
+    this.colDetection = new CollisionDetection();
+  }
+
+  /** Mutator method for inBounds. */
+  setInBounds(newState) {
+    this.inBounds = newState;
   }
 
   /** Accessor method for pressureType. */
@@ -16,12 +24,55 @@ export default class PressureSystem extends GameObject {
   }
 
   /** Moves the pressure system based on where the mouse drags it. */
-  move(newX, newY) {
-    // Makes sure the newX and newY coordinates are within the bounds of the canvas.
-    if (newX <= this.gameArea.canvas.width && newX >= 0 && newY <= this.gameArea.canvas.height && newY >= 0) {
-      this.x = newX;
-      this.y = newY;
+  move(newX, newY, isAdjusted) {
+    // Checks if the object was hit by something else other than the user's mouse.
+    if (isAdjusted) {
+      this.x += newX;
+      this.y += newY;
+
+      // Gets the collision information with the canvas.
+      const canvasCollision = this.colDetection.detectCollisionCanvas(this, this.gameArea, 'ellipse');
+
+      // Checks if the object is outside the horizontal bounds of the canvas and bounces the object back in the opposite way.
+      if (canvasCollision === 'left') {
+        this.x += this.radiusX;
+      } else if (canvasCollision === 'right') {
+        this.x -= this.radiusX;
+      }
+
+      // Checks if the object is outside the vertical bounds of the canvas and bounces the object back in the opposite way.
+      if (canvasCollision === 'top') {
+        this.y += this.radiusX;
+      } else if (canvasCollision === 'bottom') {
+        this.y -= this.radiusX;
+      }
+    } else {
+      // Makes sure the newX and newY coordinates are within the object image.
+      if (this.inBounds || (newX <= this.x + this.radiusX && newX >= this.x - this.radiusX && newY <= this.y + this.radiusY && newY >= this.y - this.radiusY)) {
+        this.inBounds = true;
+        this.x = newX;
+        this.y = newY;
+
+        // Gets the collision information with the canvas.
+        const canvasCollision = this.colDetection.detectCollisionCanvas(this, this.gameArea, 'ellipse');
+
+        // Checks if the object is outside the horizontal bounds of the canvas and bounces the object back in the opposite way.
+        if (canvasCollision === 'left') {
+          this.x += this.radiusX;
+        } else if (canvasCollision === 'right') {
+          this.x -= this.radiusX;
+        }
+
+        // Checks if the object is outside the vertical bounds of the canvas and bounces the object back in the opposite way.
+        if (canvasCollision === 'top') {
+          this.y += this.radiusX;
+        } else if (canvasCollision === 'bottom') {
+          this.y -= this.radiusX;
+        }
+        return true;
+      }
     }
+    return false;
   }
 
   /** Changes the size of the pressure system given the amount. */
@@ -36,12 +87,11 @@ export default class PressureSystem extends GameObject {
 
   /** Updates the image of the game object. */
   update() {
-    super.update();
-    /*
+    // super.update();
     const ctx = this.gameArea.context;
-    ctx.fillStyle = this.image;
+    ctx.fillStyle = this.color;
     ctx.beginPath();
     ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, 0, 0, 2 * Math.PI);
-    ctx.fill(); */
+    ctx.fill();
   }
 }
