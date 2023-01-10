@@ -25,7 +25,7 @@ export default class Hurricane extends GameObject {
     ctx.translate(-1 * centerX, -1 * centerY);
   }
 
-  /** Moves the Hurricane object to the next point given. */
+  /** Moves the Hurricane object in the direction of the next point given. */
   move(target) {
     // Finds the change is x and y between the target point and last point.
     const dx = target.x - this.lastPoint.x;
