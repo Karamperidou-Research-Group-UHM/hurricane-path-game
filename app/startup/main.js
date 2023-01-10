@@ -30,6 +30,8 @@ let highPressureSys;
 let lowPressureSys;
 let hurricaneMovement;
 let windArrows;
+const pressureHeight = 250;
+const pressureWidth = 250;
 let index = 0;
 
 /** Loads all objects and starts the game. */
@@ -39,8 +41,8 @@ const startGame = () => {
   hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 450 });
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
-  highPressureSys = new PressureSystem(500, 0, 350, 270, '../images/HighPressureSystem.png', gameArea, true, 'high');
-  lowPressureSys = new PressureSystem(20, 300, 350, 270, '../images/LowPressureSystem.png', gameArea, true, 'low');
+  highPressureSys = new PressureSystem(500, 0, pressureWidth, pressureHeight, '../images/HighPressureSystem.png', gameArea, true, 'high');
+  lowPressureSys = new PressureSystem(20, 280, pressureWidth, pressureHeight, '../images/LowPressureSystem.png', gameArea, true, 'low');
 
   // Starts the game area.
   gameArea.start();
