@@ -124,15 +124,19 @@ const hurricaneCollisionDetect = () => {
   if (colDetect.detectCollision(highPressureSys, hurricane, 'ellipse')) {
     // Checks where each object is relative to each other on the x axis when collided and adjusts their position accordingly.
     if (highPressureSys.x <= hurricane.x) {
-      hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x + 100, y: hurricaneMovement.currentPoint.y });
+      // hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x + 100, y: hurricaneMovement.currentPoint.y });
+      hurricane.x += 1;
     } else {
-      hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x - 100, y: hurricaneMovement.currentPoint.y });
+      // hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x - 100, y: hurricaneMovement.currentPoint.y });
+      hurricane.x -= 1;
     }
     // Checks where each object is relative to each other on the y axis when collided and adjusts their position accordingly.
     if (highPressureSys.y <= hurricane.y) {
-      hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x, y: hurricaneMovement.currentPoint.y + 100 });
+      // hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x, y: hurricaneMovement.currentPoint.y + 100 });
+      hurricane.y += 1;
     } else {
-      hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x, y: hurricaneMovement.currentPoint.y - 100 });
+      // hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x, y: hurricaneMovement.currentPoint.y - 100 });
+      hurricane.y -= 1;
     }
   }
 };
