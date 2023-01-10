@@ -4,7 +4,9 @@ import WindArrows from '../components/windArrows.js';
 import PressureSystem from '../gameobjects/pressureSystem.js';
 import CollisionDetection from '../components/collisionDetection.js';
 import SeasonLabel from '../gameobjects/seasonLabel.js';
+import GameControls from '../components/gameControls.js';
 
+let gameControls = new GameControls();
 let colDetect = new CollisionDetection();
 let screenPressed = false;
 let x = 0;
@@ -118,6 +120,7 @@ const mouseMoveEvents = (event) => {
   }
 };
 
+
 /** Detects if a hurricane has been hit by a high pressure system object. */
 const hurricaneCollisionDetect = () => {
   // Detects if a hurricane and high pressure system collide and add a new target point to the hurricane accordingly.
@@ -165,7 +168,12 @@ const updateGame = () => {
   hurricaneCollisionDetect();
   windArrows.updateWindArrows();
   hurricaneMovement.moveHurricane();
-  index += 10;
+
+  highPressureSys.changeSize(gameControls.highPressureSize);
+  lowPressureSys.changeSize(gameControls.lowPressureSize);
+  gameControls.changeHighSize(0);
+  gameControls.changeLowSize(0);
+  document.getElementById("temp-text").innerText = (gameControls.tempChange / 5).toString();
 
   /** Update all objects in this area. */
   hurricane.update();
@@ -173,6 +181,20 @@ const updateGame = () => {
   lowPressureSys.update();
   seasonLabel.update();
 };
+
+// Game Control Button Listeners.
+const high1 = document.getElementById("high+");
+const high2 = document.getElementById("high-")
+const low1 = document.getElementById("low+");
+const low2 = document.getElementById("low-")
+const temp1 = document.getElementById("temp+");
+const temp2 = document.getElementById("temp-")
+high1.addEventListener("click", () => gameControls.changeHighSize(5));
+high2.addEventListener("click", () => gameControls.changeHighSize(-5));
+low1.addEventListener("click", () => gameControls.changeLowSize(5));
+low2.addEventListener("click", () => gameControls.changeLowSize(-5));
+temp1.addEventListener("click", () => gameControls.changeTemp(5));
+temp2.addEventListener("click", () => gameControls.changeTemp(-5));
 
 // Starts the game when the window loads.
 window.addEventListener('load', startGame);
