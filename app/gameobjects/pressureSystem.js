@@ -82,6 +82,8 @@ export default class PressureSystem extends GameObject {
       // Increases the radius of the system by a certain amount given.
       this.radiusX += amount;
       this.radiusY += amount;
+      this.width += amount;
+      this.height += amount;
     }
   }
 
