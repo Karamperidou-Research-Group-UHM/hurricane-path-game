@@ -173,6 +173,7 @@ const updateGame = () => {
   lowPressureSys.changeSize(gameControls.lowPressureSize);
   gameControls.changeHighSize(0);
   gameControls.changeLowSize(0);
+  document.getElementById("temp-text").innerText = (gameControls.tempChange / 5).toString();
 
   /** Update all objects in this area. */
   hurricane.update();
