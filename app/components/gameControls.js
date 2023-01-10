@@ -9,16 +9,28 @@ export default class GameControls {
 
   /** Changes the high pressure size by an increment. */
   changeHighSize(increment) {
-    this.highPressureSize += increment;
+    if (increment === 0) {
+      this.highPressureSize = 0;
+    } else {
+      this.highPressureSize += increment;
+    }
   }
 
   /** Changes the low pressure size by an increment. */
   changeLowSize(increment) {
-    this.lowPressureSize += increment;
+    if (increment === 0) {
+      this.lowPressureSize = 0;
+    } else {
+      this.lowPressureSize += increment;
+    }
   }
 
   /** Changes the temperature change by an increment. */
   changeTemp(increment) {
-    this.tempChange += increment;
+    if (increment === 0) {
+      this.tempChange = 0;
+    } else {
+      this.tempChange += increment;
+    }
   }
 }

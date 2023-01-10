@@ -171,6 +171,8 @@ const updateGame = () => {
 
   highPressureSys.changeSize(gameControls.highPressureSize);
   lowPressureSys.changeSize(gameControls.lowPressureSize);
+  gameControls.changeHighSize(0);
+  gameControls.changeLowSize(0);
 
   /** Update all objects in this area. */
   hurricane.update();
@@ -182,16 +184,16 @@ const updateGame = () => {
 // Game Control Button Listeners.
 const high1 = document.getElementById("high+");
 const high2 = document.getElementById("high-")
-const low1 = document.getElementById("high+");
-const low2 = document.getElementById("high-")
+const low1 = document.getElementById("low+");
+const low2 = document.getElementById("low-")
 const temp1 = document.getElementById("temp+");
 const temp2 = document.getElementById("temp-")
-high1.addEventListener("click", () => gameControls.changeHighSize(1));
-high2.addEventListener("click", () => gameControls.changeHighSize(-1));
-low1.addEventListener("click", () => gameControls.changeLowSize(1));
-low2.addEventListener("click", () => gameControls.changeLowSize(-1));
-temp1.addEventListener("click", () => gameControls.changeTemp(1));
-temp1.addEventListener("click", () => gameControls.changeTemp(-1));
+high1.addEventListener("click", () => gameControls.changeHighSize(5));
+high2.addEventListener("click", () => gameControls.changeHighSize(-5));
+low1.addEventListener("click", () => gameControls.changeLowSize(5));
+low2.addEventListener("click", () => gameControls.changeLowSize(-5));
+temp1.addEventListener("click", () => gameControls.changeTemp(5));
+temp2.addEventListener("click", () => gameControls.changeTemp(-5));
 
 // Starts the game when the window loads.
 window.addEventListener('load', startGame);
