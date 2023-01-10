@@ -77,21 +77,6 @@ let lowMove = false;
 const mouseMoveEvents = (event) => {
   // Checks if screen was pressed.
   if (screenPressed) {
-    if (colDetect.detectCollision(highPressureSys, hurricane, 'ellipse')) {
-      // Checks where each system is relative to each other on the x axis when collided and adjusts their position accordingly.
-      if (highPressureSys.x <= hurricane.x) {
-        hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x + 100, y: hurricaneMovement.currentPoint.y });
-      } else {
-        hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x - 100, y: hurricaneMovement.currentPoint.y });
-      }
-      // Checks where each system is relative to each other on the y axis when collided and adjusts their position accordingly.
-      if (highPressureSys.y <= hurricane.y) {
-        hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x, y: hurricaneMovement.currentPoint.y + 100 });
-      } else {
-        hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x, y: hurricaneMovement.currentPoint.y - 100 });
-      }
-    }
-
     if (!colDetect.detectCollision(highPressureSys, lowPressureSys, 'ellipse')) {
       // Moves objects to mouse coordinates if they are within the bounds.
       highMove = highPressureSys.move(x, y, false);
@@ -133,12 +118,31 @@ const mouseMoveEvents = (event) => {
   }
 };
 
+/** Detects if a hurricane has been hit by a high pressure system object. */
+const hurricaneCollisionDetect = () => {
+  // Detects if a hurricane and high pressure system collide and add a new target point to the hurricane accordingly.
+  if (colDetect.detectCollision(highPressureSys, hurricane, 'ellipse')) {
+    // Checks where each object is relative to each other on the x axis when collided and adjusts their position accordingly.
+    if (highPressureSys.x <= hurricane.x) {
+      hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x + 100, y: hurricaneMovement.currentPoint.y });
+    } else {
+      hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x - 100, y: hurricaneMovement.currentPoint.y });
+    }
+    // Checks where each object is relative to each other on the y axis when collided and adjusts their position accordingly.
+    if (highPressureSys.y <= hurricane.y) {
+      hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x, y: hurricaneMovement.currentPoint.y + 100 });
+    } else {
+      hurricaneMovement.addNewTarget({ x: hurricaneMovement.currentPoint.x, y: hurricaneMovement.currentPoint.y - 100 });
+    }
+  }
+};
+
 /** Loads all objects and starts the game. */
 const startGame = () => {
   /** Create all objects in this area. */
   // hurricane = new Hurricane(700, 450, 100, 100, 'https://scied.ucar.edu/sites/default/files/interactives/predict-hurricane/assets/images/hurricane.png', gameArea, true);
-  hurricane = new Hurricane(700, 450, 30, 30, 'red', gameArea, false);
-  hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 450 });
+  hurricane = new Hurricane(700, 350, 30, 30, 'red', gameArea, false);
+  hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 350 });
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
   seasonLabel = new SeasonLabel(gameArea);
@@ -154,9 +158,9 @@ const startGame = () => {
 const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
+  hurricaneCollisionDetect();
   windArrows.updateWindArrows();
   hurricaneMovement.moveHurricane();
-  // hurricaneMovement.addNewTarget({ x: -1 * index, y: 450 - index })
   index += 10;
 
   /** Update all objects in this area. */
