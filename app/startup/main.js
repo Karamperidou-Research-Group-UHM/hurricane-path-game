@@ -154,8 +154,6 @@ const startGame = () => {
   seasonLabel = new SeasonLabel(gameArea);
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
-  // highPressureSys = new PressureSystem(600, 100, 50, 50, 'blue', gameArea, false, 'high');
-  // lowPressureSys = new PressureSystem(100, 400, 50, 50, 'red', gameArea, false, 'low');
   // Starts the game area.
   gameArea.start();
 };
