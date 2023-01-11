@@ -6,10 +6,10 @@ export default class GameObject {
     this.y = y;
     this.width = width;
     this.height = height;
-    /*if (isImage) {
+    if (isImage) {
       this.image = new Image();
       this.image.src = image;
-    }*/
+    }
     this.color = image;
     this.gameArea = gameArea;
     this.isImage = isImage;
@@ -18,11 +18,11 @@ export default class GameObject {
   /** Updates the game object. */
   update() {
     const ctx = this.gameArea.context;
-    // if (this.isImage) {
-      // ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-    // } else {
+    if (this.isImage) {
+      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    } else {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
-    // }
+    }
   }
 }
