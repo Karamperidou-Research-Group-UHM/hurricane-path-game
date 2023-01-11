@@ -89,11 +89,12 @@ export default class PressureSystem extends GameObject {
 
   /** Updates the image of the game object. */
   update() {
-    // super.update();
     const ctx = this.gameArea.context;
     ctx.fillStyle = this.color;
+    ctx.globalAlpha = 0.5;
     ctx.beginPath();
     ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, 0, 0, 2 * Math.PI);
     ctx.fill();
+    super.update();
   }
 }

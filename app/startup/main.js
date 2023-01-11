@@ -153,10 +153,10 @@ const startGame = () => {
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
   seasonLabel = new SeasonLabel(gameArea);
-  // highPressureSys = new PressureSystem(500, 0, 350, 270, '../images/HighPressureSystem.png', gameArea, true, 'high');
-  // lowPressureSys = new PressureSystem(20, 300, 350, 270, '../images/LowPressureSystem.png', gameArea, true, 'low');
-  highPressureSys = new PressureSystem(600, 100, 50, 50, 'blue', gameArea, false, 'high');
-  lowPressureSys = new PressureSystem(100, 400, 50, 50, 'red', gameArea, false, 'low');
+  highPressureSys = new PressureSystem(500, 0, 200, 200, '../images/HighPressureSystem.png', gameArea, true, 'high');
+  lowPressureSys = new PressureSystem(20, 300, 200, 200, '../images/LowPressureSystem.png', gameArea, true, 'low');
+  // highPressureSys = new PressureSystem(600, 100, 50, 50, 'blue', gameArea, false, 'high');
+  // lowPressureSys = new PressureSystem(100, 400, 50, 50, 'red', gameArea, false, 'low');
   // Starts the game area.
   gameArea.start();
 };
