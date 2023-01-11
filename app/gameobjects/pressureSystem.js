@@ -94,7 +94,7 @@ export default class PressureSystem extends GameObject {
     const newRadiusX = this.radiusX / 2;
     const newRadiusY = this.radiusY / 2;
     const ctx = this.gameArea.context;
-    ctx.fillStyle = this.color;
+    this.pressureType === 'high' ? ctx.fillStyle = 'blue' : ctx.fillStyle = 'red';
     ctx.globalAlpha = 0.5;
     ctx.beginPath();
     ctx.ellipse(newXPos, newYPos, newRadiusX, newRadiusY, 0, 0, 2 * Math.PI);
