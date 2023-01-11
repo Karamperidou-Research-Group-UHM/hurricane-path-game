@@ -95,6 +95,7 @@ export default class PressureSystem extends GameObject {
     ctx.beginPath();
     ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, 0, 0, 2 * Math.PI);
     ctx.fill();
+    ctx.closePath();
     super.update();
   }
 }

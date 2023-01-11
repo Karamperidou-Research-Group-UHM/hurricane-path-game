@@ -18,6 +18,7 @@ export default class GameObject {
   /** Updates the game object. */
   update() {
     const ctx = this.gameArea.context;
+    ctx.globalAlpha = 1;
     if (this.isImage) {
       ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     } else {
