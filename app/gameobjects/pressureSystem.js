@@ -78,7 +78,7 @@ export default class PressureSystem extends GameObject {
   /** Changes the size of the pressure system given the amount. */
   changeSize(amount) {
     // Checks the bounds on the pressure system's size.
-    if ((this.radiusX + amount >= 10) && (this.radiusX + amount <= 200)) {
+    if (((this.radiusX / 2) + amount >= 10) && ((this.radiusX / 2) + amount <= 200)) {
       // Increases the radius of the system by a certain amount given.
       this.radiusX += amount;
       this.radiusY += amount;
@@ -89,11 +89,15 @@ export default class PressureSystem extends GameObject {
 
   /** Updates the image of the game object. */
   update() {
+    const newXPos = this.x + (this.radiusX / 2);
+    const newYPos = this.y + (this.radiusY / 2);
+    const newRadiusX = this.radiusX / 2;
+    const newRadiusY = this.radiusY / 2;
     const ctx = this.gameArea.context;
     ctx.fillStyle = this.color;
     ctx.globalAlpha = 0.5;
     ctx.beginPath();
-    ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, 0, 0, 2 * Math.PI);
+    ctx.ellipse(newXPos, newYPos, newRadiusX, newRadiusY, 0, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
     super.update();
