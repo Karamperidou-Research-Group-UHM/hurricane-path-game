@@ -20,7 +20,7 @@ export default class GameObject {
     const ctx = this.gameArea.context;
     ctx.globalAlpha = 1;
     if (this.isImage) {
-      ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+      ctx.drawImage(this.image, this.x - (this.width / 2), this.y - (this.height / 2), this.width, this.height);
     } else {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);

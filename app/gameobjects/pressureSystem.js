@@ -52,7 +52,6 @@ export default class PressureSystem extends GameObject {
         this.inBounds = true;
         this.x = newX;
         this.y = newY;
-
         // Gets the collision information with the canvas.
         const canvasCollision = this.colDetection.detectCollisionCanvas(this, this.gameArea, 'ellipse');
 
@@ -69,6 +68,7 @@ export default class PressureSystem extends GameObject {
         } else if (canvasCollision === 'bottom') {
           this.y -= this.radiusX;
         }
+
         return true;
       }
     }
@@ -89,15 +89,11 @@ export default class PressureSystem extends GameObject {
 
   /** Updates the image of the game object. */
   update() {
-    const newXPos = this.x + (this.radiusX / 2);
-    const newYPos = this.y + (this.radiusY / 2);
-    const newRadiusX = this.radiusX / 2;
-    const newRadiusY = this.radiusY / 2;
     const ctx = this.gameArea.context;
     this.pressureType === 'high' ? ctx.fillStyle = 'blue' : ctx.fillStyle = 'red';
     ctx.globalAlpha = 0.5;
     ctx.beginPath();
-    ctx.ellipse(newXPos, newYPos, newRadiusX, newRadiusY, 0, 0, 2 * Math.PI);
+    ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, 0, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
     super.update();
