@@ -5,6 +5,7 @@ import PressureSystem from '../gameobjects/pressureSystem.js';
 import CollisionDetection from '../components/collisionDetection.js';
 import SeasonLabel from '../gameobjects/seasonLabel.js';
 import GameControls from '../components/gameControls.js';
+import CalculateWindForce from '../components/calculateWindForce.js';
 
 let gameControls = new GameControls();
 let colDetect = new CollisionDetection();
@@ -51,6 +52,7 @@ let windArrows;
 let hurricaneMovement;
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
+let windForce;
 
 /** All mouse down events. */
 const mouseDownEvents = (event) => {
@@ -156,6 +158,7 @@ const startGame = () => {
   seasonLabel = new SeasonLabel(gameArea);
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
+  windForce = new CalculateWindForce(hurricane, highPressureSys);
   // Starts the game area.
   gameArea.start();
 };
@@ -167,6 +170,8 @@ const updateGame = () => {
   hurricaneCollisionDetect();
   windArrows.updateWindArrows();
   hurricaneMovement.moveHurricane();
+  hurricane.x += windForce.getWindForce().xSpeed;
+  hurricane.y += windForce.getWindForce().ySpeed;
 
   highPressureSys.changeSize(gameControls.highPressureSize);
   lowPressureSys.changeSize(gameControls.lowPressureSize);

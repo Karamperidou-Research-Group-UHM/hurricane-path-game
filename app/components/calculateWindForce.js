@@ -14,7 +14,7 @@ export default class CalculateWindForce {
 
   /** Returns the wind force magnitude. */
   getWindForceMagnitude() {
-    return 100 / this.getDistance();
+    return 100000 / this.getDistance();
   }
 
   /** Returns the hurricane's angle relative to the pressure system. */
@@ -30,6 +30,7 @@ export default class CalculateWindForce {
     const angle = this.getAngle();
     const xSpeed = speed * Math.cos(angle);
     const ySpeed = speed * Math.sin(angle);
-    return {xSpeed, ySpeed};
+    console.log({xSpeed: xSpeed, ySpeed: ySpeed});
+    return {xSpeed: xSpeed, ySpeed: ySpeed};
   }
 }
