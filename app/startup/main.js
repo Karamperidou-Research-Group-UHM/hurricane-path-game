@@ -49,6 +49,8 @@ let lowPressureSys;
 let seasonLabel;
 let windArrows;
 let hurricaneMovement;
+let sst = 1;
+let category = [1, 2, 3, 4, 5];
 
 /** All mouse down events. */
 const mouseDownEvents = (event) => {
@@ -147,7 +149,7 @@ const hurricaneCollisionDetect = () => {
 const startGame = () => {
   /** Create all objects in this area. */
   // hurricane = new Hurricane(700, 450, 100, 100, 'https://scied.ucar.edu/sites/default/files/interactives/predict-hurricane/assets/images/hurricane.png', gameArea, true);
-  hurricane = new Hurricane(700, 350, 30, 30, 'red', gameArea, false);
+  hurricane = new Hurricane(700, 350, 30, 30, 'grey', gameArea, false, category[0], sst);
   hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 350 });
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
