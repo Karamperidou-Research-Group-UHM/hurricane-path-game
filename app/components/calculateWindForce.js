@@ -23,4 +23,13 @@ export default class CalculateWindForce {
     const pointY = this.pressureSystem.y + this.hurricane.y;
     return Math.atan2(pointY, pointX);
   }
+
+  /** Calculates the wind force placed on the hurricane from the pressure system. */
+  getWindForce() {
+    const speed = this.getWindForceMagnitude();
+    const angle = this.getAngle();
+    const xSpeed = speed * Math.cos(angle);
+    const ySpeed = speed * Math.sin(angle);
+    return {xSpeed, ySpeed};
+  }
 }
