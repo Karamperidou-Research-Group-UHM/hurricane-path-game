@@ -14,7 +14,7 @@ export default class CalculateWindForce {
 
   /** Returns the wind force magnitude. */
   getWindForceMagnitude() {
-    return 1000 * this.pressureSystem.width / this.getDistance();
+    return 500 * this.pressureSystem.width / this.getDistance();
   }
 
   /** Returns the hurricane's angle relative to the pressure system. */

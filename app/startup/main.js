@@ -169,8 +169,9 @@ const updateGame = () => {
   gameArea.clear();
   hurricaneCollisionDetect();
   windArrows.updateWindArrows();
-  hurricaneMovement.moveHurricane();
-  hurricane.x += windForce.getWindForce().xSpeed;
+  // hurricaneMovement.moveHurricane();
+  const initXSpeed = -2;
+  hurricane.x += initXSpeed + windForce.getWindForce().xSpeed;
   hurricane.y += windForce.getWindForce().ySpeed;
 
   highPressureSys.changeSize(gameControls.highPressureSize);
