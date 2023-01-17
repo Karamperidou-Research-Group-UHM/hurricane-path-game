@@ -5,9 +5,11 @@ import PressureSystem from '../gameobjects/pressureSystem.js';
 import CollisionDetection from '../components/collisionDetection.js';
 import SeasonLabel from '../gameobjects/seasonLabel.js';
 import GameControls from '../components/gameControls.js';
+import HeatMap from '../components/heatmap.js';
 
 let gameControls = new GameControls();
 let colDetect = new CollisionDetection();
+let heatMap;
 let screenPressed = false;
 let x = 0;
 let y = 0;
@@ -51,6 +53,7 @@ let windArrows;
 let hurricaneMovement;
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
+let coordinates = [];
 
 /** All mouse down events. */
 const mouseDownEvents = (event) => {
@@ -145,6 +148,15 @@ const hurricaneCollisionDetect = () => {
   }
 };
 
+const heatMapTestData = () => {
+  for (let i = 0; i < 825; i++) {
+    for (let j = 0; j < 526; j++) {
+      const randomTemp = Math.floor(Math.random() * (5 * j));
+      coordinates.push({x: i, y: j, temp: randomTemp});
+    }
+  }
+}
+
 /** Loads all objects and starts the game. */
 const startGame = () => {
   /** Create all objects in this area. */
@@ -156,6 +168,9 @@ const startGame = () => {
   seasonLabel = new SeasonLabel(gameArea);
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
+
+  heatMapTestData();
+  heatMap = new HeatMap(coordinates, gameArea);
   // Starts the game area.
   gameArea.start();
 };
@@ -164,6 +179,7 @@ const startGame = () => {
 const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
+  seasonLabel.update();
   hurricaneCollisionDetect();
   windArrows.updateWindArrows();
   hurricaneMovement.moveHurricane();
@@ -178,7 +194,8 @@ const updateGame = () => {
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
-  seasonLabel.update();
+  heatMap.updateHeatPoints();
+
 };
 
 // Game Control Button Listeners.
