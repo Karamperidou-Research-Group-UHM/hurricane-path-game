@@ -170,8 +170,11 @@ const startGame = () => {
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
 
+  /*
   heatMapTestData();
   heatMap = new HeatMap(coordinates, gameArea);
+   */
+
   // Starts the game area.
   gameArea.start();
 };
@@ -180,7 +183,7 @@ const startGame = () => {
 const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
-  heatMap.updateHeatPoints();
+  // heatMap.updateHeatPoints();
   seasonLabel.update();
   hurricaneCollisionDetect();
   windArrows.updateWindArrows();
