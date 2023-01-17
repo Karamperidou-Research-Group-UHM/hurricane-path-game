@@ -21,16 +21,16 @@ export default class HeatPoint {
     // Change rgb values the number of times the temp is different than the max temp.
     for (let i = 0; i < tempDifference; i++) {
       // Changes rgb values based on what i is.
-      if (i < 34) {
-        g += 6;
-      } else if (i > 34 && i <= 68) {
-        r -= 6;
-      } else if (i > 68 && i <= 102) {
-        b += 6;
-      } else if (i > 136 && i <= 170) {
-        g -= 6;
-      } else if (i > 204 && i <= 238) {
-        r += 6;
+      if (i < 51) {
+        g += 4;
+      } else if (i > 51 && i <= 102) {
+        r -= 4;
+      } else if (i > 102 && i <= 153) {
+        b += 4;
+      } else if (i > 204 && i <= 255) {
+        g -= 4;
+      } else if (i > 306 && i <= 357) {
+        r += 4;
       }
     }
 
