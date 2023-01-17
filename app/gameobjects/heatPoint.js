@@ -1,4 +1,6 @@
+/** Creates the methods and properties for a Heat Point object. */
 export default class HeatPoint {
+  /** Creates a new Heat Point object. */
   constructor(x, y, temp, gameArea) {
     this.x = x;
     this.y = y;
@@ -6,7 +8,6 @@ export default class HeatPoint {
     this.height = 5;
     this.gameArea = gameArea;
     this.temp = temp;
-    this.color = 'rgb(254,50,50)';
   }
 
   /** Returns the correct rgb color value for the heat point. */
@@ -37,5 +38,13 @@ export default class HeatPoint {
     return `rgb(${r}, ${g}, ${b})`;
   }
 
+  /** Updates the heat point object. */
+  update() {
+    const pointColor = this.setColor();
+    const ctx = this.gameArea.context;
+    ctx.globalAlpha = 0.5;
+    ctx.fillStyle = pointColor;
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
 
 }
