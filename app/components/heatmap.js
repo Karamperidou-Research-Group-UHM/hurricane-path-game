@@ -12,6 +12,7 @@ export default class HeatMap {
 
   /** Adds a heat point to the canvas given the coordinates given. */
   addHeatPoints() {
+    console.log(this.coordinates);
     // Loops through each coordinate, adds the heat point to the canvas and the heatPoints array. */
     for (let i = 0; i < this.coordinates.length; i++) {
       const heatPoint = new HeatPoint(this.coordinates[i].x, this.coordinates[i].y, this.coordinates[i].temp, this.gameArea);
