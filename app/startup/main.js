@@ -179,6 +179,7 @@ const startGame = () => {
 const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
+  heatMap.updateHeatPoints();
   seasonLabel.update();
   hurricaneCollisionDetect();
   windArrows.updateWindArrows();
@@ -194,7 +195,6 @@ const updateGame = () => {
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
-  heatMap.updateHeatPoints();
 
 };
 

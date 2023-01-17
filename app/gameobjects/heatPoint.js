@@ -42,9 +42,10 @@ export default class HeatPoint {
   update() {
     const pointColor = this.setColor();
     const ctx = this.gameArea.context;
-    ctx.globalAlpha = 1;
+    ctx.globalAlpha = 0.05;
     ctx.fillStyle = pointColor;
     ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.closePath();
   }
 
 }
