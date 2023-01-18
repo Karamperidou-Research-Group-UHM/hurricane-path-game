@@ -31,9 +31,18 @@ export default class Hurricane extends GameObject {
 
   /** Moves the Hurricane object in the direction of the next point given. */
   move(target) {
-    // Finds the change is x and y between the target point and last point.
-    const dx = target.x - this.lastPoint.x;
-    const dy = target.y - this.lastPoint.y;
+    let dx = 0;
+    let dy = 0;
+    // Checks if hurricane is within x bounds.
+    if (this.x - this.width >= 0 && this.x + this.width <= 825) {
+      // Finds the change in x between the target point and last point.
+      dx = target.x - this.lastPoint.x;
+    }
+    // Checks if hurricane is within y bounds.
+    if (this.y - this.height >= 0 && this.y + this.height <= 526) {
+      // Finds the change in y between the target point and last point.
+      dy = target.y - this.lastPoint.y;
+    }
     // Gets the direction the hurricane needs to move in.
     const direction = Math.atan2(dx, dy);
     // Moves the hurricane in the direction.
