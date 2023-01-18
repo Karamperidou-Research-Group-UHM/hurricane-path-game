@@ -132,15 +132,15 @@ const hurricaneCollisionDetect = () => {
     // Checks where each object is relative to each other on the x axis when collided and adjusts their position accordingly.
     if (highPressureSys.x <= hurricane.x) {
       // Checks if the hurricane hit the high pressure system or if the high pressure system hit the hurricane.
-      screenPressed ? hurricane.x += 5 : hurricane.x += 1;
+      screenPressed ? hurricane.updateX(5) : hurricane.updateX(1);
     } else {
-      screenPressed ? hurricane.x -= 5 : hurricane.x -= 1;
+      screenPressed ? hurricane.updateX(-5) : hurricane.updateX(-1);
     }
     // Checks where each object is relative to each other on the y axis when collided and adjusts their position accordingly.
     if (highPressureSys.y <= hurricane.y) {
-      screenPressed ? hurricane.y += 5 : hurricane.y += 1;
+      screenPressed ? hurricane.updateY(5) : hurricane.updateY(1);
     } else {
-      screenPressed ? hurricane.y -= 5 : hurricane.y -= 1;
+      screenPressed ? hurricane.updateY(-5) : hurricane.updateY(-1);
     }
   }
 };

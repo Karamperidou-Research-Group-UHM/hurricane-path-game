@@ -50,18 +50,22 @@ export default class Hurricane extends GameObject {
     this.y += this.speed * Math.cos(direction);
   }
 
-  /** Updates the hurricane's x position by an amount. */
+  /** Updates the hurricane's x position by an amount. Returns boolean on if x position changed. */
   updateX(amount) {
     if (this.x - this.width >= 0 && this.x + this.width <= 825) {
       this.x += amount;
+      return true;
     }
+    return false;
   }
 
-  /** Updates the hurricane's y position by an amount. */
+  /** Updates the hurricane's y position by an amount. Returns boolean on if y position changed.*/
   updateY(amount) {
     if (this.y - this.height >= 0 && this.y + this.height <= 526) {
       this.y += amount;
+      return true;
     }
+    return false;
   }
 
   /** Updates the Hurricane object. */
