@@ -10,6 +10,8 @@ export default class Hurricane extends GameObject {
     this.angularSpeed = -3;
     this.speed = 1;
     this.lastPoint = { x: this.x, y: this.y };
+    this.width *= 3;
+    this.height *= 3;
   }
 
   /** Rotates the Hurricane object counter-clockwise. */
@@ -57,7 +59,8 @@ export default class Hurricane extends GameObject {
     ctx.beginPath();
     ctx.fillText(`SST: ${this.sst}F`, (this.x - sst_xPosition), (this.y + 60));
     ctx.fillText(`Category ${this.category}`, (this.x - 50), (this.y + 85));
-    ctx.ellipse(this.x, this.y, (this.width * 3), (this.height * 3), 0, 0, 2 * Math.PI);
+    ctx.ellipse(this.x, this.y, this.width, this.height, 0, 0, 2 * Math.PI);
     ctx.fill();
+    ctx.closePath();
   }
 }
