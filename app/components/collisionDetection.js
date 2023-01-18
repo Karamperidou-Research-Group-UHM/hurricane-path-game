@@ -40,4 +40,36 @@ export default class CollisionDetection {
     }
     return '';
   }
+
+  /** Detects the boundaries for a pressure object. */
+  detectBoundary(xBoundary, yBoundary, obj, pressureType) {
+    // Checks which pressure system is being detected.
+    if (pressureType === 'high') {
+      // Checks for x boundaries.
+      if (obj.x - obj.width <= 0) {
+        return 'left';
+      } else if (obj.x + obj.width >= xBoundary) {
+        return 'right';
+      }
+      // Checks for y boundaries.
+      if (obj.y - obj.height <= 0) {
+        return 'top';
+      } else if (obj.y + obj.height >= yBoundary) {
+        return 'bottom';
+      }
+    } else {
+      // Checks for x boundaries.
+      if (obj.x - obj.width <= 0) {
+        return 'left';
+      } else if (obj.x + obj.width >= xBoundary) {
+        return 'right';
+      }
+      // Checks for y boundaries.
+      if (obj.y - obj.height <= yBoundary) {
+        return 'top';
+      } else if (obj.y + obj.height >= 3 * (yBoundary / 2)) {
+        return 'bottom';
+      }
+    }
+  }
 }

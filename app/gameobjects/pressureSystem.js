@@ -53,19 +53,23 @@ export default class PressureSystem extends GameObject {
         this.x = newX;
         this.y = newY;
         // Gets the collision information with the canvas.
-        const canvasCollision = this.colDetection.detectCollisionCanvas(this, this.gameArea, 'ellipse');
+        const canvasCollision = this.colDetection.detectBoundary(this.gameArea.canvas.width, 2 * (this.gameArea.canvas.height / 3), this, this.pressureType);
 
         // Checks if the object is outside the horizontal bounds of the canvas and bounces the object back in the opposite way.
         if (canvasCollision === 'left') {
+          this.inBounds = false;
           this.x += this.radiusX;
         } else if (canvasCollision === 'right') {
+          this.inBounds = false;
           this.x -= this.radiusX;
         }
 
         // Checks if the object is outside the vertical bounds of the canvas and bounces the object back in the opposite way.
         if (canvasCollision === 'top') {
+          this.inBounds = false;
           this.y += this.radiusX;
         } else if (canvasCollision === 'bottom') {
+          this.inBounds = false;
           this.y -= this.radiusX;
         }
 
