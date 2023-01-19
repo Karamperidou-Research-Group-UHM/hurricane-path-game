@@ -5,7 +5,7 @@
   <title>Hurricane Path Simulator</title>
   <style>
     canvas {
-      margin: 10px;
+      margin: 20px;
       border: 1px solid black;
       background-image: url("../images/pacific.png");
       background-repeat: no-repeat;
@@ -16,7 +16,13 @@
       position: relative;
       left: 350px;
       top: -530px;
+      margin: 10px;
       width: 400px!important;
+    }
+
+    #city {
+      margin-left: auto;
+      margin-right: auto;
     }
 
     td {
@@ -31,6 +37,7 @@
     }
 
     #menu-container {
+      padding-top: 30px;
       margin-left: auto;
       margin-right: auto;
       width: 80%!important;
@@ -81,6 +88,67 @@
                 <td><span id="temp-text">0</span></td>
                 <td>
                   <button type="button" class="btn btn-primary" id="temp-">-</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Locations</h5>
+            <table id="city">
+              <tr>
+                <td>
+                  <h6>&#x2713;  Honolulu, HI</h6>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <h6>&#x2713;  Los Angeles, CA</h6>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <h6>&#x2713;  Mexico City, Mexico</h6>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <h6>&#x2713;  Vancouver, Canada</h6>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <h6>&#x2713;  Papua New Guinea</h6>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <h6>&#x2713;  Manila, Philippines</h6>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <h6>&#x2713;  Tokyo, Japan</h6>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <h6>&#x2713;  Sydney, Australia</h6>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <h6>&#x2713;  Fiji</h6>
                 </td>
               </tr>
             </table>
@@ -175,7 +243,9 @@
 </body>
 </html>
 
-<!-- SOURCES
+<!--
+SOURCES
   accordion code: https://getbootstrap.com/docs/5.2/components/accordion/
   pacific map: https://www.researchgate.net/profile/Eleanor-Sterling-2/publication/275607188/figure/fig1/AS:369365624082432@1465075035023/Map-of-Pacific-Ocean-showing-location-of-Palmyra-Atoll.png
+  pin: https://www.pngitem.com/pimgs/m/236-2361239_location-pin-white-maps-marker-png-transparent-png.png
 -->

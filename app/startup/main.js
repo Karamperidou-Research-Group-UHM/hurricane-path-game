@@ -6,6 +6,7 @@ import CollisionDetection from '../components/collisionDetection.js';
 import SeasonLabel from '../gameobjects/seasonLabel.js';
 import GameControls from '../components/gameControls.js';
 import HeatMap from '../components/heatmap.js';
+import Pins from '../components/pins.js';
 
 let gameControls = new GameControls();
 let colDetect = new CollisionDetection();
@@ -51,6 +52,7 @@ let lowPressureSys;
 let seasonLabel;
 let windArrows;
 let hurricaneMovement;
+let pins;
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
 let coordinates = [];
@@ -163,6 +165,8 @@ const startGame = () => {
   hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 350 });
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
+  pins = new Pins(gameArea, '../images/red-pin.png', 13, 16);
+  pins.createPins();
   seasonLabel = new SeasonLabel(gameArea);
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
@@ -184,6 +188,7 @@ const updateGame = () => {
   seasonLabel.update();
   hurricaneCollisionDetect();
   windArrows.updateWindArrows();
+  pins.updatePins();
   hurricaneMovement.moveHurricane();
 
   highPressureSys.changeSize(gameControls.highPressureSize);
@@ -201,11 +206,11 @@ const updateGame = () => {
 
 // Game Control Button Listeners.
 const high1 = document.getElementById("high+");
-const high2 = document.getElementById("high-")
+const high2 = document.getElementById("high-");
 const low1 = document.getElementById("low+");
-const low2 = document.getElementById("low-")
+const low2 = document.getElementById("low-");
 const temp1 = document.getElementById("temp+");
-const temp2 = document.getElementById("temp-")
+const temp2 = document.getElementById("temp-");
 high1.addEventListener("click", () => gameControls.changeHighSize(5));
 high2.addEventListener("click", () => gameControls.changeHighSize(-5));
 low1.addEventListener("click", () => gameControls.changeLowSize(5));
