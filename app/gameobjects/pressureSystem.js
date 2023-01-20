@@ -58,9 +58,9 @@ export default class PressureSystem extends GameObject {
         // Checks pressure type and assigns checks the collision with the canvas based on the pressure system type.
         if (this.pressureType === 'high') {
           // Gets the collision information with the canvas.
-          canvasCollision = this.colDetection.detectBoundary({min: 0, max: this.gameArea.canvas.width}, {min: 0, max: 2 * (this.gameArea.canvas.height / 3)}, this);
+          canvasCollision = this.colDetection.detectBoundary({min: 0, max: this.gameArea.canvas.width}, {min: 0, max: (this.gameArea.canvas.height / 2) + 50}, this);
         } else {
-          canvasCollision = this.colDetection.detectBoundary({min: 0, max: this.gameArea.canvas.width}, {min: 2 * (this.gameArea.canvas.height / 3), max: this.gameArea.canvas.height}, this);
+          canvasCollision = this.colDetection.detectBoundary({min: 0, max: this.gameArea.canvas.width}, {min: (this.gameArea.canvas.height / 2) - 50, max: this.gameArea.canvas.height}, this);
         }
 
         // Checks if the object is outside the horizontal bounds of the canvas and bounces the object back in the opposite way.
