@@ -11,6 +11,8 @@ export default class PressureSystem extends GameObject {
     this.pressureType = pressureType;
     this.inBounds = false;
     this.colDetection = new CollisionDetection();
+    this.initX = x;
+    this.initY = y;
   }
 
   /** Mutator method for inBounds. */
@@ -118,6 +120,14 @@ export default class PressureSystem extends GameObject {
     ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, 0, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
+
+    // Checks if the system is outside the canvas and if it is, repositions it to its initial spot.
+    if (this.x - this.radiusX < 0 || this.x + this.radiusX > this.gameArea.canvas.width ||
+        this.y - this.radiusX < 0 || this.y + this.radiusY > this.gameArea.canvas.height) {
+      this.x = this.initX;
+      this.y = this.initY;
+    }
+
     super.update();
   }
 }
