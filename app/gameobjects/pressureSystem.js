@@ -19,7 +19,7 @@ export default class PressureSystem extends GameObject {
   }
 
   /** Moves the pressure system based on where the mouse drags it. */
-  move(newX, newY, isAdjusted) {
+  async move(newX, newY, isAdjusted) {
     // Checks if the object was hit by something else other than the user's mouse.
     if (isAdjusted) {
       this.x += newX;
@@ -62,18 +62,33 @@ export default class PressureSystem extends GameObject {
         if (canvasCollision === 'left') {
           this.inBounds = false;
           this.x += this.radiusX;
+          // Waits 500ms.
+          await sleep(500);
+          // Moves the system back by half its radius.
+          this.x -= this.radiusX / 2;
         } else if (canvasCollision === 'right') {
           this.inBounds = false;
           this.x -= this.radiusX;
+          await sleep(500);
+          // Moves the system back by half its radius.
+          this.x += this.radiusX / 2;
         }
 
         // Checks if the object is outside the vertical bounds of the canvas and bounces the object back in the opposite way.
         if (canvasCollision === 'top') {
           this.inBounds = false;
+          // Bounces back the system.
           this.y += this.radiusX;
+          // Waits 500ms.
+          await sleep(500);
+          // Moves the system back by half its radius.
+          this.y -= this.radiusX / 2;
         } else if (canvasCollision === 'bottom') {
           this.inBounds = false;
           this.y -= this.radiusX;
+          await sleep(500);
+          // Moves the system back by half its radius.
+          this.y += this.radiusX / 2;
         }
 
         return true;
@@ -106,3 +121,6 @@ export default class PressureSystem extends GameObject {
     super.update();
   }
 }
+
+/** Waits a given number of milliseconds before resuming. */
+const sleep = ms => new Promise(r => setTimeout(r, ms));
