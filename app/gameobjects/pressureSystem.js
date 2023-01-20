@@ -11,6 +11,8 @@ export default class PressureSystem extends GameObject {
     this.pressureType = pressureType;
     this.inBounds = false;
     this.colDetection = new CollisionDetection();
+    this.initX = x;
+    this.initY = y;
   }
 
   /** Mutator method for inBounds. */
@@ -18,13 +20,8 @@ export default class PressureSystem extends GameObject {
     this.inBounds = newState;
   }
 
-  /** Accessor method for pressureType. */
-  getPressureType() {
-    return this.pressureType;
-  }
-
   /** Moves the pressure system based on where the mouse drags it. */
-  move(newX, newY, isAdjusted) {
+  async move(newX, newY, isAdjusted) {
     // Checks if the object was hit by something else other than the user's mouse.
     if (isAdjusted) {
       this.x += newX;
@@ -52,21 +49,48 @@ export default class PressureSystem extends GameObject {
         this.inBounds = true;
         this.x = newX;
         this.y = newY;
-        // Gets the collision information with the canvas.
-        const canvasCollision = this.colDetection.detectCollisionCanvas(this, this.gameArea, 'ellipse');
+
+        let canvasCollision;
+
+        // Checks pressure type and assigns checks the collision with the canvas based on the pressure system type.
+        if (this.pressureType === 'high') {
+          // Gets the collision information with the canvas.
+          canvasCollision = this.colDetection.detectBoundary({min: 0, max: this.gameArea.canvas.width}, {min: 0, max: (this.gameArea.canvas.height / 2) + 50}, this);
+        } else {
+          canvasCollision = this.colDetection.detectBoundary({min: 0, max: this.gameArea.canvas.width}, {min: (this.gameArea.canvas.height / 2) - 50, max: this.gameArea.canvas.height}, this);
+        }
 
         // Checks if the object is outside the horizontal bounds of the canvas and bounces the object back in the opposite way.
         if (canvasCollision === 'left') {
+          this.inBounds = false;
           this.x += this.radiusX;
+          // Waits 500ms.
+          await sleep(500);
+          // Moves the system back by half its radius.
+          this.x -= this.radiusX / 2;
         } else if (canvasCollision === 'right') {
+          this.inBounds = false;
           this.x -= this.radiusX;
+          await sleep(500);
+          // Moves the system back by half its radius.
+          this.x += this.radiusX / 2;
         }
 
         // Checks if the object is outside the vertical bounds of the canvas and bounces the object back in the opposite way.
         if (canvasCollision === 'top') {
+          this.inBounds = false;
+          // Bounces back the system.
           this.y += this.radiusX;
+          // Waits 500ms.
+          await sleep(500);
+          // Moves the system back by half its radius.
+          this.y -= this.radiusX / 2;
         } else if (canvasCollision === 'bottom') {
+          this.inBounds = false;
           this.y -= this.radiusX;
+          await sleep(500);
+          // Moves the system back by half its radius.
+          this.y += this.radiusX / 2;
         }
 
         return true;
@@ -78,7 +102,7 @@ export default class PressureSystem extends GameObject {
   /** Changes the size of the pressure system given the amount. */
   changeSize(amount) {
     // Checks the bounds on the pressure system's size.
-    if ((this.radiusX + amount >= 10) && (this.radiusX + amount <= 200)) {
+    if ((this.radiusX + amount >= 10) && (this.radiusX + amount <= 100)) {
       // Increases the radius of the system by a certain amount given.
       this.radiusX += amount;
       this.radiusY += amount;
@@ -96,6 +120,17 @@ export default class PressureSystem extends GameObject {
     ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, 0, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
+
+    // Checks if the system is outside the canvas and if it is, repositions it to its initial spot.
+    if (this.x - this.radiusX < 0 || this.x + this.radiusX > this.gameArea.canvas.width ||
+        this.y - this.radiusX < 0 || this.y + this.radiusY > this.gameArea.canvas.height) {
+      this.x = this.initX;
+      this.y = this.initY;
+    }
+
     super.update();
   }
 }
+
+/** Waits a given number of milliseconds before resuming. */
+const sleep = ms => new Promise(r => setTimeout(r, ms));

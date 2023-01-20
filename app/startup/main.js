@@ -92,6 +92,7 @@ const mouseMoveEvents = (event) => {
       x = event.clientX;
       y = event.clientY;
     } else {
+      screenPressed = false;
       // Checks where each system is relative to each other on the x axis when collided and adjusts their position accordingly.
       if (highPressureSys.x <= lowPressureSys.x) {
         if (highMove) {
