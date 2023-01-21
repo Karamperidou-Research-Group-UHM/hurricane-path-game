@@ -11,9 +11,8 @@
 * [Launch](#Launch)
 
 #### Technical Details
-* [Our Approach](#Our Approach)
 * [Technologies Used](#Techologies Used)
-* [Current Progress](#Current Progress)
+* [Inspiration](#Inspiration)
 
 #### Visuals
 * [Illustrations](#Illustrations)
@@ -23,35 +22,44 @@
 
 ## General
 ### Introduction
-
+This game is brought to you by the Department of Atmospheric Sciences at the University of Hawaii at Manoa.
 
 ### Purpose
-
+The purpose of this simulation is to act as an e-learning outreach activity to give users an interactive activity to 
+learn more about hurricanes and climate changes.  
 
 ### Setup
-
+**Download Github Desktop if needed**
+1. Click the "Code" dropdown button and Clone the repository.
+2. Select "Open with Github Desktop".
+3. Once the repository is done cloning, open Github Desktop.
+4. In Github Desktop, select the project hurricane-path-game and fetch origin.
+5. Once the main branch has been fetched, open the game using any IDE of your choice.
 
 ### Launch
+In the "app" folder, open the "startup" folder. Open the main.html file and click the play button to run it, 
+or select a browser of your choice for the application to run from.
 
 ---------------------------------------
 
 ## Technical Details
-### Our Approach
-
 
 ### Technologies Used
 Listed below is a list of the languages and tools utilized:
 
 + Development tools:
   + Github
+  + Github Desktop
   + IntelliJ IDEA
   + Google Drive
+  
 + Programming Languages:
   + JavaScript
   + C++
   + HTML
+  + Bootstrap UI
 
-### Current Progress
+### Inspiration
 
 ---------------------------------------
 
