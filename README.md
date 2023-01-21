@@ -60,6 +60,14 @@ Listed below is a list of the languages and tools utilized:
   + Bootstrap UI
 
 ### Inspiration
+The Department of Atmospheric Sciences wanted a hurricane simulation designed for the Pacific Ocean. There were examples of 
+such games with different ideas and features that the department wanted the implement for the Pacific.
++ [UCAR] [1]
+
+[1]: https://scied.ucar.edu/interactive/forecast-hurricane
++ [The Hurricane Applet - Atlantic] [2]
+
+[2]: http://profhorn.meteor.wisc.edu/wxwise/hurr/h5/hurricane.html
 
 ---------------------------------------
 
