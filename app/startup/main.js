@@ -227,6 +227,8 @@ const startGame = () => {
 const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
+  const worker = new Worker('../components/offscreenWorker.js');
+  worker.postMessage({heatMapObj: "HELLO"});
   // heatMap.updateHeatPoints();
   seasonLabel.update();
   hurricaneCollisionDetect();
@@ -249,12 +251,6 @@ const updateGame = () => {
   highPressureSys.update();
   lowPressureSys.update();
 
-  const offscreen = new OffscreenCanvas(gameArea.canvas.width, gameArea.canvas.height);
-  const gl = offscreen.getContext("webgl");
-  heatMap.updateHeatPoints(gl);
-
-  const bitmap = offscreen.transferToImageBitmap();
-  gameArea.canvas.transferFromImageBitmap(bitmap);
 };
 
 // Game Control Button Listeners.

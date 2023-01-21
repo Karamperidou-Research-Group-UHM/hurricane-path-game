@@ -20,9 +20,9 @@ export default class HeatMap {
   }
 
   /** Updates each heat point object in the heat points array. */
-  updateHeatPoints(gl) {
+  updateHeatPoints() {
     for(let i = 0; i < this.heatPoints.length; i++) {
-      this.heatPoints[i].update(gl);
+      this.heatPoints[i].update();
     }
   }
 }
