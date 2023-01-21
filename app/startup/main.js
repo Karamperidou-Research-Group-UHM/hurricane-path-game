@@ -215,7 +215,7 @@ const startGame = () => {
   seasonLabel = new SeasonLabel(gameArea);
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
-  
+
   heatMapTestData();
   heatMap = new HeatMap(coordinates, gameArea);
 
@@ -227,7 +227,7 @@ const startGame = () => {
 const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
-  heatMap.updateHeatPoints();
+  // heatMap.updateHeatPoints();
   seasonLabel.update();
   hurricaneCollisionDetect();
   windArrows.updateWindArrows();
@@ -249,6 +249,12 @@ const updateGame = () => {
   highPressureSys.update();
   lowPressureSys.update();
 
+  const offscreen = new OffscreenCanvas(gameArea.canvas.width, gameArea.canvas.height);
+  const gl = offscreen.getContext("webgl");
+  heatMap.updateHeatPoints(gl);
+
+  const bitmap = offscreen.transferToImageBitmap();
+  gameArea.canvas.transferFromImageBitmap(bitmap);
 };
 
 // Game Control Button Listeners.
