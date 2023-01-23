@@ -223,12 +223,17 @@ const startGame = () => {
   gameArea.start();
 };
 
+const loadObjectsInWorker = () => {
+  const offscreen = new OffscreenCanvas(gameArea.canvas.width, gameArea.canvas.height);
+  const worker = new Worker('../components/offscreenWorker.js');
+  worker.postMessage({ canvas: offscreen }, [offscreen]);
+};
+
 /** Updates the game area of the game. */
 const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
-  const worker = new Worker('../components/offscreenWorker.js');
-  worker.postMessage({heatMapObj: "HELLO"});
+  loadObjectsInWorker();
   // heatMap.updateHeatPoints();
   seasonLabel.update();
   hurricaneCollisionDetect();
