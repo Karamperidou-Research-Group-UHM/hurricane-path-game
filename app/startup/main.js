@@ -14,11 +14,15 @@ let heatMap;
 let screenPressed = false;
 let x = 0;
 let y = 0;
+let loaded = false;
 
 /** The game area of the game. */
 const gameArea = {
   // Creates a canvas html element in main.html.
   canvas: document.createElement("canvas"),
+
+  // Creates offscreen canvas for off loading.
+  offCanvas: document.createElement("canvas"),
 
   // Sets up the canvas properties and refreshes game area every 20 ms.
   start : function () {
@@ -26,6 +30,10 @@ const gameArea = {
     this.canvas.height = 526;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+
+    this.offCanvas.width = 825;
+    this.offCanvas.height = 526;
+    this.context2 = this.offCanvas.getContext("2d");
 
     // Calls updateGame every 20 milliseconds (refreshes game area every 20 ms).
     this.interval = setInterval(updateGame, 20);
@@ -216,25 +224,35 @@ const startGame = () => {
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
 
+  // Loads heat map.
   heatMapTestData();
   heatMap = new HeatMap(coordinates, gameArea);
-
+  loadToMainCanvas();
+  
   // Starts the game area.
   gameArea.start();
 };
 
-const loadObjectsInWorker = () => {
-  const offscreen = new OffscreenCanvas(gameArea.canvas.width, gameArea.canvas.height);
-  const worker = new Worker('../components/offscreenWorker.js');
-  worker.postMessage({ canvas: offscreen }, [offscreen]);
+/** Loads offscreen canvas to main canvas (Improves performance). */
+const loadToMainCanvas = () => {
+  const destCtx = gameArea.canvas.getContext("2d");
+  destCtx.drawImage(gameArea.offCanvas, 0, 0);
 };
 
 /** Updates the game area of the game. */
 const updateGame = () => {
   // Clears the game area every refresh.
   gameArea.clear();
-  loadObjectsInWorker();
-  // heatMap.updateHeatPoints();
+
+  // If not loaded, load heat map.
+  if (!loaded) {
+    // Draws the heat map.
+    heatMap.updateHeatPoints();
+    loaded = true;
+  }
+
+  // Loads offscreen canvas draws to main canvas.
+  loadToMainCanvas();
   seasonLabel.update();
   hurricaneCollisionDetect();
   windArrows.updateWindArrows();

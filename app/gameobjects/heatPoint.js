@@ -41,7 +41,7 @@ export default class HeatPoint {
   /** Updates the heat point object. */
   update() {
     const pointColor = this.setColor();
-    const ctx = this.gameArea.context;
+    const ctx = this.gameArea.context2;
     ctx.beginPath();
     ctx.globalAlpha = 0.05;
     ctx.fillStyle = pointColor;
