@@ -30,6 +30,8 @@ export default class HeatMap {
   updateHeatPoints() {
     const context = this.gameArea.context2;
     context.clearRect(0, 0, this.gameArea.offCanvas.width, this.gameArea.offCanvas.height);
+
+    // Updates heat points.
     for(let i = 0; i < this.heatPoints.length; i++) {
       this.heatPoints[i].update();
     }
