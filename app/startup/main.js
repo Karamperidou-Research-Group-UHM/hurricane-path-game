@@ -259,7 +259,6 @@ const updateObjects = () => {
   hurricaneCollisionDetect();
   windArrows.updateWindArrows();
   pins.updatePins();
-  hurricaneMovement.moveHurricane();
 
   highPressureSys.changeSize(gameControls.highPressureSize);
   lowPressureSys.changeSize(gameControls.lowPressureSize);
@@ -291,6 +290,7 @@ const updateGame = () => {
   // Redraws objects only if game has started.
   if (gameStart) {
     updateObjects();
+    hurricaneMovement.moveHurricane();
   }
 
   controlPressureSystemSizes();
