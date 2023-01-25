@@ -14,6 +14,7 @@ let heatMap;
 let screenPressed = false;
 let x = 0;
 let y = 0;
+let initialLoad = true;
 let loaded = false;
 let gameStart = false;
 
@@ -279,11 +280,16 @@ const updateGame = () => {
     gameArea.clear();
   }
 
-  // If not loaded, load heat map.
-  if (!loaded) {
-    gameArea.clear();
+  // Loads heatmap once, before everything else.
+  if (initialLoad) {
     // Draws the heat map.
     heatMap.updateHeatPoints();
+    initialLoad = false;
+  }
+
+  // If not loaded, load all objects first.
+  if (!loaded) {
+    gameArea.clear();
     updateObjects();
     loaded = true;
   }
@@ -336,11 +342,13 @@ low2.addEventListener("click", () => {
 });
 
 temp1.addEventListener("click", () => {
+  // Changes temp and updates heatmap.
   gameControls.changeTemp(5, heatMap)
   // If game has not started, reload the screen.
   gameStart ? loaded = true : loaded = false;
 });
 temp2.addEventListener("click", () => {
+  // Changes temp and updates heatmap.
   gameControls.changeTemp(-5, heatMap)
   // If game has not started, reload the screen.
   gameStart ? loaded = true : loaded = false;
