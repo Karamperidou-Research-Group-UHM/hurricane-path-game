@@ -1,7 +1,8 @@
 /** Provides methods and properties for game controls. */
 export default class GameControls {
   /** Creates a new GameControls object. */
-  constructor() {
+  constructor(heatmap) {
+    this.heatmap = heatmap;
     this.highPressureSize = 0;
     this.lowPressureSize = 0;
     this.tempChange = 0;
@@ -31,6 +32,7 @@ export default class GameControls {
       this.tempChange = 0;
     } else {
       this.tempChange += increment;
+      this.heatmap
     }
   }
 
