@@ -281,6 +281,7 @@ const updateGame = () => {
 
   // If not loaded, load heat map.
   if (!loaded) {
+    gameArea.clear();
     // Draws the heat map.
     heatMap.updateHeatPoints();
     updateObjects();
@@ -311,14 +312,38 @@ const temp2 = document.getElementById("temp-");
 const startButton = document.getElementById("start");
 
 // Display panel of sizes and temperature
-high1.addEventListener("click", () => gameControls.changeHighSize(5));
-high2.addEventListener("click", () => gameControls.changeHighSize(-5));
+high1.addEventListener("click", () => {
+  gameControls.changeHighSize(5);
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
+high2.addEventListener("click", () => {
+  gameControls.changeHighSize(-5)
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
 
-low1.addEventListener("click", () => gameControls.changeLowSize(5));
-low2.addEventListener("click", () => gameControls.changeLowSize(-5));
+low1.addEventListener("click", () => {
+  gameControls.changeLowSize(5)
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
+low2.addEventListener("click", () => {
+  gameControls.changeLowSize(-5)
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
 
-temp1.addEventListener("click", () => gameControls.changeTemp(5, heatMap));
-temp2.addEventListener("click", () => gameControls.changeTemp(-5, heatMap));
+temp1.addEventListener("click", () => {
+  gameControls.changeTemp(5, heatMap)
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
+temp2.addEventListener("click", () => {
+  gameControls.changeTemp(-5, heatMap)
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
 
 startButton.addEventListener("click", () => gameStart = true);
 
