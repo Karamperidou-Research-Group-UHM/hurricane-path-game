@@ -212,8 +212,12 @@ const controlPressureSystemSizes = () => {
 
   if (gameStart) {
     document.getElementById("start").disabled = true;
+    document.getElementById("temp+").disabled = true;
+    document.getElementById("temp-").disabled = true;
   } else {
     document.getElementById("start").disabled = false;
+    document.getElementById("temp+").disabled = false;
+    document.getElementById("temp-").disabled = false;
   }
 }
 
