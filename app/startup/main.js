@@ -98,6 +98,7 @@ const mouseMoveEvents = (event) => {
       // Moves objects to mouse coordinates if they are within the bounds.
       highMove = highPressureSys.move(x, y, false);
       lowMove = lowPressureSys.move(x, y, false);
+      gameStart ? loaded = true : loaded = false;
       x = event.clientX;
       y = event.clientY;
     } else {
