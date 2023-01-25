@@ -228,7 +228,7 @@ const startGame = () => {
   heatMapTestData();
   heatMap = new HeatMap(coordinates, gameArea);
   loadToMainCanvas();
-  
+
   // Starts the game area.
   gameArea.start();
 };
@@ -293,8 +293,8 @@ high2.addEventListener("click", () => gameControls.changeHighSize(-5));
 low1.addEventListener("click", () => gameControls.changeLowSize(5));
 low2.addEventListener("click", () => gameControls.changeLowSize(-5));
 
-temp1.addEventListener("click", () => gameControls.changeTemp(5));
-temp2.addEventListener("click", () => gameControls.changeTemp(-5));
+temp1.addEventListener("click", () => gameControls.changeTemp(5, heatMap));
+temp2.addEventListener("click", () => gameControls.changeTemp(-5, heatMap));
 
 // Starts the game when the window loads.
 window.addEventListener('load', startGame);

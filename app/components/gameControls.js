@@ -1,8 +1,7 @@
 /** Provides methods and properties for game controls. */
 export default class GameControls {
   /** Creates a new GameControls object. */
-  constructor(heatmap) {
-    this.heatmap = heatmap;
+  constructor() {
     this.highPressureSize = 0;
     this.lowPressureSize = 0;
     this.tempChange = 0;
@@ -27,12 +26,16 @@ export default class GameControls {
   }
 
   /** Changes the temperature change by an increment. */
-  changeTemp(increment) {
+  changeTemp(increment, heatmap) {
     if (increment === 0) {
       this.tempChange = 0;
     } else {
       this.tempChange += increment;
-      this.heatmap
+
+      // Adjusts the color of the heatmap given the increase in temperature.
+      heatmap.increaseTemp(increment);
+      // Redraws the correct heatmap.
+      heatmap.updateHeatPoints();
     }
   }
 

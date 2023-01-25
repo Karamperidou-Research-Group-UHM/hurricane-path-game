@@ -21,8 +21,8 @@ export default class HeatMap {
 
   /** Increases the temperature for each coordinate point by a given amount. */
   increaseTemp(amount) {
-    for (let i = 0; i < this.coordinates.length; i++) {
-      this.coordinates[i].temp += amount;
+    for (let i = 0; i < this.heatPoints.length; i++) {
+      this.heatPoints[i].temp += amount;
     }
   }
 
