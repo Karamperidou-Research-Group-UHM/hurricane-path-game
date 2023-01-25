@@ -250,41 +250,52 @@ const loadToMainCanvas = () => {
   destCtx.drawImage(gameArea.offCanvas, 0, 0);
 };
 
-/** Updates the game area of the game. */
-const updateGame = () => {
-  // Clears the game area every refresh.
-  gameArea.clear();
-
-  // If not loaded, load heat map.
-  if (!loaded) {
-    // Draws the heat map.
-    heatMap.updateHeatPoints();
-    loaded = true;
-  }
-
+/** Updates all game object on the canvas. */
+const updateObjects = () => {
   // Loads offscreen canvas draws to main canvas.
   loadToMainCanvas();
+
   seasonLabel.update();
   hurricaneCollisionDetect();
   windArrows.updateWindArrows();
   pins.updatePins();
   hurricaneMovement.moveHurricane();
-  controlPressureSystemSizes();
 
   highPressureSys.changeSize(gameControls.highPressureSize);
   lowPressureSys.changeSize(gameControls.lowPressureSize);
   gameControls.changeHighSize(0);
   gameControls.changeLowSize(0);
 
-  document.getElementById("high-pressure-size").innerText = convertHurricaneSizeData(highPressureSys.getSize()).toString() + "x";
-  document.getElementById("low-pressure-size").innerText = convertHurricaneSizeData(lowPressureSys.getSize()).toString() + "x";
-  document.getElementById("temp-text").innerText = (gameControls.tempChange / 5).toString();
-
   /** Update all objects in this area. */
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
+}
 
+/** Updates the game area of the game. */
+const updateGame = () => {
+  if (gameStart) {
+    // Clears the game area every refresh.
+    gameArea.clear();
+  }
+
+  // If not loaded, load heat map.
+  if (!loaded) {
+    // Draws the heat map.
+    heatMap.updateHeatPoints();
+    updateObjects();
+    loaded = true;
+  }
+
+  // Redraws objects only if game has started.
+  if (gameStart) {
+    updateObjects();
+  }
+
+  controlPressureSystemSizes();
+  document.getElementById("high-pressure-size").innerText = convertHurricaneSizeData(highPressureSys.getSize()).toString() + "x";
+  document.getElementById("low-pressure-size").innerText = convertHurricaneSizeData(lowPressureSys.getSize()).toString() + "x";
+  document.getElementById("temp-text").innerText = (gameControls.tempChange / 5).toString();
 };
 
 // Game Control Button Listeners.
