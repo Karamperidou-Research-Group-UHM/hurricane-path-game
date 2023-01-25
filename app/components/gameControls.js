@@ -38,9 +38,4 @@ export default class GameControls {
       heatmap.updateHeatPoints();
     }
   }
-
-  /** Returns the temp change. */
-  getTempChange() {
-    return this.tempChange;
-  }
 }
