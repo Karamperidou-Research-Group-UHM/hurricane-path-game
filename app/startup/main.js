@@ -296,7 +296,7 @@ const updateGame = () => {
   controlPressureSystemSizes();
   document.getElementById("high-pressure-size").innerText = convertHurricaneSizeData(highPressureSys.getSize()).toString() + "x";
   document.getElementById("low-pressure-size").innerText = convertHurricaneSizeData(lowPressureSys.getSize()).toString() + "x";
-  document.getElementById("temp-text").innerText = (gameControls.tempChange / 5).toString();
+  document.getElementById("temp-text").innerText = gameControls.tempChange >= 0 ? `+ ${(gameControls.tempChange).toString()}` : `- ${(Math.abs(gameControls.tempChange)).toString()}`;
 };
 
 // Game Control Button Listeners.
