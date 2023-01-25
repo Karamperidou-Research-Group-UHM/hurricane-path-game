@@ -33,4 +33,9 @@ export default class GameControls {
       this.tempChange += increment;
     }
   }
+
+  /** Returns the temp change. */
+  getTempChange() {
+    return this.tempChange;
+  }
 }
