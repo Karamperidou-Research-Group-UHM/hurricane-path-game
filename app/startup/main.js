@@ -15,6 +15,7 @@ let screenPressed = false;
 let x = 0;
 let y = 0;
 let loaded = false;
+let gameStart = false;
 
 /** The game area of the game. */
 const gameArea = {
@@ -208,6 +209,12 @@ const controlPressureSystemSizes = () => {
     document.getElementById("low-").disabled = false;
     document.getElementById("low+").disabled = false;
   }
+
+  if (gameStart) {
+    document.getElementById("start").disabled = true;
+  } else {
+    document.getElementById("start").disabled = false;
+  }
 }
 
 /** Loads all objects and starts the game. */
@@ -286,6 +293,8 @@ const low2 = document.getElementById("low-");
 const temp1 = document.getElementById("temp+");
 const temp2 = document.getElementById("temp-");
 
+const startButton = document.getElementById("start");
+
 // Display panel of sizes and temperature
 high1.addEventListener("click", () => gameControls.changeHighSize(5));
 high2.addEventListener("click", () => gameControls.changeHighSize(-5));
@@ -295,6 +304,8 @@ low2.addEventListener("click", () => gameControls.changeLowSize(-5));
 
 temp1.addEventListener("click", () => gameControls.changeTemp(5, heatMap));
 temp2.addEventListener("click", () => gameControls.changeTemp(-5, heatMap));
+
+startButton.addEventListener("click", () => gameStart = true);
 
 // Starts the game when the window loads.
 window.addEventListener('load', startGame);

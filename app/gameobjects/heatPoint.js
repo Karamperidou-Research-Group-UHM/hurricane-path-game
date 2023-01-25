@@ -48,5 +48,4 @@ export default class HeatPoint {
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.closePath();
   }
-
 }
