@@ -7,8 +7,11 @@ import SeasonLabel from '../gameobjects/seasonLabel.js';
 import GameControls from '../components/gameControls.js';
 import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
+import TestData from '../components/testData.js';
+
 
 let gameControls = new GameControls();
+let testData = new TestData();
 let colDetect = new CollisionDetection();
 let heatMap;
 let screenPressed = false;
@@ -159,16 +162,6 @@ const hurricaneCollisionDetect = () => {
   }
 };
 
-/** Creates test data for heat map. */
-const heatMapTestData = () => {
-  for (let i = 0; i < 825; i++) {
-    for (let j = 0; j < 526; j++) {
-      const randomTemp = Math.floor(Math.random() * (j - 128));
-      coordinates.push({x: i, y: j, temp: randomTemp});
-    }
-  }
-}
-
 /** Converts the given data into 1x-5x to display on the control panel
  *  Guide:
  *    1x: 6400
@@ -238,7 +231,7 @@ const startGame = () => {
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
 
   // Loads heat map.
-  heatMapTestData();
+  testData.heatMapTestData(coordinates);
   heatMap = new HeatMap(coordinates, gameArea);
   loadToMainCanvas();
 
