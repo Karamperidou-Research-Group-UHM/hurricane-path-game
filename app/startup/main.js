@@ -8,6 +8,7 @@ import GameControls from '../components/gameControls.js';
 import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
+import { hurricaneCollisionDetect } from '../components/hurricaneCollisonCheck.js';
 
 
 let gameControls = new GameControls();
@@ -141,25 +142,10 @@ const mouseMoveEvents = (event) => {
   }
 };
 
-
-/** Detects if a hurricane has been hit by a high pressure system object. */
-const hurricaneCollisionDetect = () => {
-  // Detects if a hurricane and high pressure system collide and add a new target point to the hurricane accordingly.
-  if (colDetect.detectCollision(highPressureSys, hurricane, 'ellipse')) {
-    // Checks where each object is relative to each other on the x axis when collided and adjusts their position accordingly.
-    if (highPressureSys.x <= hurricane.x) {
-      // Checks if the hurricane hit the high pressure system or if the high pressure system hit the hurricane.
-      screenPressed ? hurricane.updateX(5) : hurricane.updateX(1);
-    } else {
-      screenPressed ? hurricane.updateX(-5) : hurricane.updateX(-1);
-    }
-    // Checks where each object is relative to each other on the y axis when collided and adjusts their position accordingly.
-    if (highPressureSys.y <= hurricane.y) {
-      screenPressed ? hurricane.updateY(5) : hurricane.updateY(1);
-    } else {
-      screenPressed ? hurricane.updateY(-5) : hurricane.updateY(-1);
-    }
-  }
+/** Loads offscreen canvas to main canvas (Improves performance). */
+const loadToMainCanvas = () => {
+  const destCtx = gameArea.canvas.getContext("2d");
+  destCtx.drawImage(gameArea.offCanvas, 0, 0);
 };
 
 /** Loads all objects and starts the game. */
@@ -185,19 +171,13 @@ const startGame = () => {
   gameArea.start();
 };
 
-/** Loads offscreen canvas to main canvas (Improves performance). */
-const loadToMainCanvas = () => {
-  const destCtx = gameArea.canvas.getContext("2d");
-  destCtx.drawImage(gameArea.offCanvas, 0, 0);
-};
-
 /** Updates all game object on the canvas. */
 const updateObjects = () => {
   // Loads offscreen canvas draws to main canvas.
   loadToMainCanvas();
 
   seasonLabel.update();
-  hurricaneCollisionDetect();
+  hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
   windArrows.updateWindArrows();
   pins.updatePins();
 
