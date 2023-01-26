@@ -7,18 +7,28 @@ import SeasonLabel from '../gameobjects/seasonLabel.js';
 import GameControls from '../components/gameControls.js';
 import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
+import TestData from '../components/testData.js';
+import { hurricaneCollisionDetect } from '../components/hurricaneCollisonCheck.js';
+
 
 let gameControls = new GameControls();
+let testData = new TestData();
 let colDetect = new CollisionDetection();
 let heatMap;
 let screenPressed = false;
 let x = 0;
 let y = 0;
+let initialLoad = true;
+let loaded = false;
+let gameStart = false;
 
 /** The game area of the game. */
 const gameArea = {
   // Creates a canvas html element in main.html.
   canvas: document.createElement("canvas"),
+
+  // Creates offscreen canvas for off loading.
+  offCanvas: document.createElement("canvas"),
 
   // Sets up the canvas properties and refreshes game area every 20 ms.
   start : function () {
@@ -26,6 +36,10 @@ const gameArea = {
     this.canvas.height = 526;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+
+    this.offCanvas.width = 825;
+    this.offCanvas.height = 526;
+    this.context2 = this.offCanvas.getContext("2d");
 
     // Calls updateGame every 20 milliseconds (refreshes game area every 20 ms).
     this.interval = setInterval(updateGame, 20);
@@ -89,6 +103,7 @@ const mouseMoveEvents = (event) => {
       // Moves objects to mouse coordinates if they are within the bounds.
       highMove = highPressureSys.move(x, y, false);
       lowMove = lowPressureSys.move(x, y, false);
+      gameStart ? loaded = true : loaded = false;
       x = event.clientX;
       y = event.clientY;
     } else {
@@ -127,80 +142,11 @@ const mouseMoveEvents = (event) => {
   }
 };
 
-
-/** Detects if a hurricane has been hit by a high pressure system object. */
-const hurricaneCollisionDetect = () => {
-  // Detects if a hurricane and high pressure system collide and add a new target point to the hurricane accordingly.
-  if (colDetect.detectCollision(highPressureSys, hurricane, 'ellipse')) {
-    // Checks where each object is relative to each other on the x axis when collided and adjusts their position accordingly.
-    if (highPressureSys.x <= hurricane.x) {
-      // Checks if the hurricane hit the high pressure system or if the high pressure system hit the hurricane.
-      screenPressed ? hurricane.updateX(5) : hurricane.updateX(1);
-    } else {
-      screenPressed ? hurricane.updateX(-5) : hurricane.updateX(-1);
-    }
-    // Checks where each object is relative to each other on the y axis when collided and adjusts their position accordingly.
-    if (highPressureSys.y <= hurricane.y) {
-      screenPressed ? hurricane.updateY(5) : hurricane.updateY(1);
-    } else {
-      screenPressed ? hurricane.updateY(-5) : hurricane.updateY(-1);
-    }
-  }
+/** Loads offscreen canvas to main canvas (Improves performance). */
+const loadToMainCanvas = () => {
+  const destCtx = gameArea.canvas.getContext("2d");
+  destCtx.drawImage(gameArea.offCanvas, 0, 0);
 };
-
-/** Creates test data for heat map. */
-const heatMapTestData = () => {
-  for (let i = 0; i < 825; i++) {
-    for (let j = 0; j < 526; j++) {
-      const randomTemp = Math.floor(Math.random() * (j - 128));
-      coordinates.push({x: i, y: j, temp: randomTemp});
-    }
-  }
-}
-
-/** Converts the given data into 1x-5x to display on the control panel
- *  Guide:
- *    1x: 6400
- *    2x: 7225
- *    3x: 8100
- *    4x: 9025
- *    5x: 10000
- * */
-const convertHurricaneSizeData = (size) => {
-  if (size === 6400) {
-    return 1;
-  } else if (size === 7225) {
-    return 2;
-  } else if (size === 8100) {
-    return 3;
-  } else if (size === 9025) {
-    return 4;
-  } else if (size === 10000) {
-    return 5;
-  } else {
-    return 1;
-  }
-}
-
-const controlPressureSystemSizes = () => {
-  if ((convertHurricaneSizeData(highPressureSys.getSize()) === 1)) {
-    document.getElementById("high-").disabled = true;
-  } else if ((convertHurricaneSizeData(highPressureSys.getSize()) === 5)) {
-    document.getElementById("high+").disabled = true;
-  } else {
-    document.getElementById("high-").disabled = false;
-    document.getElementById("high+").disabled = false;
-  }
-
-  if ((convertHurricaneSizeData(lowPressureSys.getSize()) === 1)) {
-    document.getElementById("low-").disabled = true;
-  } else if ((convertHurricaneSizeData(lowPressureSys.getSize()) === 5)) {
-    document.getElementById("low+").disabled = true;
-  } else {
-    document.getElementById("low-").disabled = false;
-    document.getElementById("low+").disabled = false;
-  }
-}
 
 /** Loads all objects and starts the game. */
 const startGame = () => {
@@ -216,10 +162,10 @@ const startGame = () => {
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
 
-  /*
-  heatMapTestData();
+  // Loads heat map.
+  testData.heatMapTestData(coordinates);
   heatMap = new HeatMap(coordinates, gameArea);
-   */
+  loadToMainCanvas();
 
   pins = new Pins(gameArea, 13, 16);
   pins.createPins();
@@ -228,17 +174,17 @@ const startGame = () => {
   gameArea.start();
 };
 
-/** Updates the game area of the game. */
-const updateGame = () => {
-  // Clears the game area every refresh.
-  gameArea.clear();
-  // heatMap.updateHeatPoints();
+/** Updates all game object on the canvas. */
+const updateObjects = () => {
+  // Loads offscreen canvas draws to main canvas.
+  loadToMainCanvas();
+
   seasonLabel.update();
-  hurricaneCollisionDetect();
+  hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
   windArrows.updateWindArrows();
   pins.updatePins();
   hurricaneMovement.moveHurricane();
-  controlPressureSystemSizes();
+  // controlPressureSystemSizes();
   pins.hurricaneCollision(hurricane);
 
   highPressureSys.changeSize(gameControls.highPressureSize);
@@ -246,15 +192,44 @@ const updateGame = () => {
   gameControls.changeHighSize(0);
   gameControls.changeLowSize(0);
 
-  document.getElementById("high-pressure-size").innerText = convertHurricaneSizeData(highPressureSys.getSize()).toString() + "x";
-  document.getElementById("low-pressure-size").innerText = convertHurricaneSizeData(lowPressureSys.getSize()).toString() + "x";
-  document.getElementById("temp-text").innerText = (gameControls.tempChange / 5).toString();
-
   /** Update all objects in this area. */
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
+}
 
+/** Updates the game area of the game. */
+const updateGame = () => {
+  if (gameStart) {
+    // Clears the game area every refresh.
+    gameArea.clear();
+  }
+
+  // Loads heatmap once, before everything else.
+  if (initialLoad) {
+    // Draws the heat map.
+    heatMap.updateHeatPoints();
+    initialLoad = false;
+  }
+
+  // If not loaded, load all objects first.
+  if (!loaded) {
+    gameArea.clear();
+    updateObjects();
+    loaded = true;
+  }
+
+  // Redraws objects only if game has started.
+  if (gameStart) {
+    updateObjects();
+    hurricaneMovement.moveHurricane();
+  }
+
+  // Enables/Disables controls based on game circumstances.
+  gameControls.enableControls(highPressureSys, lowPressureSys, gameStart);
+  document.getElementById("high-pressure-size").innerText = gameControls.convertObjectSizeData(highPressureSys.getSize()).toString() + "x";
+  document.getElementById("low-pressure-size").innerText = gameControls.convertObjectSizeData(lowPressureSys.getSize()).toString() + "x";
+  document.getElementById("temp-text").innerText = gameControls.tempChange >= 0 ? `+ ${(gameControls.tempChange).toString()}` : `- ${(Math.abs(gameControls.tempChange)).toString()}`;
 };
 
 // Game Control Button Listeners.
@@ -267,15 +242,45 @@ const low2 = document.getElementById("low-");
 const temp1 = document.getElementById("temp+");
 const temp2 = document.getElementById("temp-");
 
+const startButton = document.getElementById("start");
+
 // Display panel of sizes and temperature
-high1.addEventListener("click", () => gameControls.changeHighSize(5));
-high2.addEventListener("click", () => gameControls.changeHighSize(-5));
+high1.addEventListener("click", () => {
+  gameControls.changeHighSize(5);
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
+high2.addEventListener("click", () => {
+  gameControls.changeHighSize(-5)
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
 
-low1.addEventListener("click", () => gameControls.changeLowSize(5));
-low2.addEventListener("click", () => gameControls.changeLowSize(-5));
+low1.addEventListener("click", () => {
+  gameControls.changeLowSize(5)
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
+low2.addEventListener("click", () => {
+  gameControls.changeLowSize(-5)
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
 
-temp1.addEventListener("click", () => gameControls.changeTemp(5));
-temp2.addEventListener("click", () => gameControls.changeTemp(-5));
+temp1.addEventListener("click", () => {
+  // Changes temp and updates heatmap.
+  gameControls.changeTemp(5, heatMap)
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
+temp2.addEventListener("click", () => {
+  // Changes temp and updates heatmap.
+  gameControls.changeTemp(-5, heatMap)
+  // If game has not started, reload the screen.
+  gameStart ? loaded = true : loaded = false;
+});
+
+startButton.addEventListener("click", () => gameStart = true);
 
 // Starts the game when the window loads.
 window.addEventListener('load', startGame);
