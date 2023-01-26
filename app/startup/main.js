@@ -162,60 +162,6 @@ const hurricaneCollisionDetect = () => {
   }
 };
 
-/** Converts the given data into 1x-5x to display on the control panel
- *  Guide:
- *    1x: 6400
- *    2x: 7225
- *    3x: 8100
- *    4x: 9025
- *    5x: 10000
- * */
-const convertHurricaneSizeData = (size) => {
-  if (size === 6400) {
-    return 1;
-  } else if (size === 7225) {
-    return 2;
-  } else if (size === 8100) {
-    return 3;
-  } else if (size === 9025) {
-    return 4;
-  } else if (size === 10000) {
-    return 5;
-  } else {
-    return 1;
-  }
-}
-
-const controlPressureSystemSizes = () => {
-  if ((convertHurricaneSizeData(highPressureSys.getSize()) === 1)) {
-    document.getElementById("high-").disabled = true;
-  } else if ((convertHurricaneSizeData(highPressureSys.getSize()) === 5)) {
-    document.getElementById("high+").disabled = true;
-  } else {
-    document.getElementById("high-").disabled = false;
-    document.getElementById("high+").disabled = false;
-  }
-
-  if ((convertHurricaneSizeData(lowPressureSys.getSize()) === 1)) {
-    document.getElementById("low-").disabled = true;
-  } else if ((convertHurricaneSizeData(lowPressureSys.getSize()) === 5)) {
-    document.getElementById("low+").disabled = true;
-  } else {
-    document.getElementById("low-").disabled = false;
-    document.getElementById("low+").disabled = false;
-  }
-
-  if (gameStart) {
-    document.getElementById("start").disabled = true;
-    document.getElementById("temp+").disabled = true;
-    document.getElementById("temp-").disabled = true;
-  } else {
-    document.getElementById("start").disabled = false;
-    document.getElementById("temp+").disabled = false;
-    document.getElementById("temp-").disabled = false;
-  }
-}
-
 /** Loads all objects and starts the game. */
 const startGame = () => {
   /** Create all objects in this area. */
@@ -293,9 +239,10 @@ const updateGame = () => {
     hurricaneMovement.moveHurricane();
   }
 
-  controlPressureSystemSizes();
-  document.getElementById("high-pressure-size").innerText = convertHurricaneSizeData(highPressureSys.getSize()).toString() + "x";
-  document.getElementById("low-pressure-size").innerText = convertHurricaneSizeData(lowPressureSys.getSize()).toString() + "x";
+  // Enables/Disables controls based on game circumstances.
+  gameControls.enableControls(highPressureSys, lowPressureSys, gameStart);
+  document.getElementById("high-pressure-size").innerText = gameControls.convertObjectSizeData(highPressureSys.getSize()).toString() + "x";
+  document.getElementById("low-pressure-size").innerText = gameControls.convertObjectSizeData(lowPressureSys.getSize()).toString() + "x";
   document.getElementById("temp-text").innerText = gameControls.tempChange >= 0 ? `+ ${(gameControls.tempChange).toString()}` : `- ${(Math.abs(gameControls.tempChange)).toString()}`;
 };
 
