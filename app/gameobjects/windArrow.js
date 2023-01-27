@@ -3,9 +3,9 @@ import GameObject from './gameObject.js';
 /** Creates properties and methods for a wind arrow game object. */
 export default class WindArrow extends GameObject {
   /** Creates a wind arrow game object. */
-  constructor(x, y, width, height, image, gameArea, isImage) {
+  constructor(x, y, width, height, image, gameArea, isImage, initAngle) {
     super(x, y, width, height, image, gameArea, isImage);
-    this.initalAngle = 180;
+    this.initalAngle = initAngle;
     // this.rotate(this.initalAngle);
   }
 
@@ -16,17 +16,19 @@ export default class WindArrow extends GameObject {
     const centerY = this.y + (this.height / 2);
     const ctx = this.gameArea.canvas.getContext("2d");
 
+    ctx.beginPath();
     // Translates center of rotation to center of object.
     ctx.translate(centerX, centerY);
     // Rotates object.
     ctx.rotate(radians);
     // Translates back the center of rotation to 0,0.
     ctx.translate(-1 * centerX, -1 * centerY);
+    ctx.closePath();
   }
 
   /** Updates the wind arrow's image. */
   update() {
-    // this.rotate(180);
+    this.rotate(this.initalAngle);
     super.update();
   }
 }

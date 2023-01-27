@@ -182,7 +182,6 @@ const updateObjects = () => {
 
   seasonLabel.update();
   hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
-  windArrows.updateWindArrows();
   pins.updatePins();
 
   highPressureSys.changeSize(gameControls.highPressureSize);
@@ -194,6 +193,8 @@ const updateObjects = () => {
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
+
+  windArrows.updateWindArrows();
 }
 
 /** Updates the game area of the game. */
