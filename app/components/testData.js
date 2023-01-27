@@ -13,7 +13,7 @@ export default class TestData {
   windTestData(windData) {
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 7; j++) {
-        windData.push({x: (100 * i) + 30, y: (100 * j) + 50, windDir: 90});
+        windData.push({x: (100 * i) + 30, y: (100 * j) + 50, windDir: Math.floor(Math.random() * (0 - 360))});
       }
     }
   }

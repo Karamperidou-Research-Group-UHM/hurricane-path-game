@@ -15,20 +15,23 @@ export default class WindArrow extends GameObject {
     const centerX = this.x + (this.width / 2);
     const centerY = this.y + (this.height / 2);
     const ctx = this.gameArea.canvas.getContext("2d");
-
-    ctx.beginPath();
     // Translates center of rotation to center of object.
     ctx.translate(centerX, centerY);
     // Rotates object.
     ctx.rotate(radians);
     // Translates back the center of rotation to 0,0.
     ctx.translate(-1 * centerX, -1 * centerY);
-    ctx.closePath();
   }
 
   /** Updates the wind arrow's image. */
   update() {
+    const ctx = this.gameArea.canvas.getContext("2d");
+
+    // Saves the context of the canvas.
+    ctx.save()
     this.rotate(this.initalAngle);
     super.update();
+    // Restores the context of the canvas.
+    ctx.restore();
   }
 }
