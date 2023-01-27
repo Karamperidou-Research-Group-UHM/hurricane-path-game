@@ -15,13 +15,12 @@ export default class Pins {
   /** Detects collision with hurricane, creates a new list of pins that were hit by the hurricane */
   hurricaneCollision(hurricane) {
     for (let i = 0; i < this.pinList.length; i++) {
-      // Gets the square distance between the centers of both circles.
-      const squareDistance = ((hurricane.x - this.pinList[i].x) * (hurricane.x - this.pinList[i].x)) + ((hurricane.y - this.pinList[i].y) * (hurricane.y - this.pinList[i].y));
-
-      // Returns true if the square distance between the circles is less than or equal to the sum of their radii.
-      if ((squareDistance <= (hurricane.width + this.pinList[i].width) * (hurricane.width + this.pinList[i].width))) {
-        this.hitList.push(this.pinList[i].x);
-      }
+        // Gets the square distance between the centers of both circles.
+        const squareDistance = ((hurricane.x - this.pinList[i].x) * (hurricane.x - this.pinList[i].x)) + ((hurricane.y - this.pinList[i].y) * (hurricane.y - this.pinList[i].y));
+        // Returns true if the square distance between the circles is less than or equal to the sum of their radii.
+        if ((squareDistance <= (hurricane.width + this.pinList[i].width) * (hurricane.width + this.pinList[i].width)) && (i <= 9)) {
+          this.hitList.push(this.pinList[i]);
+        }
     }
     this.hitList = (this.hitList.filter((item, i, ar) => ar.indexOf(item) === i));
     // console.log(this.hitList);
@@ -30,7 +29,7 @@ export default class Pins {
 
   /** Initializes a list of cities/countries in the Pacific and adds them to an array */
   createPins() {
-    let safeImage = '../images/green-pin.png';
+    const safeImage = '../images/green-pin.png';
 
     const oahuPin = new PinObject(415, 185, this.width, this.height, safeImage, this.gameArea, true);
     const mexicoCityPin = new PinObject(690, 197, this.width, this.height, safeImage, this.gameArea, true);
@@ -46,15 +45,19 @@ export default class Pins {
 
   /** Changes marker if the pin has been hit by the hurricane */
   changeMarker(pin) {
-    let markedImage = '../images/red-pin.png';
-
-    pin.image = markedImage;
+    this.pinList.push(new PinObject(pin?.x, pin?.y, this.width, this.height, '../images/red-pin.png', this.gameArea, true));
   }
 
   /** Updates the canvas to display all the city pins */
   updatePins() {
     for (let j = 0; j < this.pinList.length; j++) {
       this.pinList[j].update();
+    }
+
+    console.log(this.hitList);
+    for (let i = 0; i < this.hitList.length; i++) {
+      this.changeMarker(this.hitList[i], i);
+      this.hitList.splice(i, 1);
     }
   }
 }

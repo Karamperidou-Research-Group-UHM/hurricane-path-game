@@ -155,9 +155,11 @@ const startGame = () => {
   hurricane = new Hurricane(700, 350, 30, 30, 'grey', gameArea, false, category[0], sst);
   hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 350 });
 
+  // Loads the wind arrows
   windArrows = new WindArrows(gameArea);
   windArrows.createWindArrows();
 
+  // Loads the seasons label and pressure systems
   seasonLabel = new SeasonLabel(gameArea);
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
@@ -167,6 +169,7 @@ const startGame = () => {
   heatMap = new HeatMap(coordinates, gameArea);
   loadToMainCanvas();
 
+  // Loads the major city/country markers
   pins = new Pins(gameArea, 13, 16);
   pins.createPins();
 
@@ -223,6 +226,7 @@ const updateGame = () => {
   if (gameStart) {
     updateObjects();
     hurricaneMovement.moveHurricane();
+    pins.changeMarker();
   }
 
   // Enables/Disables controls based on game circumstances.
@@ -250,6 +254,7 @@ high1.addEventListener("click", () => {
   // If game has not started, reload the screen.
   gameStart ? loaded = true : loaded = false;
 });
+
 high2.addEventListener("click", () => {
   gameControls.changeHighSize(-5)
   // If game has not started, reload the screen.
@@ -273,6 +278,7 @@ temp1.addEventListener("click", () => {
   // If game has not started, reload the screen.
   gameStart ? loaded = true : loaded = false;
 });
+
 temp2.addEventListener("click", () => {
   // Changes temp and updates heatmap.
   gameControls.changeTemp(-5, heatMap)
