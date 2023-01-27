@@ -234,6 +234,28 @@ const updateGame = () => {
   document.getElementById("high-pressure-size").innerText = gameControls.convertObjectSizeData(highPressureSys.getSize()).toString() + "x";
   document.getElementById("low-pressure-size").innerText = gameControls.convertObjectSizeData(lowPressureSys.getSize()).toString() + "x";
   document.getElementById("temp-text").innerText = gameControls.tempChange >= 0 ? `+ ${(gameControls.tempChange).toString()}` : `- ${(Math.abs(gameControls.tempChange)).toString()}`;
+
+  document.getElementById("honolulu").innerText = "SAFE";
+  document.getElementById("los-angeles").innerText = "SAFE";
+  document.getElementById("mexico-city").innerText = "SAFE";
+  document.getElementById("vancouver").innerText = "SAFE";
+  document.getElementById("png").innerText = "SAFE";
+  document.getElementById("manila").innerText = "SAFE";
+  document.getElementById("tokyo").innerText = "SAFE";
+  document.getElementById("sydney").innerText = "SAFE";
+  document.getElementById("fiji").innerText = "SAFE";
+
+  document.getElementById("honolulu").style.color = "green";
+  document.getElementById("los-angeles").style.color = "green";
+  document.getElementById("mexico-city").style.color = "green";
+  document.getElementById("vancouver").style.color = "green";
+  document.getElementById("png").style.color = "green";
+  document.getElementById("manila").style.color = "green";
+  document.getElementById("tokyo").style.color = "green";
+  document.getElementById("sydney").style.color = "green";
+  document.getElementById("fiji").style.color = "green";
+
+  gameControls.changeCityStatus(pins.hurricaneCollision(hurricane));
 };
 
 // Game Control Button Listeners.

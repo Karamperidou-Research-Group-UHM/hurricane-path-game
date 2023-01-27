@@ -63,6 +63,52 @@ export default class GameControls {
     }
   }
 
+  /** Changes the text of the city to "HIT" if it's marker collides with the hurricane
+   *  Guide:
+   *    x = 415: Oahu Pin
+   *    x = 690: Mexico City Pin
+   *    x = 600: Los Angeles Pin
+   *    x = 170: Sydney Pin
+   *    x = 115: Tokyo Pin
+   *    x = 30: Manila Pin
+   *    x = 135: Papua New Guinea Pin
+   *    x = 297: Fiji Pin
+   *    x = 585: Vancouver Pin
+   * */
+  changeCityStatus(hitList) {
+    for (let i = 0; i < hitList.length; i++) {
+      if (hitList[i].x === 415) {
+        document.getElementById("honolulu").innerText = "HIT";
+        document.getElementById("honolulu").style.color = "red";
+      } else if (hitList[i].x === 690) {
+        document.getElementById("los-angeles").innerText = "HIT";
+        document.getElementById("los-angeles").style.color = "red";
+
+      } else if (hitList[i].x === 600) {
+        document.getElementById("mexico-city").innerText = "HIT";
+        document.getElementById("mexico-city").style.color = "red";
+      } else if (hitList[i].x === 170) {
+        document.getElementById("vancouver").innerText = "HIT";
+        document.getElementById("vancouver").style.color = "red";
+      } else if (hitList[i].x === 115) {
+        document.getElementById("png").innerText = "HIT";
+        document.getElementById("png").style.color = "red";
+      } else if (hitList[i].x === 30) {
+        document.getElementById("manila").innerText = "HIT";
+        document.getElementById("manila").style.color = "red";
+      } else if (hitList[i].x === 135) {
+        document.getElementById("tokyo").innerText = "HIT";
+        document.getElementById("tokyo").style.color = "red";
+      } else if (hitList[i].x === 297) {
+        document.getElementById("sydney").innerText = "HIT";
+        document.getElementById("sydney").style.color = "red";
+      } else if (hitList[i].x === 585) {
+        document.getElementById("fiji").innerText = "HIT";
+        document.getElementById("fiji").style.color = "red";
+      }
+    }
+  }
+
   /** Enables and disables the game controls based on pressure size, and if the game started. */
   enableControls(highPressureSys, lowPressureSys, gameStart) {
     // Enables and disables high pressure system button based on size limits.

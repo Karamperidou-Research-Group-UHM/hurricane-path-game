@@ -19,6 +19,7 @@ export default class Pins {
         const squareDistance = ((hurricane.x - this.pinList[i].x) * (hurricane.x - this.pinList[i].x)) + ((hurricane.y - this.pinList[i].y) * (hurricane.y - this.pinList[i].y));
         // Returns true if the square distance between the circles is less than or equal to the sum of their radii.
         if ((squareDistance <= (hurricane.width + this.pinList[i].width) * (hurricane.width + this.pinList[i].width)) && (i <= 9)) {
+          // Only pushes to the hitList if the pin is a part of the original list (indices 0-9)
           this.hitList.push(this.pinList[i]);
         }
     }
@@ -54,10 +55,8 @@ export default class Pins {
       this.pinList[j].update();
     }
 
-    console.log(this.hitList);
     for (let i = 0; i < this.hitList.length; i++) {
       this.changeMarker(this.hitList[i], i);
-      this.hitList.splice(i, 1);
     }
   }
 }
