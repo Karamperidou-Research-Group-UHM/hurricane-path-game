@@ -155,14 +155,16 @@ const startGame = () => {
   // hurricane = new Hurricane(700, 450, 100, 100, 'https://scied.ucar.edu/sites/default/files/interactives/predict-hurricane/assets/images/hurricane.png', gameArea, true);
   hurricane = new Hurricane(700, 350, 30, 30, 'grey', gameArea, false, category[0], sst);
   hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 350 });
-  testData.windTestData(windArrowData);
-  windArrows = new WindArrows(windArrowData, gameArea);
-  windArrows.createWindArrows();
   pins = new Pins(gameArea, '../images/red-pin.png', 13, 16);
   pins.createPins();
   seasonLabel = new SeasonLabel(gameArea);
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
+
+  // Loads wind arrows.
+  testData.windTestData(windArrowData);
+  windArrows = new WindArrows(windArrowData, gameArea);
+  windArrows.createWindArrows();
 
   // Loads heat map.
   testData.heatMapTestData(coordinates);

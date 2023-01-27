@@ -14,7 +14,7 @@ export default class WindArrow extends GameObject {
     const radians = angle * (Math.PI / 180);
     const centerX = this.x + (this.width / 2);
     const centerY = this.y + (this.height / 2);
-    const ctx = this.gameArea.context;
+    const ctx = this.gameArea.canvas.getContext("2d");
 
     // Translates center of rotation to center of object.
     ctx.translate(centerX, centerY);
