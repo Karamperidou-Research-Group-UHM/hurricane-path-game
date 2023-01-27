@@ -70,6 +70,7 @@ let pins;
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
 let coordinates = [];
+let windArrows = [];
 
 /** All mouse down events. */
 const mouseDownEvents = (event) => {
