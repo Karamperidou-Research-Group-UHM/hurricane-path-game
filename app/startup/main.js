@@ -179,6 +179,7 @@ const startGame = () => {
 const updateObjects = () => {
   // Loads offscreen canvas draws to main canvas.
   loadToMainCanvas();
+  windArrows.updateWindArrows();
 
   seasonLabel.update();
   hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
@@ -194,7 +195,6 @@ const updateObjects = () => {
   highPressureSys.update();
   lowPressureSys.update();
 
-  windArrows.updateWindArrows();
 }
 
 /** Updates the game area of the game. */
