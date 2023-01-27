@@ -3,20 +3,18 @@ import WindArrow from '../gameobjects/windArrow.js';
 /** Creates properties and methods for holding wind arrow game objects. */
 export default class WindArrows {
   /** Creates a new WindArrows object. */
-  constructor(gameArea) {
+  constructor(windArrowData, gameArea) {
     this.gameArea = gameArea;
+    this.windArrowData = windArrowData;
     this.windArrows = [];
   }
 
   /** Adds wind arrow game objects to the wind arrows array. */
   createWindArrows() {
-    // Creates 11 rows of 42 wind arrows each.
-    for (let i = 0; i < 6; i++) {
-      for (let j = 0; j < 21; j++) {
-        const windArrow = new WindArrow((j * 40) + 5, (i * 100) + 5, 42, 30, '../images/WindArrow.png', this.gameArea, true);
-        // const windArrow = new WindArrow((j * 40) + 5, (i * 100) + 5, 10, 10, 'black', this.gameArea, false);
-        this.windArrows.push(windArrow);
-      }
+    // Creates WindArrow objects for each element in windArrowData and pushes them to windArrows array.
+    for (let i = 0; i < this.windArrowData.length; i++) {
+      const windArrow = new WindArrow(this.windArrowData[i].x, this.windArrowData[i].y, 42, 30, '../images/WindArrow.png', this.gameArea, true);
+      this.windArrows.push(windArrow);
     }
   }
 

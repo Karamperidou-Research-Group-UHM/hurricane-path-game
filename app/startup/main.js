@@ -70,7 +70,7 @@ let pins;
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
 let coordinates = [];
-let windArrows = [];
+let windArrowData = [];
 
 /** All mouse down events. */
 const mouseDownEvents = (event) => {
@@ -155,7 +155,8 @@ const startGame = () => {
   // hurricane = new Hurricane(700, 450, 100, 100, 'https://scied.ucar.edu/sites/default/files/interactives/predict-hurricane/assets/images/hurricane.png', gameArea, true);
   hurricane = new Hurricane(700, 350, 30, 30, 'grey', gameArea, false, category[0], sst);
   hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 350 });
-  windArrows = new WindArrows(gameArea);
+  testData.windTestData(windArrowData);
+  windArrows = new WindArrows(windArrowData, gameArea);
   windArrows.createWindArrows();
   pins = new Pins(gameArea, '../images/red-pin.png', 13, 16);
   pins.createPins();
