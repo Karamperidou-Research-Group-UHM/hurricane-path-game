@@ -1,11 +1,13 @@
 import GameObject from './gameObject.js';
+import { windArrowCalculator } from '../components/windArrowCalculator.js';
 
 /** Creates properties and methods for a wind arrow game object. */
 export default class WindArrow extends GameObject {
   /** Creates a wind arrow game object. */
-  constructor(x, y, width, height, image, gameArea, isImage, initAngle) {
+  constructor(x, y, width, height, image, gameArea, isImage, initAngle, highPressureSystem) {
     super(x, y, width, height, image, gameArea, isImage);
     this.initalAngle = initAngle;
+    this.highPressureSystem = highPressureSystem;
     // this.rotate(this.initalAngle);
   }
 
@@ -29,7 +31,8 @@ export default class WindArrow extends GameObject {
 
     // Saves the context of the canvas.
     ctx.save()
-    this.rotate(this.initalAngle);
+    // this.rotate(this.initalAngle);
+    windArrowCalculator(this.highPressureSystem, this);
     super.update();
     // Restores the context of the canvas.
     ctx.restore();
