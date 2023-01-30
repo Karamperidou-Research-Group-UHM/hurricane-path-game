@@ -11,7 +11,7 @@
 * [Launch](#Launch)
 
 #### Technical Details
-* [Technologies Used](#Techologies Used)
+* [Technologies Used](#Technologies Used)
 * [Inspiration](#Inspiration)
 
 #### Visuals
@@ -26,7 +26,7 @@ This game is brought to you by the Department of Atmospheric Sciences at the Uni
 
 ### Purpose
 The purpose of this simulation is to act as an e-learning outreach activity to give users an interactive activity to 
-learn more about hurricanes and climate changes.  
+learn more about hurricanes and climate changes. 
 
 ### Setup
 **Download Github Desktop if needed**
@@ -55,7 +55,7 @@ Listed below is a list of the languages and tools utilized:
   
 + Programming Languages:
   + JavaScript
-  + C++
+  + CSS
   + HTML
   + Bootstrap UI
 
