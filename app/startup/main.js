@@ -3,7 +3,6 @@ import HurricaneMovement from '../components/hurricaneMovement.js';
 import WindArrows from '../components/windArrows.js';
 import PressureSystem from '../gameobjects/pressureSystem.js';
 import CollisionDetection from '../components/collisionDetection.js';
-import SeasonLabel from '../gameobjects/seasonLabel.js';
 import GameControls from '../components/gameControls.js';
 import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
@@ -63,7 +62,6 @@ const gameArea = {
 let hurricane;
 let highPressureSys;
 let lowPressureSys;
-let seasonLabel;
 let windArrows;
 let hurricaneMovement;
 let pins;
@@ -77,7 +75,6 @@ const mouseDownEvents = (event) => {
   x = event.clientX;
   y = event.clientY;
   screenPressed = true;
-  seasonLabel.changeSeason(x, y);
 };
 
 /** All mouse up events. */
@@ -163,7 +160,6 @@ const startGame = () => {
   // Loads the seasons label and pressure systems
   pins = new Pins(gameArea, '../images/red-pin.png', 13, 16);
   pins.createPins();
-  seasonLabel = new SeasonLabel(gameArea);
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
 
@@ -191,7 +187,6 @@ const updateObjects = () => {
   loadToMainCanvas();
   windArrows.updateWindArrows();
 
-  seasonLabel.update();
   hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
   pins.updatePins();
   hurricaneMovement.moveHurricane();
