@@ -39,7 +39,6 @@ export default class WindArrow extends GameObject {
     const distanceBetweenSystems = distanceFromPressureSystem(this.highPressureSystem, this.lowPressureSystem);
     const highInfluenceFactor = distFromHigh / distanceBetweenSystems;
     const lowInfluenceFactor = distFromLow / distanceBetweenSystems;
-    console.log(highInfluenceFactor);
     const angle = ((highInfluenceFactor) * highAngle + (lowInfluenceFactor) * lowAngle) / 2;
     this.rotate(angle);
     super.update();
