@@ -32,7 +32,7 @@ export default class WindArrow extends GameObject {
     // Saves the context of the canvas.
     ctx.save()
     // this.rotate(this.initalAngle);
-    windArrowCalculator(this.lowPressureSystem, this);
+    windArrowCalculator(this.highPressureSystem, this);
     super.update();
     // Restores the context of the canvas.
     ctx.restore();

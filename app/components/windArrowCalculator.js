@@ -10,7 +10,7 @@ export const windArrowCalculator = (pressureSystem, windArrow) => {
     windArrow.rotate(windDirection);
   } else {
     // Gets the wind direction based on relativeAngle.
-    const windDirection = 270 - relativeAngle;
+    const windDirection = relativeAngle - 90;
     // Rotates the wind arrow.
     windArrow.rotate(windDirection);
   }
