@@ -1,5 +1,5 @@
 import GameObject from './gameObject.js';
-import { windArrowCalculator } from '../components/windArrowCalculator.js';
+import { distanceFromPressureSystem, windArrowCalculator } from '../components/windArrowCalculator.js';
 
 /** Creates properties and methods for a wind arrow game object. */
 export default class WindArrow extends GameObject {
@@ -34,7 +34,13 @@ export default class WindArrow extends GameObject {
     // this.rotate(this.initalAngle);
     const highAngle = windArrowCalculator(this.highPressureSystem, this);
     const lowAngle = windArrowCalculator(this.lowPressureSystem, this);
-    const angle = ((0.2) * highAngle + (0.8) * lowAngle) / 2;
+    const distFromHigh = distanceFromPressureSystem(this.highPressureSystem, this);
+    const distFromLow = distanceFromPressureSystem(this.lowPressureSystem, this);
+    const distanceBetweenSystems = distanceFromPressureSystem(this.highPressureSystem, this.lowPressureSystem);
+    const highInfluenceFactor = distFromHigh / distanceBetweenSystems;
+    const lowInfluenceFactor = distFromLow / distanceBetweenSystems;
+    console.log(highInfluenceFactor);
+    const angle = ((highInfluenceFactor) * highAngle + (lowInfluenceFactor) * lowAngle) / 2;
     this.rotate(angle);
     super.update();
     // Restores the context of the canvas.

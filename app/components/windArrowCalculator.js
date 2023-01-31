@@ -21,5 +21,5 @@ export const windArrowCalculator = (pressureSystem, windArrow) => {
 
 /** Calculates the distance between the windArrow and pressureSystem given. */
 export const distanceFromPressureSystem = (pressureSystem, windArrow) => {
-  return (((pressureSystem.x - windArrow.x) * (pressureSystem.x - windArrow.x)) + ((pressureSystem.y - windArrow.y) * (pressureSystem.y - windArrow.y)));
+  return Math.sqrt(((pressureSystem.x - windArrow.x) * (pressureSystem.x - windArrow.x)) + ((pressureSystem.y - windArrow.y) * (pressureSystem.y - windArrow.y)));
 };
