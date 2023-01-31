@@ -163,7 +163,7 @@ const startGame = () => {
 
   // Loads wind arrows.
   testData.windTestData(windArrowData);
-  windArrows = new WindArrows(windArrowData, gameArea, highPressureSys);
+  windArrows = new WindArrows(windArrowData, gameArea, highPressureSys, lowPressureSys);
   windArrows.createWindArrows();
 
   // Loads heat map.
