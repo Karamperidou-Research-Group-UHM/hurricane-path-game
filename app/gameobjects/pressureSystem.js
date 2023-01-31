@@ -50,6 +50,7 @@ export default class PressureSystem extends GameObject {
         this.x = newX;
         this.y = newY;
 
+        /*
         let canvasCollision;
 
         // Checks pressure type and assigns checks the collision with the canvas based on the pressure system type.
@@ -92,7 +93,7 @@ export default class PressureSystem extends GameObject {
           // Moves the system back by half its radius.
           this.y += this.radiusX / 2;
         }
-
+        */
         return true;
       }
     }
@@ -127,8 +128,9 @@ export default class PressureSystem extends GameObject {
   update() {
     const ctx = this.gameArea.context;
     this.pressureType === 'high' ? ctx.fillStyle = 'blue' : ctx.fillStyle = 'red';
-    ctx.globalAlpha = 0.5;
+
     ctx.beginPath();
+    ctx.globalAlpha = 1;
     ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, 0, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
@@ -139,7 +141,6 @@ export default class PressureSystem extends GameObject {
       this.x = this.initX;
       this.y = this.initY;
     }
-
     super.update();
   }
 }
