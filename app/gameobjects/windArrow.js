@@ -32,7 +32,10 @@ export default class WindArrow extends GameObject {
     // Saves the context of the canvas.
     ctx.save()
     // this.rotate(this.initalAngle);
-    windArrowCalculator(this.highPressureSystem, this);
+    const highAngle = windArrowCalculator(this.highPressureSystem, this);
+    const lowAngle = windArrowCalculator(this.lowPressureSystem, this);
+    const angle = ((0.2) * highAngle + (0.8) * lowAngle) / 2;
+    this.rotate(angle);
     super.update();
     // Restores the context of the canvas.
     ctx.restore();
