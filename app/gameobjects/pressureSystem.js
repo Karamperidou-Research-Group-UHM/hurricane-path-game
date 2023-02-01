@@ -26,23 +26,6 @@ export default class PressureSystem extends GameObject {
     if (isAdjusted) {
       this.x += newX;
       this.y += newY;
-
-      // Gets the collision information with the canvas.
-      const canvasCollision = this.colDetection.detectCollisionCanvas(this, this.gameArea, 'ellipse');
-
-      // Checks if the object is outside the horizontal bounds of the canvas and bounces the object back in the opposite way.
-      if (canvasCollision === 'left') {
-        this.x += this.radiusX;
-      } else if (canvasCollision === 'right') {
-        this.x -= this.radiusX;
-      }
-
-      // Checks if the object is outside the vertical bounds of the canvas and bounces the object back in the opposite way.
-      if (canvasCollision === 'top') {
-        this.y += this.radiusX;
-      } else if (canvasCollision === 'bottom') {
-        this.y -= this.radiusX;
-      }
     } else {
       // Makes sure the newX and newY coordinates are within the object image.
       if (this.inBounds || (newX <= this.x + this.radiusX && newX >= this.x - this.radiusX && newY <= this.y + this.radiusY && newY >= this.y - this.radiusY)) {
@@ -129,18 +112,19 @@ export default class PressureSystem extends GameObject {
     const ctx = this.gameArea.context;
     this.pressureType === 'high' ? ctx.fillStyle = 'blue' : ctx.fillStyle = 'red';
 
+    // Checks if the system is outside the canvas and if it is, repositions it to its initial spot.
+    if (this.x < 0 || this.x > this.gameArea.canvas.width ||
+      this.y < 0 || this.y > this.gameArea.canvas.height) {
+      this.x = this.initX;
+      this.y = this.initY;
+    }
+
     ctx.beginPath();
     ctx.globalAlpha = 1;
     ctx.ellipse(this.x, this.y, this.radiusX, this.radiusY, 0, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
 
-    // Checks if the system is outside the canvas and if it is, repositions it to its initial spot.
-    if (this.x - this.radiusX < 0 || this.x + this.radiusX > this.gameArea.canvas.width ||
-        this.y - this.radiusX < 0 || this.y + this.radiusY > this.gameArea.canvas.height) {
-      this.x = this.initX;
-      this.y = this.initY;
-    }
     super.update();
   }
 }
