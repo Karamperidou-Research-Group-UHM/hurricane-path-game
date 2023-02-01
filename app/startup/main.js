@@ -90,53 +90,24 @@ const mouseEndEvents = (event) => {
   }
 };
 
-let highMove = false;
-let lowMove = false;
-
 /** All mouse move events. */
 const mouseMoveEvents = (event) => {
   // Checks if screen was pressed.
   if (screenPressed) {
-    if (!colDetect.detectCollision(highPressureSys, lowPressureSys, 'ellipse')) {
       // Moves objects to mouse coordinates if they are within the bounds.
-      highMove = highPressureSys.move(x, y, false);
-      lowMove = lowPressureSys.move(x, y, false);
+      highPressureSys.move(x, y);
+      lowPressureSys.move(x, y);
       gameStart ? loaded = true : loaded = false;
       x = event.clientX;
       y = event.clientY;
-    } else {
-      screenPressed = false;
-      // Checks where each system is relative to each other on the x axis when collided and adjusts their position accordingly.
-      if (highPressureSys.x <= lowPressureSys.x) {
-        if (highMove) {
-          lowMove = lowPressureSys.move(10, 0, true);
-        } else if (lowMove) {
-          highMove = highPressureSys.move(-10, 0, true);
-        }
-      } else {
-        if (highMove) {
-          lowMove = lowPressureSys.move(-10, 0, true);
-        } else if (lowMove) {
-          highMove = highPressureSys.move(10, 0, true);
-        }
+
+      // If high pressure system and low pressure system are in the exact same location, relocate them back to initial position.
+      if (highPressureSys.x === lowPressureSys.x && highPressureSys.y === lowPressureSys.y) {
+        highPressureSys.x = 500;
+        highPressureSys.y = 120;
+        lowPressureSys.x = 120;
+        lowPressureSys.y = 300;
       }
-      // Checks where each system is relative to each other on the y axis when collided and adjusts their position accordingly.
-      if (highPressureSys.y <= lowPressureSys.y) {
-        if (highMove) {
-          lowMove = lowPressureSys.move(0, 10, true);
-        } else if (lowMove) {
-          highMove = highPressureSys.move(0, -10, true);
-        }
-      } else {
-        if (highMove) {
-          lowMove = lowPressureSys.move(0, -10, true);
-        } else if (lowMove) {
-          highMove = highPressureSys.move(0, 10, true);
-        }
-      }
-      x = event.clientX;
-      y = event.clientY;
-    }
   }
 };
 
@@ -190,7 +161,6 @@ const updateObjects = () => {
   hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
   pins.updatePins();
   hurricaneMovement.moveHurricane();
-  // controlPressureSystemSizes();
   pins.hurricaneCollision(hurricane);
 
   highPressureSys.changeSize(gameControls.highPressureSize);
@@ -202,7 +172,6 @@ const updateObjects = () => {
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
-
 }
 
 /** Updates the game area of the game. */
