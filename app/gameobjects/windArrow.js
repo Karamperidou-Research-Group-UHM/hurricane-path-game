@@ -34,15 +34,20 @@ export default class WindArrow extends GameObject {
     // Gets the angles relative to the high and low pressure systems and the distances.
     const highAngle = windArrowCalculator(this.highPressureSystem, this);
     const lowAngle = windArrowCalculator(this.lowPressureSystem, this);
-    const distFromHigh = distanceFromPressureSystem(this.highPressureSystem, this);
-    const distFromLow = distanceFromPressureSystem(this.lowPressureSystem, this);
+    const distFromHigh = distanceFromPressureSystem(this.highPressureSystem, this) - this.highPressureSystem.radiusX;
+    const distFromLow = distanceFromPressureSystem(this.lowPressureSystem, this) - this.lowPressureSystem.radiusX;
 
     let angle = highAngle;
     // Checks if distance from high and greater than 200 and sets angle to initial angle.
     if (distFromHigh > 200 && distFromLow > 200) {
       angle = this.initalAngle;
     } else if (distFromHigh <= 200 && distFromLow <= 200) {
-      angle = (highAngle + lowAngle) / 2;
+      // Checks which pressure system the wind arrow is closer to.
+      if (distFromHigh <= distFromLow) {
+        angle = highAngle;
+      } else {
+        angle = lowAngle;
+      }
     } else if (distFromHigh <= 200) {
       angle = highAngle;
     } else if (distFromLow) {
