@@ -20,20 +20,12 @@ export default class PressureSystem extends GameObject {
 
   /** Moves the pressure system based on where the mouse drags it. */
   move(newX, newY, isAdjusted) {
-    // Checks if the object was hit by something else other than the user's mouse.
-    if (isAdjusted) {
-      this.x += newX;
-      this.y += newY;
-    } else {
-      // Makes sure the newX and newY coordinates are within the object image.
-      if (this.inBounds || (newX <= this.x + this.radiusX && newX >= this.x - this.radiusX && newY <= this.y + this.radiusY && newY >= this.y - this.radiusY)) {
-        this.inBounds = true;
-        this.x = newX;
-        this.y = newY;
-        return true;
-      }
+    // Makes sure the newX and newY coordinates are within the object image.
+    if (this.inBounds || (newX <= this.x + this.radiusX && newX >= this.x - this.radiusX && newY <= this.y + this.radiusY && newY >= this.y - this.radiusY)) {
+      this.inBounds = true;
+      this.x = newX;
+      this.y = newY;
     }
-    return false;
   }
 
   /** Changes the size of the pressure system given the amount. */

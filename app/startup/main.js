@@ -93,16 +93,13 @@ const mouseEndEvents = (event) => {
   }
 };
 
-let highMove = false;
-let lowMove = false;
-
 /** All mouse move events. */
 const mouseMoveEvents = (event) => {
   // Checks if screen was pressed.
   if (screenPressed) {
       // Moves objects to mouse coordinates if they are within the bounds.
-      highMove = highPressureSys.move(x, y, false);
-      lowMove = lowPressureSys.move(x, y, false);
+      highPressureSys.move(x, y);
+      lowPressureSys.move(x, y);
       gameStart ? loaded = true : loaded = false;
       x = event.clientX;
       y = event.clientY;
