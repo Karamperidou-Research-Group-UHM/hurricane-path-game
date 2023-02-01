@@ -37,10 +37,16 @@ export default class WindArrow extends GameObject {
     const distFromHigh = distanceFromPressureSystem(this.highPressureSystem, this);
     const distFromLow = distanceFromPressureSystem(this.lowPressureSystem, this);
     // const distanceBetweenSystems = distanceFromPressureSystem(this.highPressureSystem, this.lowPressureSystem);
-    const highInfluenceFactor = Math.floor((200 / distFromHigh));
+    const highInfluenceFactor = 50 / distFromHigh;
+    const initialFactor = 50 - highInfluenceFactor;
+    console.log(highInfluenceFactor);
     const lowInfluenceFactor = Math.floor((200 / distFromLow));
-    const angle = ((highInfluenceFactor) * highAngle + (lowInfluenceFactor) * lowAngle) / 2;
-    this.rotate(highAngle);
+    let angle = highAngle;
+
+    if (distFromHigh > 200) {
+      angle = this.initalAngle;
+    }
+    this.rotate(angle);
     super.update();
     // Restores the context of the canvas.
     ctx.restore();
