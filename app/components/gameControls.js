@@ -63,6 +63,12 @@ export default class GameControls {
     }
   }
 
+  /** Set City to "HIT" */
+  setHit(city) {
+    document.getElementById(city).innerText = "HIT";
+    document.getElementById(city).style.color = "red";
+  }
+
   /** Changes the text of the city to "HIT" if it's marker collides with the hurricane
    *  Guide:
    *    x = 415: Oahu Pin
@@ -75,40 +81,29 @@ export default class GameControls {
    *    x = 297: Fiji Pin
    *    x = 585: Vancouver Pin
    * */
-  changeCityStatus(hitList) {
+  changeCityStatus(hitList, cities) {
     for (let i = 0; i < hitList.length; i++) {
       if (hitList[i].x === 415) {
-        document.getElementById("honolulu").innerText = "HIT";
-        document.getElementById("honolulu").style.color = "red";
+        this.setHit(cities[0]);
       } else if (hitList[i].x === 690) {
-        document.getElementById("los-angeles").innerText = "HIT";
-        document.getElementById("los-angeles").style.color = "red";
+        this.setHit(cities[1]);
       } else if (hitList[i].x === 600) {
-        document.getElementById("mexico-city").innerText = "HIT";
-        document.getElementById("mexico-city").style.color = "red";
+        this.setHit(cities[2]);
       } else if (hitList[i].x === 170) {
-        document.getElementById("vancouver").innerText = "HIT";
-        document.getElementById("vancouver").style.color = "red";
+        this.setHit(cities[3]);
       } else if (hitList[i].x === 115) {
-        document.getElementById("png").innerText = "HIT";
-        document.getElementById("png").style.color = "red";
+        this.setHit(cities[4]);
       } else if (hitList[i].x === 30) {
-        document.getElementById("manila").innerText = "HIT";
-        document.getElementById("manila").style.color = "red";
+        this.setHit(cities[5]);
       } else if (hitList[i].x === 135) {
-        document.getElementById("tokyo").innerText = "HIT";
-        document.getElementById("tokyo").style.color = "red";
+        this.setHit(cities[6]);
       } else if (hitList[i].x === 297) {
-        document.getElementById("sydney").innerText = "HIT";
-        document.getElementById("sydney").style.color = "red";
+        this.setHit(cities[7]);
       } else if (hitList[i].x === 585) {
-        document.getElementById("fiji").innerText = "HIT";
-        document.getElementById("fiji").style.color = "red";
+        this.setHit(cities[8]);
       }
     }
   }
-
-
 
   /** Enables and disables the game controls based on pressure size, and if the game started. */
   enableControls(highPressureSys, lowPressureSys, gameStart) {

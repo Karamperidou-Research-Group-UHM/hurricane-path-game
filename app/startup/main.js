@@ -69,6 +69,7 @@ let sst = 1;
 let category = [1, 2, 3, 4, 5];
 let coordinates = [];
 let windArrowData = [];
+const cities = ["honolulu", "los-angeles", "mexico-city", "vancouver", "png", "manila", "tokyo", "sydney", "fiji"];
 
 /** All mouse down events. */
 const mouseDownEvents = (event) => {
@@ -159,8 +160,9 @@ const updateObjects = () => {
   windArrows.updateWindArrows();
 
   hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
-  pins.updatePins();
   hurricaneMovement.moveHurricane();
+
+  pins.updatePins();
   pins.hurricaneCollision(hurricane);
 
   highPressureSys.changeSize(gameControls.highPressureSize);
@@ -208,34 +210,28 @@ const updateGame = () => {
   document.getElementById("low-pressure-size").innerText = gameControls.convertObjectSizeData(lowPressureSys.getSize()).toString() + "x";
   document.getElementById("temp-text").innerText = gameControls.tempChange >= 0 ? `+ ${(gameControls.tempChange).toString()}` : `- ${(Math.abs(gameControls.tempChange)).toString()}`;
 
-  document.getElementById("honolulu").innerText = "SAFE";
-  document.getElementById("los-angeles").innerText = "SAFE";
-  document.getElementById("mexico-city").innerText = "SAFE";
-  document.getElementById("vancouver").innerText = "SAFE";
-  document.getElementById("png").innerText = "SAFE";
-  document.getElementById("manila").innerText = "SAFE";
-  document.getElementById("tokyo").innerText = "SAFE";
-  document.getElementById("sydney").innerText = "SAFE";
-  document.getElementById("fiji").innerText = "SAFE";
+  let city_index = 0;
+  for (city_index; city_index < cities.length; city_index++) {
+    document.getElementById(cities[city_index]).innerText = "SAFE";
+    console.log('safe');
+  }
 
-  document.getElementById("honolulu").style.color = "green";
-  document.getElementById("los-angeles").style.color = "green";
-  document.getElementById("mexico-city").style.color = "green";
-  document.getElementById("vancouver").style.color = "green";
-  document.getElementById("png").style.color = "green";
-  document.getElementById("manila").style.color = "green";
-  document.getElementById("tokyo").style.color = "green";
-  document.getElementById("sydney").style.color = "green";
-  document.getElementById("fiji").style.color = "green";
+  city_index = 0;
+  for (city_index; city_index < cities.length; city_index++) {
+    document.getElementById(cities[city_index]).style.color = "green";
+  }
 
-  gameControls.changeCityStatus(pins.hurricaneCollision(hurricane));
+  gameControls.changeCityStatus(pins.hurricaneCollision(hurricane), cities);
 };
 
 /** Resets the game */
 const resetGame = () => {
   gameArea.clear();
   gameStart = false;
-  startGame();
+  loaded = false;
+  initialLoad = true;
+  updateGame();
+  // startGame();
 }
 
 // Game Control Button Listeners.

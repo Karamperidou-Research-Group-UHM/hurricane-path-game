@@ -9,7 +9,7 @@ export default class Hurricane extends GameObject {
     this.sst = sst;
     this.angularSpeed = -3;
     this.speed = 1;
-    this.lastPoint = { x: this.x, y: this.y };
+    this.initialPoint = { x: this.x, y: this.y };
     this.width *= 3;
     this.height *= 3;
   }
@@ -36,12 +36,12 @@ export default class Hurricane extends GameObject {
     // Checks if hurricane is within x bounds.
     if (this.x - this.width >= 0 && this.x + this.width <= 825) {
       // Finds the change in x between the target point and last point.
-      dx = target.x - this.lastPoint.x;
+      dx = target.x - this.initialPoint.x;
     }
     // Checks if hurricane is within y bounds.
     if (this.y - this.height >= 0 && this.y + this.height <= 526) {
       // Finds the change in y between the target point and last point.
-      dy = target.y - this.lastPoint.y;
+      dy = target.y - this.initialPoint.y;
     }
 
     if (this.x === 89) {
@@ -59,6 +59,12 @@ export default class Hurricane extends GameObject {
     if (this.y - this.height >= 0 && this.y + this.height <= 526) {
       this.y += amount;
     }
+  }
+
+  /** Reset hurricane to initial position */
+  resetHurricane(hurricane) {
+    hurricane.x = this.initialPoint.x;
+    hurricane.y = this.initialPoint.y;
   }
 
   /** Updates the Hurricane object. */
