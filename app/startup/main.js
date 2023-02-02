@@ -227,11 +227,11 @@ const updateGame = () => {
 /** Resets the game */
 const resetGame = () => {
   gameArea.clear();
-  gameStart = false;
-  loaded = false;
   initialLoad = true;
-  updateGame();
-  // startGame();
+  gameStart = false;
+  hurricane.resetHurricane(hurricane);
+  highPressureSys.resetPressureSystem(highPressureSys);
+  lowPressureSys.resetPressureSystem(lowPressureSys);
 }
 
 // Game Control Button Listeners.

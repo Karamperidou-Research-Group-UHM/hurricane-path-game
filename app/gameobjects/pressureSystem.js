@@ -52,6 +52,12 @@ export default class PressureSystem extends GameObject {
       return this.radiusX * this.radiusY;
   }
 
+  /** Resets the pressure system to it's initial position */
+  resetPressureSystem(ps) {
+    ps.x = ps.initX;
+    ps.y = ps.initY;
+  }
+
   /** Updates the image of the game object. */
   update() {
     const ctx = this.gameArea.context;
