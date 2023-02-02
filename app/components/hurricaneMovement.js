@@ -17,8 +17,10 @@ export default class HurricaneMovement {
   }
 
   /** Moves the hurricane to the current point. Changes direction immediately when a new target is added. */
-  moveHurricane() {
-    // Moves hurricane to the current point,
-    this.hurricaneGameObject.move(this.currentPoint);
+  moveHurricane(gameStart) {
+    if (gameStart) {
+      // Moves hurricane to the current point,
+      this.hurricaneGameObject.move(this.currentPoint);
+    }
   }
 }

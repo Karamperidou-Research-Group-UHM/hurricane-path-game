@@ -50,7 +50,7 @@ export default class WindArrow extends GameObject {
       }
     } else if (distFromHigh <= 200) {
       angle = highAngle;
-    } else if (distFromLow) {
+    } else if (distFromLow <= 200) {
       angle = lowAngle;
     }
 
