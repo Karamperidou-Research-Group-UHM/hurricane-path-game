@@ -83,7 +83,6 @@ export default class GameControls {
       } else if (hitList[i].x === 690) {
         document.getElementById("los-angeles").innerText = "HIT";
         document.getElementById("los-angeles").style.color = "red";
-
       } else if (hitList[i].x === 600) {
         document.getElementById("mexico-city").innerText = "HIT";
         document.getElementById("mexico-city").style.color = "red";
@@ -108,6 +107,8 @@ export default class GameControls {
       }
     }
   }
+
+
 
   /** Enables and disables the game controls based on pressure size, and if the game started. */
   enableControls(highPressureSys, lowPressureSys, gameStart) {
@@ -136,10 +137,12 @@ export default class GameControls {
       document.getElementById("start").disabled = true;
       document.getElementById("temp+").disabled = true;
       document.getElementById("temp-").disabled = true;
+      document.getElementById("reset").disabled = false;
     } else {
       document.getElementById("start").disabled = false;
       document.getElementById("temp+").disabled = false;
       document.getElementById("temp-").disabled = false;
+      document.getElementById("reset").disabled = true;
     }
   }
 }

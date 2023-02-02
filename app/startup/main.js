@@ -242,6 +242,7 @@ const temp1 = document.getElementById("temp+");
 const temp2 = document.getElementById("temp-");
 
 const startButton = document.getElementById("start");
+const resetButton = document.getElementById("reset");
 
 // Display panel of sizes and temperature
 high1.addEventListener("click", () => {
@@ -282,6 +283,7 @@ temp2.addEventListener("click", () => {
 });
 
 startButton.addEventListener("click", () => gameStart = true);
+resetButton.addEventListener("click", () => location.reload());
 
 // Starts the game when the window loads.
 window.addEventListener('load', startGame);
