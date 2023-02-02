@@ -43,18 +43,15 @@ export default class Hurricane extends GameObject {
       // Finds the change in y between the target point and last point.
       dy = target.y - this.lastPoint.y;
     }
+
+    if (this.x === 89) {
+      this.speed = 0;
+    }
     // Gets the direction the hurricane needs to move in.
     const direction = Math.atan2(dx, dy);
     // Moves the hurricane in the direction.
     this.x += this.speed * Math.sin(direction);
     this.y += this.speed * Math.cos(direction);
-  }
-
-  /** Updates the hurricane's x position by an amount. */
-  updateX(amount) {
-    if (this.x - this.width >= 0 && this.x + this.width <= 825) {
-      this.x += amount;
-    }
   }
 
   /** Updates the hurricane's y position by an amount.*/
