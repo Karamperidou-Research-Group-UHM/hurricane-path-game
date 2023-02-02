@@ -165,7 +165,7 @@ const updateObjects = () => {
   seasonLabel.update();
   hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
   pins.updatePins();
-  hurricaneMovement.moveHurricane();
+  hurricaneMovement.moveHurricane(gameStart);
   pins.hurricaneCollision(hurricane);
 
   highPressureSys.changeSize(gameControls.highPressureSize);
