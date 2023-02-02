@@ -231,6 +231,13 @@ const updateGame = () => {
   gameControls.changeCityStatus(pins.hurricaneCollision(hurricane));
 };
 
+/** Resets the game */
+const resetGame = () => {
+  gameArea.clear();
+  gameStart = false;
+  startGame();
+}
+
 // Game Control Button Listeners.
 const high1 = document.getElementById("high+");
 const high2 = document.getElementById("high-");
@@ -283,7 +290,7 @@ temp2.addEventListener("click", () => {
 });
 
 startButton.addEventListener("click", () => gameStart = true);
-resetButton.addEventListener("click", () => location.reload());
+resetButton.addEventListener("click", () => resetGame());
 
 // Starts the game when the window loads.
 window.addEventListener('load', startGame);
