@@ -7,7 +7,6 @@ export default class Hurricane extends GameObject {
     super(x, y, width, height, image, gameArea, isImage);
     this.category = category;
     this.sst = sst;
-    this.angularSpeed = -3;
     this.speed = 1;
     this.lastPoint = { x: this.x, y: this.y };
     this.width *= 3;
@@ -15,10 +14,10 @@ export default class Hurricane extends GameObject {
     this.angle = 180;
   }
 
-  /** Rotates the Hurricane object counter-clockwise. */
-  // changeAngle(newAngle) {
-
-  // }
+  /** Gives the hurricane a new angle. */
+  changeAngle(newAngle) {
+    this.angle = newAngle;
+  }
 
   /** Moves the Hurricane object in the direction of the next point given. */
   move(target) {

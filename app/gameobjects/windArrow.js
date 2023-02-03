@@ -1,14 +1,18 @@
 import GameObject from './gameObject.js';
 import { distanceFromPressureSystem, windArrowCalculator } from '../components/windArrowCalculator.js';
+import CollisionDetection from '../components/collisionDetection.js';
 
 /** Creates properties and methods for a wind arrow game object. */
 export default class WindArrow extends GameObject {
   /** Creates a wind arrow game object. */
-  constructor(x, y, width, height, image, gameArea, isImage, initAngle, highPressureSystem, lowPressureSystem) {
+  constructor(x, y, width, height, image, gameArea, isImage, initAngle, highPressureSystem, lowPressureSystem, hurricane) {
     super(x, y, width, height, image, gameArea, isImage);
     this.initalAngle = initAngle;
     this.highPressureSystem = highPressureSystem;
     this.lowPressureSystem = lowPressureSystem;
+    this.hurricane = hurricane;
+    this.colDetect = new CollisionDetection();
+    this.currentAngle = initAngle;
   }
 
   /** Rotates the wind arrow to the given angle. */
@@ -25,10 +29,17 @@ export default class WindArrow extends GameObject {
     ctx.translate(-1 * centerX, -1 * centerY);
   }
 
+  /** If there is a collision with the hurricane, it will pass its angle to its changeAngle method. */
+  collideCheck() {
+    if (this.colDetect.detectCollision(this.hurricane, this, 'ellipse')) {
+      this.hurricane.changeAngle(this.currentAngle);
+    }
+  }
+
   /** Updates the wind arrow's image. */
   update() {
     const ctx = this.gameArea.canvas.getContext("2d");
-
+    this.collideCheck();
     // Saves the context of the canvas.
     ctx.save()
     // Gets the angles relative to the high and low pressure systems and the distances.
@@ -53,6 +64,7 @@ export default class WindArrow extends GameObject {
     } else if (distFromLow <= 200) {
       angle = lowAngle;
     }
+    this.currentAngle = angle;
 
     // Rotates the angle.
     this.rotate(angle);
