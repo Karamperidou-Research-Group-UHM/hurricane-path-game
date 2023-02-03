@@ -12,11 +12,23 @@ export default class Hurricane extends GameObject {
     this.width *= 3;
     this.height *= 3;
     this.angle = 180;
+    this.closestWindArrow = null;
   }
 
   /** Gives the hurricane a new angle. */
-  changeAngle(newAngle) {
-    this.angle = newAngle;
+  changeAngle(windArrow) {
+    if (this.closestWindArrow === null) {
+      this.closestWindArrow = windArrow;
+    } else {
+      const dist1 = Math.sqrt(((this.x - windArrow.x) * (this.x - windArrow.x)) + ((this.y - windArrow.y) * (this.y - windArrow.y)));
+      const dist2 = Math.sqrt(((this.x - this.closestWindArrow.x) * (this.x - this.closestWindArrow.x)) + ((this.y - this.closestWindArrow.y) * (this.y - this.closestWindArrow.y)));
+
+      // Checks if new wind arrow is closer to the current closest one and changes it if it is.
+      if (dist2 < dist1) {
+        this.closestWindArrow = windArrow;
+      }
+    }
+    this.angle = this.closestWindArrow.currentAngle * (180 / Math.PI);
   }
 
   /** Moves the Hurricane object in the direction of the next point given. */

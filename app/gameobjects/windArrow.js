@@ -32,7 +32,7 @@ export default class WindArrow extends GameObject {
   /** If there is a collision with the hurricane, it will pass its angle to its changeAngle method. */
   collideCheck() {
     if (this.colDetect.detectCollision(this.hurricane, this, 'ellipse')) {
-      this.hurricane.changeAngle(this.currentAngle);
+      this.hurricane.changeAngle(this);
     }
   }
 
