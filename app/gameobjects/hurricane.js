@@ -12,22 +12,13 @@ export default class Hurricane extends GameObject {
     this.lastPoint = { x: this.x, y: this.y };
     this.width *= 3;
     this.height *= 3;
+    this.angle = 180;
   }
 
   /** Rotates the Hurricane object counter-clockwise. */
-  rotate() {
-    const angle = this.angularSpeed * (Math.PI / 180);
-    const centerX = this.x + (this.width / 2);
-    const centerY = this.y + (this.height / 2);
-    const ctx = this.gameArea.context;
+  // changeAngle(newAngle) {
 
-    // Translates center of rotation to center of object.
-    ctx.translate(centerX, centerY);
-    // Rotates object.
-    ctx.rotate(angle);
-    // Translates back the center of rotation to 0,0.
-    ctx.translate(-1 * centerX, -1 * centerY);
-  }
+  // }
 
   /** Moves the Hurricane object in the direction of the next point given. */
   move(target) {
@@ -52,6 +43,16 @@ export default class Hurricane extends GameObject {
     // Moves the hurricane in the direction.
     this.x += this.speed * Math.sin(direction);
     this.y += this.speed * Math.cos(direction);
+  }
+
+  /** Moves the hurricane given its angle. */
+  moveHurricane(gameStart) {
+    if (gameStart) {
+      const vx = this.speed * Math.cos(this.angle * (Math.PI / 180));
+      const vy = this.speed * Math.sin(this.angle * (Math.PI / 180));
+      this.x += vx;
+      this.y += vy;
+    }
   }
 
   /** Updates the hurricane's y position by an amount.*/

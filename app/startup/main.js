@@ -160,7 +160,7 @@ const updateObjects = () => {
 
   hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
   pins.updatePins();
-  hurricaneMovement.moveHurricane(gameStart);
+  // hurricaneMovement.moveHurricane(gameStart);
   pins.hurricaneCollision(hurricane);
 
   highPressureSys.changeSize(gameControls.highPressureSize);
@@ -169,6 +169,7 @@ const updateObjects = () => {
   gameControls.changeLowSize(0);
 
   /** Update all objects in this area. */
+  hurricane.moveHurricane(gameStart);
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
