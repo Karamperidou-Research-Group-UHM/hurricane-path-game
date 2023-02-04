@@ -160,10 +160,8 @@ const updateObjects = () => {
   windArrows.updateWindArrows();
 
   hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
-  hurricaneMovement.moveHurricane();
-  console.log(hurricane.speed);
-
   pins.updatePins();
+  hurricaneMovement.moveHurricane(gameStart);
   pins.hurricaneCollision(hurricane);
 
   highPressureSys.changeSize(gameControls.highPressureSize);
