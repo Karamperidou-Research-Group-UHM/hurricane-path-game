@@ -161,6 +161,7 @@ const updateObjects = () => {
 
   hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
   hurricaneMovement.moveHurricane();
+  console.log(hurricane.speed);
 
   pins.updatePins();
   pins.hurricaneCollision(hurricane);

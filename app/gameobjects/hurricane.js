@@ -65,6 +65,7 @@ export default class Hurricane extends GameObject {
   resetHurricane(hurricane) {
     hurricane.x = this.initialPoint.x;
     hurricane.y = this.initialPoint.y;
+    this.speed = 1;
   }
 
   /** Updates the Hurricane object. */
