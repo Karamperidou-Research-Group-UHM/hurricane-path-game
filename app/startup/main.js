@@ -213,7 +213,6 @@ const updateGame = () => {
   let city_index = 0;
   for (city_index; city_index < cities.length; city_index++) {
     document.getElementById(cities[city_index]).innerText = "SAFE";
-    console.log('safe');
   }
 
   city_index = 0;
@@ -228,10 +227,12 @@ const updateGame = () => {
 const resetGame = () => {
   gameArea.clear();
   initialLoad = true;
+  loaded = false;
   gameStart = false;
   hurricane.resetHurricane(hurricane);
   highPressureSys.resetPressureSystem(highPressureSys);
   lowPressureSys.resetPressureSystem(lowPressureSys);
+  pins.resetPins();
 }
 
 // Game Control Button Listeners.

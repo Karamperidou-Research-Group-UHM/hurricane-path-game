@@ -49,6 +49,15 @@ export default class Pins {
     this.pinList.push(new PinObject(pin?.x, pin?.y, this.width, this.height, '../images/red-pin.png', this.gameArea, true));
   }
 
+  /** Resets the pins, removes the marked pins from the canvas */
+  resetPins() {
+    if (this.pinList.length > 9) {
+      this.pinList = this.pinList.slice(0, 9);
+      this.hitList = [];
+    }
+    return this.pinList;
+  }
+
   /** Updates the canvas to display all the city pins */
   updatePins() {
     for (let j = 0; j < this.pinList.length; j++) {
