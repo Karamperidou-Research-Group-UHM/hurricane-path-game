@@ -20,15 +20,16 @@ export default class Hurricane extends GameObject {
     if (this.closestWindArrow === null) {
       this.closestWindArrow = windArrow;
     } else {
+      console.log(`Wind ArrowX: ${windArrow.x}, Wind ArrowY: ${windArrow.y}`);
       const dist1 = Math.sqrt(((this.x - windArrow.x) * (this.x - windArrow.x)) + ((this.y - windArrow.y) * (this.y - windArrow.y)));
       const dist2 = Math.sqrt(((this.x - this.closestWindArrow.x) * (this.x - this.closestWindArrow.x)) + ((this.y - this.closestWindArrow.y) * (this.y - this.closestWindArrow.y)));
 
       // Checks if new wind arrow is closer to the current closest one and changes it if it is.
-      if (dist2 < dist1) {
+      if (dist2 > dist1) {
         this.closestWindArrow = windArrow;
       }
     }
-    this.angle = this.closestWindArrow.currentAngle * (180 / Math.PI);
+    this.angle = Math.abs(180 - (this.closestWindArrow.currentAngle * (180 / Math.PI)));
   }
 
   /** Moves the Hurricane object in the direction of the next point given. */
