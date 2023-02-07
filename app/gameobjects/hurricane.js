@@ -13,23 +13,27 @@ export default class Hurricane extends GameObject {
     this.height *= 3;
     this.angle = 180;
     this.closestWindArrow = null;
+    this.checkAngleTimer = 0;
   }
 
   /** Gives the hurricane a new angle. */
   changeAngle(windArrow) {
-    if (this.closestWindArrow === null) {
-      this.closestWindArrow = windArrow;
-    } else {
-      console.log(`Wind ArrowX: ${windArrow.x}, Wind ArrowY: ${windArrow.y}`);
-      const dist1 = Math.sqrt(((this.x - windArrow.x) * (this.x - windArrow.x)) + ((this.y - windArrow.y) * (this.y - windArrow.y)));
-      const dist2 = Math.sqrt(((this.x - this.closestWindArrow.x) * (this.x - this.closestWindArrow.x)) + ((this.y - this.closestWindArrow.y) * (this.y - this.closestWindArrow.y)));
-
-      // Checks if new wind arrow is closer to the current closest one and changes it if it is.
-      if (dist2 > dist1) {
+    // Only allows hurricane angle change every few milliseconds.
+    if (this.checkAngleTimer % 200 == 0) {
+      if (this.closestWindArrow === null) {
         this.closestWindArrow = windArrow;
+      } else {
+        const dist1 = Math.sqrt(((this.x - windArrow.x) * (this.x - windArrow.x)) + ((this.y - windArrow.y) * (this.y - windArrow.y)));
+        const dist2 = Math.sqrt(((this.x - this.closestWindArrow.x) * (this.x - this.closestWindArrow.x)) + ((this.y - this.closestWindArrow.y) * (this.y - this.closestWindArrow.y)));
+
+        // Checks if new wind arrow is closer to the current closest one and changes it if it is.
+        if (dist2 > dist1) {
+          this.closestWindArrow = windArrow;
+        }
       }
+      this.angle = Math.abs(180 - (this.closestWindArrow.currentAngle * (180 / Math.PI)));
     }
-    this.angle = Math.abs(180 - (this.closestWindArrow.currentAngle * (180 / Math.PI)));
+    this.checkAngleTimer += 1;
   }
 
   /** Moves the Hurricane object in the direction of the next point given. */
