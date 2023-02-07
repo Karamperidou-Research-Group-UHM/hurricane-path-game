@@ -31,14 +31,39 @@ export default class Hurricane extends GameObject {
     this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
   }
 
+  /** Moves the Hurricane object in the direction of the next point given. */
+  move(target) {
+    let dx = 0;
+    let dy = 0;
+    // Checks if hurricane is within x bounds.
+    if (this.x - this.width >= 0 && this.x + this.width <= 825) {
+      // Finds the change in x between the target point and last point.
+      dx = target.x - this.lastPoint.x;
+    }
+    // Checks if hurricane is within y bounds.
+    if (this.y - this.height >= 0 && this.y + this.height <= 526) {
+      // Finds the change in y between the target point and last point.
+      dy = target.y - this.lastPoint.y;
+    }
+
+    if (this.x === 89) {
+      this.speed = 0;
+    }
+    // Gets the direction the hurricane needs to move in.
+    const direction = Math.atan2(dx, dy);
+    // Moves the hurricane in the direction.
+    this.x += this.speed * Math.sin(direction);
+    this.y += this.speed * Math.cos(direction);
+  }
+
   /** Moves the hurricane given its angle. */
   moveHurricane(gameStart) {
     if (gameStart) {
-      // Sets x speed and y speed based on the hurricane's current angle.
       const vx = -1 * this.speed * Math.cos(this.angle * (Math.PI / 180));
       const vy = -1 * this.speed * Math.sin(this.angle * (Math.PI / 180));
       this.x += vx;
       this.y += vy;
+      console.log(vx, vy);
     }
   }
 
