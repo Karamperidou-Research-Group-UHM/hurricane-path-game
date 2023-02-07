@@ -11,7 +11,7 @@ export default class Hurricane extends GameObject {
     this.lastPoint = { x: this.x, y: this.y };
     this.width *= 3;
     this.height *= 3;
-    this.angle = 180;
+    this.angle = null;
     this.closestWindArrow = null;
     this.checkAngleTimer = 0;
   }
@@ -19,7 +19,7 @@ export default class Hurricane extends GameObject {
   /** Gives the hurricane a new angle. */
   changeAngle(windArrow) {
     // Only allows hurricane angle change every few milliseconds.
-    if (this.checkAngleTimer % 200 == 0) {
+    // if (this.checkAngleTimer % 200 == 0) {
       if (this.closestWindArrow === null) {
         this.closestWindArrow = windArrow;
       } else {
@@ -31,9 +31,9 @@ export default class Hurricane extends GameObject {
           this.closestWindArrow = windArrow;
         }
       }
-      this.angle = Math.abs(180 - (this.closestWindArrow.currentAngle * (180 / Math.PI)));
-    }
-    this.checkAngleTimer += 1;
+      this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
+    // }
+    // this.checkAngleTimer += 1;
   }
 
   /** Moves the Hurricane object in the direction of the next point given. */
@@ -64,10 +64,11 @@ export default class Hurricane extends GameObject {
   /** Moves the hurricane given its angle. */
   moveHurricane(gameStart) {
     if (gameStart) {
-      const vx = this.speed * Math.cos(this.angle * (Math.PI / 180));
-      const vy = this.speed * Math.sin(this.angle * (Math.PI / 180));
+      const vx = -1 * this.speed * Math.cos(this.angle * (Math.PI / 180));
+      const vy = -1 * this.speed * Math.sin(this.angle * (Math.PI / 180));
       this.x += vx;
       this.y += vy;
+      console.log(vx, vy);
     }
   }
 
@@ -88,7 +89,6 @@ export default class Hurricane extends GameObject {
     } else if (this.sst > 99) {
         sst_xPosition = 50;
     }
-
     const ctx = this.gameArea.context;
     ctx.fillStyle = this.color;
     ctx.globalAlpha = 0.7;

@@ -31,7 +31,10 @@ export default class WindArrow extends GameObject {
 
   /** If there is a collision with the hurricane, it will pass its angle to its changeAngle method. */
   collideCheck() {
+    const distanceFromHurricane = Math.sqrt(((this.hurricane.x - this.x) * (this.hurricane.x - this.x)) + ((this.hurricane.y - this.y) * (this.hurricane.y - this.y)));
     if (this.colDetect.detectCollision(this.hurricane, this, 'ellipse')) {
+    //if (distanceFromHurricane <= 10) {
+      console.log(this.currentAngle * (180 / Math.PI));
       this.hurricane.changeAngle(this);
     }
   }
@@ -64,7 +67,7 @@ export default class WindArrow extends GameObject {
     } else if (distFromLow <= 200) {
       angle = lowAngle;
     }
-    this.currentAngle = angle;
+    this.currentAngle = angle * (Math.PI / 180);
 
     // Rotates the angle.
     this.rotate(angle);
