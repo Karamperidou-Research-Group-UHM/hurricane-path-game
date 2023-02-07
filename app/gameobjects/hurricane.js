@@ -42,6 +42,13 @@ export default class Hurricane extends GameObject {
     }
   }
 
+  /** Updates the hurricane's y position by an amount.*/
+  updateY(amount) {
+    if (this.y - this.height >= 0 && this.y + this.height <= 526) {
+      this.y += amount;
+    }
+  }
+
   /** Updates the Hurricane object. */
   update() {
     let sst_xPosition = 0;
