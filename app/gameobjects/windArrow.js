@@ -1,18 +1,14 @@
 import GameObject from './gameObject.js';
 import { distanceFromPressureSystem, windArrowCalculator } from '../components/windArrowCalculator.js';
-import CollisionDetection from '../components/collisionDetection.js';
 
 /** Creates properties and methods for a wind arrow game object. */
 export default class WindArrow extends GameObject {
   /** Creates a wind arrow game object. */
-  constructor(x, y, width, height, image, gameArea, isImage, initAngle, highPressureSystem, lowPressureSystem, hurricane) {
+  constructor(x, y, width, height, image, gameArea, isImage, initAngle, highPressureSystem, lowPressureSystem) {
     super(x, y, width, height, image, gameArea, isImage);
     this.initalAngle = initAngle;
     this.highPressureSystem = highPressureSystem;
     this.lowPressureSystem = lowPressureSystem;
-    this.hurricane = hurricane;
-    this.colDetect = new CollisionDetection();
-    this.currentAngle = initAngle;
   }
 
   /** Rotates the wind arrow to the given angle. */
@@ -29,19 +25,10 @@ export default class WindArrow extends GameObject {
     ctx.translate(-1 * centerX, -1 * centerY);
   }
 
-  /** If there is a collision with the hurricane, it will pass its angle to its changeAngle method. */
-  collideCheck() {
-    // Checks if the wind arrow collided with the hurricane.
-    if (this.colDetect.detectCollision(this.hurricane, this, 'ellipse')) {
-      // Passes the wind arrow to the hurricane to change its angle.
-      this.hurricane.changeAngle(this);
-    }
-  }
-
   /** Updates the wind arrow's image. */
   update() {
     const ctx = this.gameArea.canvas.getContext("2d");
-    this.collideCheck();
+
     // Saves the context of the canvas.
     ctx.save()
     // Gets the angles relative to the high and low pressure systems and the distances.
@@ -66,7 +53,6 @@ export default class WindArrow extends GameObject {
     } else if (distFromLow <= 200) {
       angle = lowAngle;
     }
-    this.currentAngle = angle * (Math.PI / 180);
 
     // Rotates the angle.
     this.rotate(angle);
