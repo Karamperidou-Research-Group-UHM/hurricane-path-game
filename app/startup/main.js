@@ -7,8 +7,6 @@ import GameControls from '../components/gameControls.js';
 import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
-import { hurricaneCollisionDetect } from '../components/hurricaneCollisonCheck.js';
-
 
 let gameControls = new GameControls();
 let testData = new TestData();
@@ -157,10 +155,7 @@ const updateObjects = () => {
   // Loads offscreen canvas draws to main canvas.
   loadToMainCanvas();
   windArrows.updateWindArrows();
-
-  // hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
   pins.updatePins();
-  // hurricaneMovement.moveHurricane(gameStart);
   pins.hurricaneCollision(hurricane);
 
   highPressureSys.changeSize(gameControls.highPressureSize);

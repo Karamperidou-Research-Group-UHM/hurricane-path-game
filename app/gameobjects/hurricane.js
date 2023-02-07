@@ -13,27 +13,22 @@ export default class Hurricane extends GameObject {
     this.height *= 3;
     this.angle = null;
     this.closestWindArrow = null;
-    this.checkAngleTimer = 0;
   }
 
   /** Gives the hurricane a new angle. */
   changeAngle(windArrow) {
-    // Only allows hurricane angle change every few milliseconds.
-    // if (this.checkAngleTimer % 200 == 0) {
-      if (this.closestWindArrow === null) {
-        this.closestWindArrow = windArrow;
-      } else {
-        const dist1 = Math.sqrt(((this.x - windArrow.x) * (this.x - windArrow.x)) + ((this.y - windArrow.y) * (this.y - windArrow.y)));
-        const dist2 = Math.sqrt(((this.x - this.closestWindArrow.x) * (this.x - this.closestWindArrow.x)) + ((this.y - this.closestWindArrow.y) * (this.y - this.closestWindArrow.y)));
+    if (this.closestWindArrow === null) {
+      this.closestWindArrow = windArrow;
+    } else {
+      const dist1 = Math.sqrt(((this.x - windArrow.x) * (this.x - windArrow.x)) + ((this.y - windArrow.y) * (this.y - windArrow.y)));
+      const dist2 = Math.sqrt(((this.x - this.closestWindArrow.x) * (this.x - this.closestWindArrow.x)) + ((this.y - this.closestWindArrow.y) * (this.y - this.closestWindArrow.y)));
 
-        // Checks if new wind arrow is closer to the current closest one and changes it if it is.
-        if (dist2 > dist1) {
-          this.closestWindArrow = windArrow;
-        }
+      // Checks if new wind arrow is closer to the current closest one and changes it if it is.
+      if (dist2 > dist1) {
+        this.closestWindArrow = windArrow;
       }
-      this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
-    // }
-    // this.checkAngleTimer += 1;
+    }
+    this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
   }
 
   /** Moves the Hurricane object in the direction of the next point given. */
@@ -81,8 +76,6 @@ export default class Hurricane extends GameObject {
 
   /** Updates the Hurricane object. */
   update() {
-    // this.rotate();
-    // super.update();
     let sst_xPosition = 0;
     if (this.sst >= 0 && this.sst <= 99) {
         sst_xPosition = 40;
