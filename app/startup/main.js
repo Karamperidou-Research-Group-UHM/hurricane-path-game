@@ -158,7 +158,7 @@ const updateObjects = () => {
   loadToMainCanvas();
   windArrows.updateWindArrows();
 
-  hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
+  // hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
   pins.updatePins();
   // hurricaneMovement.moveHurricane(gameStart);
   pins.hurricaneCollision(hurricane);
