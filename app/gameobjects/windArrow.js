@@ -25,6 +25,12 @@ export default class WindArrow extends GameObject {
     ctx.translate(-1 * centerX, -1 * centerY);
   }
 
+  /** Returns the wind strength based on how close it is to the high pressure system. */
+  getWindStrength() {
+    const distanceFromHigh = Math.sqrt(((this.highPressureSystem.x - this.x) * (this.highPressureSystem.x - this.windArrow.x)) + ((this.highPressureSystem.y - this.y) * (this.highPressureSystem.y - this.y)));
+    return 25 / distanceFromHigh;
+  }
+
   /** Updates the wind arrow's image. */
   update() {
     const ctx = this.gameArea.canvas.getContext("2d");

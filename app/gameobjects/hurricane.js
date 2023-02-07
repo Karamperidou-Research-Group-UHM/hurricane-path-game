@@ -29,6 +29,10 @@ export default class Hurricane extends GameObject {
     ctx.translate(-1 * centerX, -1 * centerY);
   }
 
+  changeSize(windArrow) {
+    this.width += windArrow.getWindStrength();
+  }
+
   /** Moves the Hurricane object in the direction of the next point given. */
   move(target) {
     let dx = 0;
