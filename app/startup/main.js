@@ -1,8 +1,6 @@
 import Hurricane from '../gameobjects/hurricane.js';
-import HurricaneMovement from '../components/hurricaneMovement.js';
 import WindArrows from '../components/windArrows.js';
 import PressureSystem from '../gameobjects/pressureSystem.js';
-import CollisionDetection from '../components/collisionDetection.js';
 import GameControls from '../components/gameControls.js';
 import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
@@ -10,7 +8,6 @@ import TestData from '../components/testData.js';
 
 let gameControls = new GameControls();
 let testData = new TestData();
-let colDetect = new CollisionDetection();
 let heatMap;
 let screenPressed = false;
 let x = 0;
@@ -61,7 +58,6 @@ let hurricane;
 let highPressureSys;
 let lowPressureSys;
 let windArrows;
-let hurricaneMovement;
 let pins;
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
@@ -119,9 +115,7 @@ const loadToMainCanvas = () => {
 /** Loads all objects and starts the game. */
 const startGame = () => {
   /** Create all objects in this area. */
-  // hurricane = new Hurricane(700, 450, 100, 100, 'https://scied.ucar.edu/sites/default/files/interactives/predict-hurricane/assets/images/hurricane.png', gameArea, true);
   hurricane = new Hurricane(700, 350, 30, 30, 'grey', gameArea, false, category[0], sst);
-  hurricaneMovement = new HurricaneMovement(hurricane, { x: 0, y: 350 });
 
   // Loads the wind arrows
   windArrows = new WindArrows(gameArea);
@@ -157,9 +151,7 @@ const updateObjects = () => {
   loadToMainCanvas();
   windArrows.updateWindArrows();
 
-  // hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
   pins.updatePins();
-  // hurricaneMovement.moveHurricane(gameStart);
   hurricane.moveHurricane(gameStart);
   pins.hurricaneCollision(hurricane);
 
