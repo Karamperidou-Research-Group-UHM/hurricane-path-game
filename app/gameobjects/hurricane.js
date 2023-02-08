@@ -15,21 +15,6 @@ export default class Hurricane extends GameObject {
     this.closestWindArrow = null;
   }
 
-  /** Rotates the Hurricane object counter-clockwise. */
-  rotate() {
-    const angle = this.angularSpeed * (Math.PI / 180);
-    const centerX = this.x + (this.width / 2);
-    const centerY = this.y + (this.height / 2);
-    const ctx = this.gameArea.context;
-
-    // Translates center of rotation to center of object.
-    ctx.translate(centerX, centerY);
-    // Rotates object.
-    ctx.rotate(angle);
-    // Translates back the center of rotation to 0,0.
-    ctx.translate(-1 * centerX, -1 * centerY);
-  }
-
   /** Gives the hurricane a new angle. */
   changeAngle(windArrow) {
     // Checks if a wind arrow was assigned to closest wind arrow.
@@ -45,31 +30,6 @@ export default class Hurricane extends GameObject {
     }
     // Sets the angle of the hurricane to the wind arrow in degrees.
     this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
-  }
-
-  /** Moves the Hurricane object in the direction of the next point given. */
-  move(target) {
-    let dx = 0;
-    let dy = 0;
-    // Checks if hurricane is within x bounds.
-    if (this.x - this.width >= 0 && this.x + this.width <= 825) {
-      // Finds the change in x between the target point and last point.
-      dx = target.x - this.initialPoint.x;
-    }
-    // Checks if hurricane is within y bounds.
-    if (this.y - this.height >= 0 && this.y + this.height <= 526) {
-      // Finds the change in y between the target point and last point.
-      dy = target.y - this.initialPoint.y;
-    }
-
-    if (this.x === 89) {
-      this.speed = 0;
-    }
-    // Gets the direction the hurricane needs to move in.
-    const direction = Math.atan2(dx, dy);
-    // Moves the hurricane in the direction.
-    this.x += this.speed * Math.sin(direction);
-    this.y += this.speed * Math.cos(direction);
   }
 
   /** Moves the hurricane given its angle. */
