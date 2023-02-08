@@ -41,7 +41,7 @@ export default class WindArrow extends GameObject {
 
   /** Updates the wind arrow's image. */
   update() {
-    this.windStrength = 2 / distanceFromPressureSystem(this.highPressureSystem, this);
+    this.windStrength = 10 / distanceFromPressureSystem(this.highPressureSystem, this);
     this.collideCheck();
 
     const ctx = this.gameArea.canvas.getContext("2d");

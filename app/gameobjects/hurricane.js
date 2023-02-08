@@ -29,8 +29,12 @@ export default class Hurricane extends GameObject {
     }
     // Sets the angle of the hurricane to the wind arrow in degrees.
     this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
-    this.width += this.closestWindArrow.windStrength;
-    this.height += this.closestWindArrow.windStrength;
+
+    // Sets limit on how big hurricane can get.
+    if (this.width <= 100) {
+        this.width += this.closestWindArrow.windStrength;
+        this.height += this.closestWindArrow.windStrength;
+    }
   }
 
   /** Moves the hurricane given its angle. */
