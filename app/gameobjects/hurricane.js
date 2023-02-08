@@ -41,7 +41,7 @@ export default class Hurricane extends GameObject {
       this.y += vy;
     }
   }
-  
+
   /** Reset hurricane to initial position */
   resetHurricane(hurricane) {
     hurricane.x = this.initialPoint.x;
