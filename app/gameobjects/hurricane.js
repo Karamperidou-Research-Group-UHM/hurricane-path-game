@@ -7,7 +7,6 @@ export default class Hurricane extends GameObject {
     super(x, y, width, height, image, gameArea, isImage);
     this.category = category;
     this.sst = sst;
-    this.angularSpeed = -3;
     this.speed = 1;
     this.initialPoint = { x: this.x, y: this.y };
     this.width *= 3;
@@ -59,8 +58,6 @@ export default class Hurricane extends GameObject {
 
   /** Updates the Hurricane object. */
   update() {
-    // this.rotate();
-    // super.update();
     let sst_xPosition = 0;
     if (this.sst >= 0 && this.sst <= 99) {
         sst_xPosition = 40;
