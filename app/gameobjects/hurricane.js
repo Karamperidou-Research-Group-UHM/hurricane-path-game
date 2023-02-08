@@ -12,6 +12,7 @@ export default class Hurricane extends GameObject {
     this.initialPoint = { x: this.x, y: this.y };
     this.width *= 3;
     this.height *= 3;
+    this.closestWindArrow = null;
   }
 
   /** Rotates the Hurricane object counter-clockwise. */
@@ -27,6 +28,23 @@ export default class Hurricane extends GameObject {
     ctx.rotate(angle);
     // Translates back the center of rotation to 0,0.
     ctx.translate(-1 * centerX, -1 * centerY);
+  }
+
+  /** Gives the hurricane a new angle. */
+  changeAngle(windArrow) {
+    // Checks if a wind arrow was assigned to closest wind arrow.
+    if (this.closestWindArrow === null) {
+      this.closestWindArrow = windArrow;
+    } else {
+      const dist1 = Math.sqrt(((this.x - windArrow.x) * (this.x - windArrow.x)) + ((this.y - windArrow.y) * (this.y - windArrow.y)));
+      const dist2 = Math.sqrt(((this.x - this.closestWindArrow.x) * (this.x - this.closestWindArrow.x)) + ((this.y - this.closestWindArrow.y) * (this.y - this.closestWindArrow.y)));
+      // Checks if new wind arrow is closer to the current closest one and changes it if it is.
+      if (dist2 > dist1) {
+        this.closestWindArrow = windArrow;
+      }
+    }
+    // Sets the angle of the hurricane to the wind arrow in degrees.
+    this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
   }
 
   /** Moves the Hurricane object in the direction of the next point given. */
@@ -52,6 +70,17 @@ export default class Hurricane extends GameObject {
     // Moves the hurricane in the direction.
     this.x += this.speed * Math.sin(direction);
     this.y += this.speed * Math.cos(direction);
+  }
+
+  /** Moves the hurricane given its angle. */
+  moveHurricane(gameStart) {
+    if (gameStart) {
+      // Sets x speed and y speed of the hurricane based on the angle.
+      const vx = -1 * this.speed * Math.cos(this.angle * (Math.PI / 180));
+      const vy = -1 * this.speed * Math.sin(this.angle * (Math.PI / 180));
+      this.x += vx;
+      this.y += vy;
+    }
   }
 
   /** Updates the hurricane's y position by an amount.*/

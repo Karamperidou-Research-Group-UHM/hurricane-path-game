@@ -7,8 +7,6 @@ import GameControls from '../components/gameControls.js';
 import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
-import { hurricaneCollisionDetect } from '../components/hurricaneCollisonCheck.js';
-
 
 let gameControls = new GameControls();
 let testData = new TestData();
@@ -137,7 +135,7 @@ const startGame = () => {
 
   // Loads wind arrows.
   testData.windTestData(windArrowData);
-  windArrows = new WindArrows(windArrowData, gameArea, highPressureSys, lowPressureSys);
+  windArrows = new WindArrows(windArrowData, gameArea, highPressureSys, lowPressureSys, hurricane);
   windArrows.createWindArrows();
 
   // Loads heat map.
@@ -159,9 +157,10 @@ const updateObjects = () => {
   loadToMainCanvas();
   windArrows.updateWindArrows();
 
-  hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
+  // hurricaneCollisionDetect(colDetect, highPressureSys, hurricane, screenPressed);
   pins.updatePins();
-  hurricaneMovement.moveHurricane(gameStart);
+  // hurricaneMovement.moveHurricane(gameStart);
+  hurricane.moveHurricane(gameStart);
   pins.hurricaneCollision(hurricane);
 
   highPressureSys.changeSize(gameControls.highPressureSize);
@@ -199,7 +198,7 @@ const updateGame = () => {
   // Redraws objects only if game has started.
   if (gameStart) {
     updateObjects();
-    hurricaneMovement.moveHurricane();
+    // hurricaneMovement.moveHurricane();
     pins.changeMarker();
   }
 
