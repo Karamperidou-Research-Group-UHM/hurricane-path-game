@@ -30,18 +30,18 @@ export default class WindArrow extends GameObject {
     ctx.translate(-1 * centerX, -1 * centerY);
   }
 
-  /** If there is a collision with the hurricane, it will pass its angle to its changeAngle method. */
+  /** If there is a collision with the hurricane, it will pass its self to change the hurricane's size and angle. */
   collideCheck() {
     // Detects if the wind arrow collided with the hurricane.
     if (this.colDetect.detectCollision(this.hurricane, this, 'ellipse')) {
-      // Passes the wind arrow to hurricane to change angle.
-      this.hurricane.changeAngle(this);
+      // Passes the wind arrow to hurricane to change its size and angle.
+      this.hurricane.changeSizeAndAngle(this);
     }
   }
 
   /** Updates the wind arrow's image. */
   update() {
-    this.windStrength = 25 / distanceFromPressureSystem(this.highPressureSystem, this);
+    this.windStrength = 2 / distanceFromPressureSystem(this.highPressureSystem, this);
     this.collideCheck();
 
     const ctx = this.gameArea.canvas.getContext("2d");
