@@ -12,6 +12,7 @@ export default class Hurricane extends GameObject {
     this.width *= 3;
     this.height *= 3;
     this.closestWindArrow = null;
+    this.hitMaxHeight = false;
   }
 
   /** Gives the hurricane a new angle. */
@@ -31,9 +32,20 @@ export default class Hurricane extends GameObject {
     this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
 
     // Sets limit on how big hurricane can get.
-    if (this.width < 100) {
-        this.width += this.closestWindArrow.windStrength;
-        this.height += this.closestWindArrow.windStrength;
+    if (!this.hitMaxHeight) {
+        this.width += 0.5 * this.closestWindArrow.windStrength;
+        this.height += 0.5 * this.closestWindArrow.windStrength;
+
+        // Checks if hurricane has hit its max height and sets hit max height to true.
+        if (this.width >= 100) {
+          this.hitMaxHeight = true;
+        }
+    } else {
+      // If the wind strength is not strong enough, the hurricane will start decreasing.
+      if (this.closestWindArrow.windStrength < 0.15 && this.width >= 10) {
+        this.width -= 0.01;
+        this.height -= 0.01;
+      }
     }
   }
 
@@ -62,12 +74,6 @@ export default class Hurricane extends GameObject {
         sst_xPosition = 40;
     } else if (this.sst > 99) {
         sst_xPosition = 50;
-    }
-
-    // Decreases hurricane size on update.
-    if (this.width >= 30) {
-      this.width -= 0.2;
-      this.height -= 0.2;
     }
 
     const ctx = this.gameArea.context;
