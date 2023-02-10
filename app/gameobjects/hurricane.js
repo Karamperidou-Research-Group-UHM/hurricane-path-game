@@ -62,11 +62,11 @@ export default class Hurricane extends GameObject {
   }
 
   /** Reset hurricane to initial position and size. */
-  resetHurricane(hurricane) {
-    hurricane.x = this.initialPoint.x;
-    hurricane.y = this.initialPoint.y;
-    hurricane.width = this.initialWidth;
-    hurricane.height = this.initialWidth;
+  resetHurricane() {
+    this.x = this.initialPoint.x;
+    this.y = this.initialPoint.y;
+    this.width = this.initialWidth;
+    this.height = this.initialWidth;
     this.speed = 1;
   }
 

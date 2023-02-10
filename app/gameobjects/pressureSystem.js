@@ -54,13 +54,13 @@ export default class PressureSystem extends GameObject {
   }
 
   /** Resets the pressure system to it's initial position and size. */
-  resetPressureSystem(ps) {
-    ps.x = ps.initX;
-    ps.y = ps.initY;
-    ps.radiusX = this.initSize;
-    ps.radiusY = this.initSize;
-    ps.height = this.initSize;
-    ps.width = this.initSize;
+  resetPressureSystem() {
+    this.x = this.initX;
+    this.y = this.initY;
+    this.radiusX = this.initSize;
+    this.radiusY = this.initSize;
+    this.height = this.initSize;
+    this.width = this.initSize;
   }
 
   /** Updates the image of the game object. */
