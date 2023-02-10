@@ -62,21 +62,24 @@ export default class Hurricane extends GameObject {
     }
   }
 
-  /** Sets the category of the hurricane based on its radius which is based on wind strength. */
+  /** Sets the category of the hurricane based on the wind speed of its closest wind arrow. */
   updateCategory() {
-    // Wind strength indicators for categories divided by 1.2 for scale reasons.
-    if (this.width < 74 / this.scaleFactor) {
-      this.category = 0;
-    } else if (this.width >= 74 / this.scaleFactor && this.width < 95 / this.scaleFactor) {
-      this.category = 1;
-    } else if (this.width >= 96 / this.scaleFactor && this.width < 110 / this.scaleFactor) {
-      this.category = 2;
-    } else if (this.width >= 111 / this.scaleFactor && this.width < 129 / this.scaleFactor) {
-      this.category = 3;
-    } else if (this.width >= 130 / this.scaleFactor && this.width < 156 / this.scaleFactor) {
-      this.category = 4;
-    } else if (this.width >= 156 / this.scaleFactor) {
-      this.category = 5;
+
+    if (this.closestWindArrow !== null) {
+      // Wind strength indicators for categories divided by 1.2 for scale reasons.
+      if ((this.closestWindArrow.windStrength * 800) < 74) {
+        this.category = 0;
+      } else if ((this.closestWindArrow.windStrength  * 800) >= 74 && (this.closestWindArrow.windStrength  * 800) < 95) {
+        this.category = 1;
+      } else if ((this.closestWindArrow.windStrength  * 800) >= 96 && (this.closestWindArrow.windStrength  * 800) < 110) {
+        this.category = 2;
+      } else if ((this.closestWindArrow.windStrength  * 800) >= 111 && (this.closestWindArrow.windStrength  * 800) < 129) {
+        this.category = 3;
+      } else if ((this.closestWindArrow.windStrength  * 800) >= 130 && (this.closestWindArrow.windStrength  * 800) < 156) {
+        this.category = 4;
+      } else if ((this.closestWindArrow.windStrength  * 800) >= 156) {
+        this.category = 5;
+      }
     }
   }
 
@@ -97,6 +100,7 @@ export default class Hurricane extends GameObject {
     } else if (this.sst > 99) {
         sst_xPosition = 50;
     }
+
     this.updateCategory();
     const ctx = this.gameArea.context;
     ctx.fillStyle = this.color;
