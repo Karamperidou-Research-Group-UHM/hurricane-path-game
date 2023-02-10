@@ -14,6 +14,7 @@ export default class Hurricane extends GameObject {
     this.initialWidth = this.width;
     this.closestWindArrow = null;
     this.hitMaxHeight = false;
+    this.scaleFactor = 1.6;
   }
 
   /** Gives the hurricane a new angle. */
@@ -34,11 +35,11 @@ export default class Hurricane extends GameObject {
 
     // Sets limit on how big hurricane can get.
     if (!this.hitMaxHeight) {
-        this.width += 0.5 * this.closestWindArrow.windStrength;
-        this.height += 0.5 * this.closestWindArrow.windStrength;
+        this.width += 0.3 * this.closestWindArrow.windStrength;
+        this.height += 0.3 * this.closestWindArrow.windStrength;
 
         // Checks if hurricane has hit its max height and sets hit max height to true.
-        if (this.width >= 157) {
+        if (this.width > 167 / this.scaleFactor) {
           this.hitMaxHeight = true;
         }
     } else {
@@ -63,15 +64,16 @@ export default class Hurricane extends GameObject {
 
   /** Sets the category of the hurricane based on its radius which is based on wind strength. */
   updateCategory() {
-    if (this.width < 74) {
+    // Wind strength indicators for categories divided by 1.2 for scale reasons.
+    if (this.width < 74 / this.scaleFactor) {
       this.category = 0;
-    } else if (this.width >= 74 && this.width < 95) {
+    } else if (this.width >= 74 / this.scaleFactor && this.width < 95 / this.scaleFactor) {
       this.category = 1;
-    } else if (this.width >= 96 && this.width < 110) {
+    } else if (this.width >= 96 / this.scaleFactor && this.width < 110 / this.scaleFactor) {
       this.category = 2;
-    } else if (this.width >= 111 && this.width < 129) {
+    } else if (this.width >= 111 / this.scaleFactor && this.width < 129 / this.scaleFactor) {
       this.category = 3;
-    } else if (this.width >= 130 && this.width < 156) {
+    } else if (this.width >= 130 / this.scaleFactor && this.width < 156 / this.scaleFactor) {
       this.category = 4;
     } else {
       this.category = 5;
