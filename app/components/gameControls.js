@@ -44,6 +44,18 @@ export default class GameControls {
     this.highPressureSize = 0;
     this.lowPressureSize = 0;
     this.tempChange = 0;
+
+    // Enables pressure system low buttons and disables pressure system high buttons.
+    document.getElementById("high-").disabled = true;
+    document.getElementById("low-").disabled = true;
+    document.getElementById("high+").disabled = false;
+    document.getElementById("low+").disabled = false;
+
+    // Enables temp buttons and start button and disables reset button.
+    document.getElementById("start").disabled = false;
+    document.getElementById("temp+").disabled = false;
+    document.getElementById("temp-").disabled = false;
+    document.getElementById("reset").disabled = true;
   }
 
   /** Converts the given data into 1x-5x to display on the control panel
