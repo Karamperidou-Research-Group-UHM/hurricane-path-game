@@ -38,7 +38,7 @@ export default class Hurricane extends GameObject {
         this.height += 0.5 * this.closestWindArrow.windStrength;
 
         // Checks if hurricane has hit its max height and sets hit max height to true.
-        if (this.width >= 100) {
+        if (this.width >= 157) {
           this.hitMaxHeight = true;
         }
     } else {
@@ -61,6 +61,23 @@ export default class Hurricane extends GameObject {
     }
   }
 
+  /** Sets the category of the hurricane based on its radius which is based on wind strength. */
+  updateCategory() {
+    if (this.width < 74) {
+      this.category = 0;
+    } else if (this.width >= 74 && this.width < 95) {
+      this.category = 1;
+    } else if (this.width >= 96 && this.width < 110) {
+      this.category = 2;
+    } else if (this.width >= 111 && this.width < 129) {
+      this.category = 3;
+    } else if (this.width >= 130 && this.width < 156) {
+      this.category = 4;
+    } else {
+      this.category = 5;
+    }
+  }
+
   /** Reset hurricane to initial position and size. */
   resetHurricane() {
     this.x = this.initialPoint.x;
@@ -78,7 +95,7 @@ export default class Hurricane extends GameObject {
     } else if (this.sst > 99) {
         sst_xPosition = 50;
     }
-
+    console.log(this.width);
     const ctx = this.gameArea.context;
     ctx.fillStyle = this.color;
     ctx.globalAlpha = 0.7;
