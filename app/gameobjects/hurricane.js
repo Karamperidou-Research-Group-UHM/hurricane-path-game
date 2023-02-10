@@ -75,7 +75,7 @@ export default class Hurricane extends GameObject {
       this.category = 3;
     } else if (this.width >= 130 / this.scaleFactor && this.width < 156 / this.scaleFactor) {
       this.category = 4;
-    } else {
+    } else if (this.width >= 156 / this.scaleFactor) {
       this.category = 5;
     }
   }
