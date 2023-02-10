@@ -26,6 +26,13 @@ export default class HeatMap {
     }
   }
 
+  /** Resets the temperature for each coordinate point to 0. */
+  resetTemp() {
+    for (let i = 0; i < this.heatPoints.length; i++) {
+      this.heatPoints[i].temp = this.coordinates[i].temp;
+    }
+  }
+
   /** Updates each heat point object in the heat points array. */
   updateHeatPoints() {
     const context = this.gameArea.context2;
