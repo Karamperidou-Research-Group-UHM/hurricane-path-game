@@ -11,6 +11,7 @@ export default class PressureSystem extends GameObject {
     this.inBounds = false;
     this.initX = x;
     this.initY = y;
+    this.initSize = width;
   }
 
   /** Mutator method for inBounds. */
@@ -52,10 +53,14 @@ export default class PressureSystem extends GameObject {
       return this.radiusX * this.radiusY;
   }
 
-  /** Resets the pressure system to it's initial position */
+  /** Resets the pressure system to it's initial position and size. */
   resetPressureSystem(ps) {
     ps.x = ps.initX;
     ps.y = ps.initY;
+    ps.radiusX = this.initSize;
+    ps.radiusY = this.initSize;
+    ps.height = this.initSize;
+    ps.width = this.initSize;
   }
 
   /** Updates the image of the game object. */
