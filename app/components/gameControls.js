@@ -39,6 +39,13 @@ export default class GameControls {
     }
   }
 
+  /** Resets the game controls to initial values. */
+  resetGameControls() {
+    this.highPressureSize = 0;
+    this.lowPressureSize = 0;
+    this.tempChange = 0;
+  }
+
   /** Converts the given data into 1x-5x to display on the control panel
    *  Guide:
    *    1x: 6400

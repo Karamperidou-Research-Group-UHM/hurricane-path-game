@@ -219,6 +219,7 @@ const resetGame = () => {
   initialLoad = true;
   loaded = false;
   gameStart = false;
+  gameControls.resetGameControls();
   hurricane.resetHurricane(hurricane);
   highPressureSys.resetPressureSystem(highPressureSys);
   lowPressureSys.resetPressureSystem(lowPressureSys);
