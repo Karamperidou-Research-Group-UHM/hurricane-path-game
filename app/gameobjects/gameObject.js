@@ -18,6 +18,7 @@ export default class GameObject {
   /** Updates the game object. */
   update() {
     const ctx = this.gameArea.context;
+    ctx.beginPath();
     ctx.globalAlpha = 1;
     if (this.isImage) {
       ctx.drawImage(this.image, this.x - this.width, this.y - this.height, this.width * 2, this.height * 2);
@@ -25,5 +26,6 @@ export default class GameObject {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
     }
+    ctx.closePath();
   }
 }
