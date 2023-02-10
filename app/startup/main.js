@@ -220,6 +220,7 @@ const resetGame = () => {
   loaded = false;
   gameStart = false;
   gameControls.resetGameControls();
+  heatMap.resetTemp();
   hurricane.resetHurricane();
   highPressureSys.resetPressureSystem();
   lowPressureSys.resetPressureSystem();
