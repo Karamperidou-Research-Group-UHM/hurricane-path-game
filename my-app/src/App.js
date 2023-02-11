@@ -15,7 +15,7 @@ function App() {
                   <InfoSection />
               </Col>
 
-              <Col xs={6}>
+              <Col xs={5}>
                   <script type="module" src="/my-app/public/main.js"></script>
               </Col>
 
