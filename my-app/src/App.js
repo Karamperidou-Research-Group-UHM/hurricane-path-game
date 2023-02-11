@@ -1,17 +1,28 @@
-// import React from "react";
+import React from "react";
 // import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Col, Container, Row} from "react-bootstrap";
+import InfoSection from "./components/InfoSection";
 
 function App() {
-  const componentDidMount = () => {
-    const script = document.createElement("script");
-    script.src = "/app/startup/main.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }
 
   return (
-      componentDidMount()
+      <Container>
+          <Row>
+              <Col>
+                  <InfoSection />
+              </Col>
+
+              <Col>
+                  <InfoSection />
+              </Col>
+
+              <Col>
+                  <InfoSection />
+              </Col>
+          </Row>
+      </Container>
   );
 }
 

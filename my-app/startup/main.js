@@ -1,10 +1,10 @@
-import Hurricane from '../gameobjects/hurricane.js';
-import WindArrows from '../components/windArrows.js';
-import PressureSystem from '../gameobjects/pressureSystem.js';
-import GameControls from '../components/gameControls.js';
-import HeatMap from '../components/heatmap.js';
-import Pins from '../components/pins.js';
-import TestData from '../components/testData.js';
+import Hurricane from '../src/gameobjects/hurricane.js';
+import WindArrows from '../src/components/windArrows.js';
+import PressureSystem from '../src/gameobjects/pressureSystem.js';
+import GameControls from '../src/components/gameControls.js';
+import HeatMap from '../src/components/heatmap.js';
+import Pins from '../src/components/pins.js';
+import TestData from '../src/components/testData.js';
 
 let gameControls = new GameControls();
 let testData = new TestData();
