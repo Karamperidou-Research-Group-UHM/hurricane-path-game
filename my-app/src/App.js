@@ -9,10 +9,14 @@ import ControlPanel from "./components/page/ControlPanel";
 function App() {
 
   return (
-      <Container>
+      <Container style={{ width: '90vw' }}>
           <Row>
               <Col>
                   <InfoSection />
+              </Col>
+
+              <Col xs={6}>
+                  <script type="module" src="/my-app/public/main.js"></script>
               </Col>
 
               <Col>
