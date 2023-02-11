@@ -1,6 +1,6 @@
 import React from "react";
 import { Accordion } from "react-bootstrap";
-class InfoSection extends React.Component {
+export default class InfoSection extends React.Component {
     render() {
         return (
             <Accordion>
@@ -67,5 +67,3 @@ class InfoSection extends React.Component {
         );
     }
 }
-
-export default InfoSection;

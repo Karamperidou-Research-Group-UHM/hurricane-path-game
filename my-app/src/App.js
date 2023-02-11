@@ -3,7 +3,8 @@ import React from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Col, Container, Row} from "react-bootstrap";
-import InfoSection from "./components/InfoSection";
+import InfoSection from "./components/page/InfoSection";
+import ControlPanel from "./components/page/ControlPanel";
 
 function App() {
 
@@ -15,11 +16,7 @@ function App() {
               </Col>
 
               <Col>
-                  <InfoSection />
-              </Col>
-
-              <Col>
-                  <InfoSection />
+                  <ControlPanel />
               </Col>
           </Row>
       </Container>
