@@ -15,6 +15,10 @@ export default class Hurricane extends GameObject {
     this.closestWindArrow = null;
     this.hitMaxHeight = false;
     this.scaleFactor = 1.6;
+    this.windGrowthRate = 0.1;
+    this.windSpeed = 60.0;
+    this.windTimer = 0;
+    this.windBuffer = 100;
   }
 
   /** Gives the hurricane a new angle. */
@@ -32,11 +36,13 @@ export default class Hurricane extends GameObject {
     }
     // Sets the angle of the hurricane to the wind arrow in degrees.
     this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
-
+    this.growthRate = this.closestWindArrow.windStrength * 10;
+    console.log(this.growthRate);
+    /*
     // Sets limit on how big hurricane can get.
     if (!this.hitMaxHeight) {
-        this.width += 0.3 * this.closestWindArrow.windStrength;
-        this.height += 0.3 * this.closestWindArrow.windStrength;
+        // this.width += 0.3 * this.closestWindArrow.windStrength;
+        // this.height += 0.3 * this.closestWindArrow.windStrength;
 
         // Checks if hurricane has hit its max height and sets hit max height to true.
         if (this.width > 167 / this.scaleFactor) {
@@ -48,7 +54,7 @@ export default class Hurricane extends GameObject {
         this.width -= 0.01;
         this.height -= 0.01;
       }
-    }
+    } */
   }
 
   /** Moves the hurricane given its angle. */
@@ -64,20 +70,20 @@ export default class Hurricane extends GameObject {
 
   /** Sets the category of the hurricane based on the wind speed of its closest wind arrow. */
   updateCategory() {
-
+    // Checks if there is a closest wind arrow.
     if (this.closestWindArrow !== null) {
       // Wind strength indicators for categories divided by 1.2 for scale reasons.
-      if ((this.closestWindArrow.windStrength * 800) < 74) {
+      if (this.windSpeed < 74) {
         this.category = 0;
-      } else if ((this.closestWindArrow.windStrength  * 800) >= 74 && (this.closestWindArrow.windStrength  * 800) < 95) {
+      } else if (this.windSpeed >= 74 && this.windSpeed < 95) {
         this.category = 1;
-      } else if ((this.closestWindArrow.windStrength  * 800) >= 96 && (this.closestWindArrow.windStrength  * 800) < 110) {
+      } else if (this.windSpeed >= 96 && this.windSpeed < 110) {
         this.category = 2;
-      } else if ((this.closestWindArrow.windStrength  * 800) >= 111 && (this.closestWindArrow.windStrength  * 800) < 129) {
+      } else if (this.windSpeed >= 111 && this.windSpeed < 129) {
         this.category = 3;
-      } else if ((this.closestWindArrow.windStrength  * 800) >= 130 && (this.closestWindArrow.windStrength  * 800) < 156) {
+      } else if (this.windSpeed >= 130 && this.windSpeed < 156) {
         this.category = 4;
-      } else if ((this.closestWindArrow.windStrength  * 800) >= 156) {
+      } else if (this.windSpeed >= 156) {
         this.category = 5;
       }
     }
@@ -101,6 +107,13 @@ export default class Hurricane extends GameObject {
         sst_xPosition = 50;
     }
 
+    if (this.windTimer % 10 === this.windBuffer) {
+      this.windSpeed += this.growthRate;
+      this.windBuffer -= this.growthRate;
+      console.log(this.windSpeed);
+    }
+    this.windTimer += 1;
+    // console.log(this.growthRate);
     this.updateCategory();
     const ctx = this.gameArea.context;
     ctx.fillStyle = this.color;
