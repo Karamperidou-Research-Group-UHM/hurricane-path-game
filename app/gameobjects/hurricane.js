@@ -13,12 +13,9 @@ export default class Hurricane extends GameObject {
     this.height *= 3;
     this.initialWidth = this.width;
     this.closestWindArrow = null;
-    this.hitMaxHeight = false;
-    this.scaleFactor = 1.6;
-    this.windGrowthRate = 0.1;
     this.windSpeed = 60.0;
     this.windTimer = 0;
-    this.windBuffer = 100;
+    this.windBuffer = 50;
   }
 
   /** Gives the hurricane a new angle. */
@@ -36,25 +33,8 @@ export default class Hurricane extends GameObject {
     }
     // Sets the angle of the hurricane to the wind arrow in degrees.
     this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
+    // Sets the growth rate for the hurricane's growth of wind speed based on wind arrow wind strength.
     this.growthRate = this.closestWindArrow.windStrength * 10;
-    console.log(this.growthRate);
-    /*
-    // Sets limit on how big hurricane can get.
-    if (!this.hitMaxHeight) {
-        // this.width += 0.3 * this.closestWindArrow.windStrength;
-        // this.height += 0.3 * this.closestWindArrow.windStrength;
-
-        // Checks if hurricane has hit its max height and sets hit max height to true.
-        if (this.width > 167 / this.scaleFactor) {
-          this.hitMaxHeight = true;
-        }
-    } else {
-      // If the wind strength is not strong enough, the hurricane will start decreasing.
-      if (this.closestWindArrow.windStrength < 0.15 && this.width >= 10) {
-        this.width -= 0.01;
-        this.height -= 0.01;
-      }
-    } */
   }
 
   /** Moves the hurricane given its angle. */
@@ -107,10 +87,16 @@ export default class Hurricane extends GameObject {
         sst_xPosition = 50;
     }
 
-    if (this.windTimer % 10 === this.windBuffer) {
+    // Checks if wind speed can be updated by growth rate.
+    if (this.windTimer % Math.floor(this.windBuffer) === 0) {
+      // Increases wind speed by its current growth rate.
       this.windSpeed += this.growthRate;
-      this.windBuffer -= this.growthRate;
-      console.log(this.windSpeed);
+
+      // Checks if buffer is at its minimum.
+      if (this.windBuffer > 10) {
+        // Decreases the buffer the closer the hurricane is.
+        this.windBuffer -= this.growthRate;
+      }
     }
     this.windTimer += 1;
     // console.log(this.growthRate);
