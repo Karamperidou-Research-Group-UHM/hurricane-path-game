@@ -14,6 +14,7 @@ export default class WindArrow extends GameObject {
     this.hurricane = hurricane;
     this.currentAngle = initAngle;
     this.windStrength = 25 / distanceFromPressureSystem(highPressureSystem, this);
+    this.distance = distanceFromPressureSystem(this.highPressureSystem, this);
   }
 
   /** Rotates the wind arrow to the given angle. */
@@ -41,7 +42,8 @@ export default class WindArrow extends GameObject {
 
   /** Updates the wind arrow's image. */
   update() {
-    this.windStrength = 20 / distanceFromPressureSystem(this.highPressureSystem, this);
+    this.windStrength = 25 / distanceFromPressureSystem(this.highPressureSystem, this);
+    this.distance = distanceFromPressureSystem(this.highPressureSystem, this);
     this.collideCheck();
 
     const ctx = this.gameArea.canvas.getContext("2d");

@@ -15,7 +15,7 @@ export default class Hurricane extends GameObject {
     this.closestWindArrow = null;
     this.windSpeed = 60.0;
     this.windTimer = 0;
-    this.windBuffer = 50;
+    this.windBuffer = 30;
   }
 
   /** Gives the hurricane a new angle. */
@@ -23,6 +23,7 @@ export default class Hurricane extends GameObject {
     // Checks if a wind arrow was assigned to closest wind arrow.
     if (this.closestWindArrow === null) {
       this.closestWindArrow = windArrow;
+      this.lastDistance = this.closestWindArrow.windStrength * 25;
     } else {
       const dist1 = Math.sqrt(((this.x - windArrow.x) * (this.x - windArrow.x)) + ((this.y - windArrow.y) * (this.y - windArrow.y)));
       const dist2 = Math.sqrt(((this.x - this.closestWindArrow.x) * (this.x - this.closestWindArrow.x)) + ((this.y - this.closestWindArrow.y) * (this.y - this.closestWindArrow.y)));
@@ -89,13 +90,24 @@ export default class Hurricane extends GameObject {
 
     // Checks if wind speed can be updated by growth rate.
     if (this.windTimer % Math.floor(this.windBuffer) === 0) {
-      // Increases wind speed by its current growth rate.
-      this.windSpeed += this.growthRate;
+      // Checks if the distance between the closest arrow and the high pressure system is greater than 200.
+      if (this.closestWindArrow.distance >= 200) {
+        // Decreases wind speed by its current growth rate times 2.
+        this.windSpeed -= 2 * this.growthRate;
+        // Checks if buffer is at its maximum
+        if (this.windBuffer > 40) {
+          // Increases the buffer the closer the hurricane is.
+          this.windBuffer += this.growthRate;
+        }
+      } else {
+        // Increases wind speed by its current growth rate.
+        this.windSpeed += this.growthRate;
 
-      // Checks if buffer is at its minimum.
-      if (this.windBuffer > 10) {
-        // Decreases the buffer the closer the hurricane is.
-        this.windBuffer -= this.growthRate;
+        // Checks if buffer is at its minimum.
+        if (this.windBuffer > 10) {
+          // Decreases the buffer the closer the hurricane is.
+          this.windBuffer -= this.growthRate;
+        }
       }
     }
     this.windTimer += 1;
