@@ -124,8 +124,8 @@ const startGame = () => {
   // Loads the seasons label and pressure systems
   pins = new Pins(gameArea, '../images/red-pin.png', 13, 16);
   pins.createPins();
-  highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
-  lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
+  highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/High-Pressure.png', gameArea, true, 'high');
+  lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/Low-Pressure.png', gameArea, true, 'low');
 
   // Loads wind arrows.
   testData.windTestData(windArrowData);
