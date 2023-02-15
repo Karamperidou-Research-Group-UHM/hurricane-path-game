@@ -3,7 +3,7 @@ export default class TestData {
   heatMapTestData(coordinates) {
     for (let i = 0; i < 825; i++) {
       for (let j = 0; j < 526; j++) {
-        let randomTemp = Math.floor(Math.random() * (j - 128));
+        let randomTemp = Math.floor(Math.random() * (((j / 2) + 10) - ((j / 2) - 10)) + (j / 2) - 10);
         if (randomTemp > 134) {
           randomTemp = 134;
         }
