@@ -91,9 +91,9 @@ export default class Hurricane extends GameObject {
     // Checks if wind speed can be updated by growth rate.
     if (this.windTimer % Math.floor(this.windBuffer) === 0) {
       // Checks if the distance between the closest arrow and the high pressure system is greater than 350.
-      if (this.closestWindArrow.distance >= 350) {
+      if (this.closestWindArrow.distance >= 250) {
         // Decreases wind speed by its current growth rate times 2.
-        this.windSpeed -= 2 * this.growthRate;
+        this.windSpeed -= 2 / this.growthRate;
         // Checks if buffer is at its maximum
         if (this.windBuffer > 40) {
           // Increases the buffer the closer the hurricane is.
