@@ -164,6 +164,7 @@ const updateObjects = () => {
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
+  hurricane.checkSST(coordinates);
 }
 
 /** Updates the game area of the game. */

@@ -16,6 +16,8 @@ export default class Hurricane extends GameObject {
     this.windSpeed = 60.0;
     this.windTimer = 0;
     this.windBuffer = 30;
+    this.tempMin = 80;
+    this.tempTimer = 0;
   }
 
   /** Gives the hurricane a new angle. */
@@ -23,7 +25,6 @@ export default class Hurricane extends GameObject {
     // Checks if a wind arrow was assigned to closest wind arrow.
     if (this.closestWindArrow === null) {
       this.closestWindArrow = windArrow;
-      this.lastDistance = this.closestWindArrow.windStrength * 25;
     } else {
       const dist1 = Math.sqrt(((this.x - windArrow.x) * (this.x - windArrow.x)) + ((this.y - windArrow.y) * (this.y - windArrow.y)));
       const dist2 = Math.sqrt(((this.x - this.closestWindArrow.x) * (this.x - this.closestWindArrow.x)) + ((this.y - this.closestWindArrow.y) * (this.y - this.closestWindArrow.y)));
@@ -77,6 +78,17 @@ export default class Hurricane extends GameObject {
     this.width = this.initialWidth;
     this.height = this.initialWidth;
     this.speed = 1;
+  }
+
+  /** Checks current sea surface temperature. */
+  checkSST(tempCoordinates) {
+    // Checks temp every few ms.
+    if (this.tempTimer % 20 === 0) {
+      // Gets the current sst of the heat point closest to the hurricane.
+      const currentSST = tempCoordinates.find(heatPoint => (this.x >= heatPoint.x - 1 && this.x <= heatPoint.x + 1) && (this.y >= heatPoint.y - 1 && this.y <= heatPoint.y + 1));
+      this.sst = currentSST.temp;
+    }
+    this.tempTimer += 1;
   }
 
   /** Updates the Hurricane object. */
