@@ -35,8 +35,8 @@ export default class Hurricane extends GameObject {
     }
     // Sets the angle of the hurricane to the wind arrow in degrees.
     this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
-    // Sets the growth rate for the hurricane's growth of wind speed based on wind arrow wind strength.
-    this.growthRate = this.closestWindArrow.windStrength * 10;
+    // Sets the growth rate for the hurricane's growth of wind speed based on wind arrow wind strength and the sst.
+    this.growthRate = (this.sst / 50) + this.closestWindArrow.windStrength;
   }
 
   /** Moves the hurricane given its angle. */
@@ -125,7 +125,10 @@ export default class Hurricane extends GameObject {
         }
       }
     } else {
-      this.windSpeed -= 0.1;
+      // Only reduces wind speed if its greater than 60.
+      if (this.windSpeed > 60) {
+        this.windSpeed -= 0.1 + (this.sst / 100);
+      }
     }
 
     this.windTimer += 1;

@@ -8,7 +8,6 @@ export default class TestData {
         if (j > 260) {
           randomTemp -= (j - 261);
         }
-
         // Keeps temp to 134 if its over.
         if (randomTemp > 134) {
           randomTemp = 134;
