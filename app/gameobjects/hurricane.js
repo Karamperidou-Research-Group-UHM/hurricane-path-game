@@ -108,6 +108,8 @@ export default class Hurricane extends GameObject {
         if (this.closestWindArrow.distance >= 250) {
           // Decreases wind speed by its current growth rate times 2.
           this.windSpeed -= 2 / this.growthRate;
+          this.width -= this.growthRate;
+          this.height -= this.growthRate;
           // Checks if buffer is at its maximum
           if (this.windBuffer > 40) {
             // Increases the buffer the closer the hurricane is.
@@ -116,6 +118,8 @@ export default class Hurricane extends GameObject {
         } else {
           // Increases wind speed by its current growth rate.
           this.windSpeed += 2 * this.growthRate;
+          this.width += this.growthRate;
+          this.height += this.growthRate;
 
           // Checks if buffer is at its minimum.
           if (this.windBuffer > 10) {
@@ -128,11 +132,13 @@ export default class Hurricane extends GameObject {
       // Only reduces wind speed if its greater than 60.
       if (this.windSpeed > 60) {
         this.windSpeed -= 0.1 + (this.sst / 100);
+        if (this.width > this.initialWidth) {
+          this.width -= 0.1 + (this.sst / 100);
+          this.height -= 0.1 + (this.sst / 100);
+        }
       }
     }
-
     this.windTimer += 1;
-    // console.log(this.growthRate);
     this.updateCategory();
     const ctx = this.gameArea.context;
     ctx.fillStyle = this.color;
