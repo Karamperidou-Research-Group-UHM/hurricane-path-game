@@ -7,7 +7,7 @@ export default class Hurricane extends GameObject {
     super(x, y, width, height, image, gameArea, isImage);
     this.category = category;
     this.sst = sst;
-    this.speed = 1;
+    this.speed = 0.5;
     this.initialPoint = { x: this.x, y: this.y };
     this.width *= 3;
     this.height *= 3;
@@ -121,8 +121,12 @@ export default class Hurricane extends GameObject {
         } else {
           // Increases wind speed by its current growth rate.
           this.windSpeed += 2 * this.growthRate;
-          this.width += this.growthRate;
-          this.height += this.growthRate;
+
+          // Only increases radius if less than 100.
+          if (this.width < 100) {
+            this.width += this.growthRate;
+            this.height += this.growthRate;
+          }
 
           // Checks if buffer is at its minimum.
           if (this.windBuffer > 10) {
