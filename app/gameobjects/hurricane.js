@@ -110,8 +110,8 @@ export default class Hurricane extends GameObject {
           this.windSpeed -= 2 / this.growthRate;
           // Only reduces radius if its greater than its initial radius.
           if (this.width > this.initialWidth) {
-            this.width -= (0.1 + (this.windSpeed / 100)) / 2;
-            this.height -= (0.1 + (this.windSpeed / 100)) / 2;
+            this.width -= (0.1 + (this.windSpeed / 100)) / 4;
+            this.height -= (0.1 + (this.windSpeed / 100)) / 4;
           }
           // Checks if buffer is at its maximum
           if (this.windBuffer > 40) {
@@ -141,8 +141,8 @@ export default class Hurricane extends GameObject {
         this.windSpeed -= 0.1 + (this.sst / 100);
         // Only reduces radius if its greater than its initial radius.
         if (this.width > this.initialWidth) {
-          this.width -= (0.1 + (this.sst / 100)) / 2;
-          this.height -= (0.1 + (this.sst / 100)) / 2;
+          this.width -= (0.1 + (this.sst / 100)) / 4;
+          this.height -= (0.1 + (this.sst / 100)) / 4;
         }
       }
     }
