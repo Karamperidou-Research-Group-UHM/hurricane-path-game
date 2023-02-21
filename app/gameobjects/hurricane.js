@@ -36,7 +36,7 @@ export default class Hurricane extends GameObject {
     // Sets the angle of the hurricane to the wind arrow in degrees.
     this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
     // Sets the growth rate for the hurricane's growth of wind speed based on wind arrow wind strength and the sst.
-    this.growthRate = (this.sst / 50) + this.closestWindArrow.windStrength;
+    this.growthRate = (this.sst / 50);
   }
 
   /** Moves the hurricane given its angle. */
@@ -104,21 +104,6 @@ export default class Hurricane extends GameObject {
     if (this.sst >= this.tempMin) {
       // Checks if wind speed can be updated by growth rate.
       if (this.windTimer % Math.floor(this.windBuffer) === 0) {
-        // Checks if the distance between the closest arrow and the high pressure system is greater than 350.
-        if (this.closestWindArrow.distance >= 250) {
-          // Decreases wind speed by its current growth rate times 2.
-          this.windSpeed -= 2 / this.growthRate;
-          // Only reduces radius if its greater than its initial radius.
-          if (this.width > this.initialWidth) {
-            this.width -= (0.1 + (this.windSpeed / 100)) / 4;
-            this.height -= (0.1 + (this.windSpeed / 100)) / 4;
-          }
-          // Checks if buffer is at its maximum
-          if (this.windBuffer > 40) {
-            // Increases the buffer the closer the hurricane is.
-            this.windBuffer += this.growthRate;
-          }
-        } else {
           // Increases wind speed by its current growth rate.
           this.windSpeed += 2 * this.growthRate;
 
@@ -127,13 +112,6 @@ export default class Hurricane extends GameObject {
             this.width += this.growthRate;
             this.height += this.growthRate;
           }
-
-          // Checks if buffer is at its minimum.
-          if (this.windBuffer > 10) {
-            // Decreases the buffer the closer the hurricane is.
-            this.windBuffer -= this.growthRate;
-          }
-        }
       }
     } else {
       // Only reduces wind speed if its greater than 60.
