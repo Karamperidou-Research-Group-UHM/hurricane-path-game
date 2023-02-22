@@ -5,8 +5,8 @@ export default class TestData {
       for (let j = 0; j < 526; j++) {
         let randomTemp = Math.floor(Math.random() * (((j / 2) + 10) - ((j / 2) - 10)) + (j / 2) - 10);
         // Reduces temperature is heat point is past 260 in the y-axis.
-        if (j > 260) {
-          randomTemp -= (j - 261);
+        if (j > 320) {
+          randomTemp -= (j - 321);
         }
         // Keeps temp to 134 if its over.
         if (randomTemp > 134) {

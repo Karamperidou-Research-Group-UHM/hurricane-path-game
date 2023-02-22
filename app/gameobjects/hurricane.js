@@ -18,6 +18,7 @@ export default class Hurricane extends GameObject {
     this.windBuffer = 30;
     this.tempMin = 80;
     this.tempTimer = 0;
+    this.closeToEquator = false;
   }
 
   /** Gives the hurricane a new angle. */
@@ -91,10 +92,15 @@ export default class Hurricane extends GameObject {
     this.tempTimer += 1;
   }
 
+  /** Checks the position of the hurricane in proximity to the equator and decreases itself if it comes by it. */
   checkPos(equator) {
-    if (this.y > equator.y - 10) {
+    // Checks if the hurricane is within 50 px of the equator.
+    if (this.y > equator.y - 50) {
       this.width -= (0.1 + (this.sst / 100)) / 4;
       this.height -= (0.1 + (this.sst / 100)) / 4;
+      this.closeToEquator = true;
+    } else {
+      this.closeToEquator = false;
     }
   }
 
@@ -107,8 +113,8 @@ export default class Hurricane extends GameObject {
         sst_xPosition = 50;
     }
 
-    // Wind speeds only increase if the current sst is larger than 80 degrees, otherwise decrease.
-    if (this.sst >= this.tempMin) {
+    // Wind speeds only increase if the current sst is larger than 80 degrees and is not close to the equator, otherwise decrease.
+    if (this.sst >= this.tempMin && !this.closeToEquator) {
       // Checks if wind speed can be updated by growth rate.
       if (this.windTimer % Math.floor(this.windBuffer) === 0) {
           // Increases wind speed by its current growth rate.
