@@ -5,6 +5,7 @@ import GameControls from '../components/gameControls.js';
 import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
+import GameObject from '../gameobjects/gameObject.js';
 
 let gameControls = new GameControls();
 let testData = new TestData();
@@ -58,6 +59,7 @@ let hurricane;
 let highPressureSys;
 let lowPressureSys;
 let windArrows;
+let equator;
 let pins;
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
@@ -127,6 +129,8 @@ const startGame = () => {
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressureSystem.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressureSystem.png', gameArea, true, 'low');
 
+  equator = new GameObject(0, 310, 850, 2, 'black', gameArea, false);
+
   // Loads wind arrows.
   testData.windTestData(windArrowData);
   windArrows = new WindArrows(windArrowData, gameArea, highPressureSys, lowPressureSys, hurricane);
@@ -164,6 +168,7 @@ const updateObjects = () => {
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
+  equator.update();
   hurricane.checkSST(coordinates);
 }
 
