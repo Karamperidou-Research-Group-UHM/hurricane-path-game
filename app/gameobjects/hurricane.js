@@ -7,7 +7,7 @@ export default class Hurricane extends GameObject {
     super(x, y, width, height, image, gameArea, isImage);
     this.category = category;
     this.sst = sst;
-    this.speed = 1;
+    this.speed = 0.5;
     this.initialPoint = { x: this.x, y: this.y };
     this.width *= 3;
     this.height *= 3;
@@ -16,6 +16,9 @@ export default class Hurricane extends GameObject {
     this.windSpeed = 60.0;
     this.windTimer = 0;
     this.windBuffer = 30;
+    this.tempMin = 80;
+    this.tempTimer = 0;
+    this.closeToEquator = false;
   }
 
   /** Gives the hurricane a new angle. */
@@ -23,7 +26,6 @@ export default class Hurricane extends GameObject {
     // Checks if a wind arrow was assigned to closest wind arrow.
     if (this.closestWindArrow === null) {
       this.closestWindArrow = windArrow;
-      this.lastDistance = this.closestWindArrow.windStrength * 25;
     } else {
       const dist1 = Math.sqrt(((this.x - windArrow.x) * (this.x - windArrow.x)) + ((this.y - windArrow.y) * (this.y - windArrow.y)));
       const dist2 = Math.sqrt(((this.x - this.closestWindArrow.x) * (this.x - this.closestWindArrow.x)) + ((this.y - this.closestWindArrow.y) * (this.y - this.closestWindArrow.y)));
@@ -34,8 +36,8 @@ export default class Hurricane extends GameObject {
     }
     // Sets the angle of the hurricane to the wind arrow in degrees.
     this.angle = (this.closestWindArrow.currentAngle * (180 / Math.PI));
-    // Sets the growth rate for the hurricane's growth of wind speed based on wind arrow wind strength.
-    this.growthRate = this.closestWindArrow.windStrength * 10;
+    // Sets the growth rate for the hurricane's growth of wind speed based on sst.
+    this.growthRate = (this.sst / 50);
   }
 
   /** Moves the hurricane given its angle. */
@@ -79,6 +81,29 @@ export default class Hurricane extends GameObject {
     this.speed = 1;
   }
 
+  /** Checks current sea surface temperature. */
+  checkSST(tempCoordinates) {
+    // Checks temp every few ms.
+    if (this.tempTimer % 20 === 0) {
+      // Gets the current sst of the heat point closest to the hurricane.
+      const currentSST = tempCoordinates.find(heatPoint => (this.x >= heatPoint.x - 1 && this.x <= heatPoint.x + 1) && (this.y >= heatPoint.y - 1 && this.y <= heatPoint.y + 1));
+      this.sst = currentSST.temp;
+    }
+    this.tempTimer += 1;
+  }
+
+  /** Checks the position of the hurricane in proximity to the equator and decreases itself if it comes by it. */
+  checkPos(equator) {
+    // Checks if the hurricane is within 50 px of the equator.
+    if (this.y > equator.y - 50) {
+      this.width -= (0.1 + (this.sst / 100)) / 4;
+      this.height -= (0.1 + (this.sst / 100)) / 4;
+      this.closeToEquator = true;
+    } else {
+      this.closeToEquator = false;
+    }
+  }
+
   /** Updates the Hurricane object. */
   update() {
     let sst_xPosition = 0;
@@ -88,30 +113,31 @@ export default class Hurricane extends GameObject {
         sst_xPosition = 50;
     }
 
-    // Checks if wind speed can be updated by growth rate.
-    if (this.windTimer % Math.floor(this.windBuffer) === 0) {
-      // Checks if the distance between the closest arrow and the high pressure system is greater than 350.
-      if (this.closestWindArrow.distance >= 250) {
-        // Decreases wind speed by its current growth rate times 2.
-        this.windSpeed -= 2 / this.growthRate;
-        // Checks if buffer is at its maximum
-        if (this.windBuffer > 40) {
-          // Increases the buffer the closer the hurricane is.
-          this.windBuffer += this.growthRate;
-        }
-      } else {
-        // Increases wind speed by its current growth rate.
-        this.windSpeed += 2 * this.growthRate;
+    // Wind speeds only increase if the current sst is larger than 80 degrees and is not close to the equator, otherwise decrease.
+    if (this.sst >= this.tempMin && !this.closeToEquator) {
+      // Checks if wind speed can be updated by growth rate.
+      if (this.windTimer % Math.floor(this.windBuffer) === 0) {
+          // Increases wind speed by its current growth rate.
+          this.windSpeed += 2 * this.growthRate;
 
-        // Checks if buffer is at its minimum.
-        if (this.windBuffer > 10) {
-          // Decreases the buffer the closer the hurricane is.
-          this.windBuffer -= this.growthRate;
+          // Only increases radius if less than 100.
+          if (this.width < 100) {
+            this.width += this.growthRate;
+            this.height += this.growthRate;
+          }
+      }
+    } else {
+      // Only reduces wind speed if its greater than 60.
+      if (this.windSpeed > 60) {
+        this.windSpeed -= 0.1 + (this.sst / 100);
+        // Only reduces radius if its greater than its initial radius.
+        if (this.width > this.initialWidth) {
+          this.width -= (0.1 + (this.sst / 100)) / 4;
+          this.height -= (0.1 + (this.sst / 100)) / 4;
         }
       }
     }
     this.windTimer += 1;
-    // console.log(this.growthRate);
     this.updateCategory();
     const ctx = this.gameArea.context;
     ctx.fillStyle = this.color;

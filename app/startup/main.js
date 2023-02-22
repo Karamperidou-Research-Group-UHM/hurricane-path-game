@@ -5,6 +5,7 @@ import GameControls from '../components/gameControls.js';
 import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
+import GameObject from '../gameobjects/gameObject.js';
 
 let gameControls = new GameControls();
 let testData = new TestData();
@@ -58,6 +59,7 @@ let hurricane;
 let highPressureSys;
 let lowPressureSys;
 let windArrows;
+let equator;
 let pins;
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
@@ -115,7 +117,7 @@ const loadToMainCanvas = () => {
 /** Loads all objects and starts the game. */
 const startGame = () => {
   /** Create all objects in this area. */
-  hurricane = new Hurricane(700, 350, 10, 10, 'grey', gameArea, false, category[0], sst);
+  hurricane = new Hurricane(600, 180, 5, 5, 'grey', gameArea, false, category[0], sst);
 
   // Loads the wind arrows
   windArrows = new WindArrows(gameArea);
@@ -126,6 +128,8 @@ const startGame = () => {
   pins.createPins();
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/High-Pressure.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/Low-Pressure.png', gameArea, true, 'low');
+
+  equator = new GameObject(0, 310, 850, 2, 'black', gameArea, false);
 
   // Loads wind arrows.
   testData.windTestData(windArrowData);
@@ -164,6 +168,9 @@ const updateObjects = () => {
   hurricane.update();
   highPressureSys.update();
   lowPressureSys.update();
+  equator.update();
+  hurricane.checkSST(coordinates);
+  hurricane.checkPos(equator);
 }
 
 /** Updates the game area of the game. */
