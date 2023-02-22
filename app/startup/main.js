@@ -117,7 +117,7 @@ const loadToMainCanvas = () => {
 /** Loads all objects and starts the game. */
 const startGame = () => {
   /** Create all objects in this area. */
-  hurricane = new Hurricane(700, 350, 10, 10, 'grey', gameArea, false, category[0], sst);
+  hurricane = new Hurricane(600, 180, 5, 5, 'grey', gameArea, false, category[0], sst);
 
   // Loads the wind arrows
   windArrows = new WindArrows(gameArea);
