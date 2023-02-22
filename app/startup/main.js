@@ -170,6 +170,7 @@ const updateObjects = () => {
   lowPressureSys.update();
   equator.update();
   hurricane.checkSST(coordinates);
+  hurricane.checkPos(equator);
 }
 
 /** Updates the game area of the game. */

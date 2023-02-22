@@ -91,6 +91,13 @@ export default class Hurricane extends GameObject {
     this.tempTimer += 1;
   }
 
+  checkPos(equator) {
+    if (this.y > equator.y - 10) {
+      this.width -= (0.1 + (this.sst / 100)) / 4;
+      this.height -= (0.1 + (this.sst / 100)) / 4;
+    }
+  }
+
   /** Updates the Hurricane object. */
   update() {
     let sst_xPosition = 0;
