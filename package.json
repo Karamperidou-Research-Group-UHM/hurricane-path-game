@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@types/offscreencanvas": "^2019.7.0"
+    "@types/offscreencanvas": "^2019.7.0",
+    "bootstrap": "^5.3.0-alpha1"
   }
 }
