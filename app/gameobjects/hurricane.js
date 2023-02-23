@@ -1,4 +1,5 @@
 import GameObject from './gameObject.js';
+import { getStation } from '../api/noaaWeatherAPI.js';
 
 /** Properties and methods of a Hurricane game object which extends the GameObject parent class. */
 export default class Hurricane extends GameObject {
@@ -112,6 +113,8 @@ export default class Hurricane extends GameObject {
     } else if (this.sst > 99) {
         sst_xPosition = 50;
     }
+
+    getStation();
 
     // Wind speeds only increase if the current sst is larger than 80 degrees and is not close to the equator, otherwise decrease.
     if (this.sst >= this.tempMin && !this.closeToEquator) {
