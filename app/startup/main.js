@@ -207,6 +207,7 @@ const updateGame = () => {
   document.getElementById("low-pressure-size").innerText = gameControls.convertObjectSizeData(lowPressureSys.getSize()).toString() + "x";
   document.getElementById("temp-text").innerText = gameControls.tempChange >= 0 ? `+ ${(gameControls.tempChange).toString()}` : `- ${(Math.abs(gameControls.tempChange)).toString()}`;
 
+  // Initializes city locations
   let city_index = 0;
   for (city_index; city_index < cities.length; city_index++) {
     document.getElementById(cities[city_index]).innerText = "SAFE";
@@ -216,6 +217,14 @@ const updateGame = () => {
   for (city_index; city_index < cities.length; city_index++) {
     document.getElementById(cities[city_index]).style.color = "green";
   }
+
+  // Updates hurricane information section with it's corresponding id
+  document.getElementById("x-coord").innerText = (parseInt(hurricane.x)) + '';
+  document.getElementById("y-coord").innerText = (parseInt(hurricane.y)) + '';
+  document.getElementById("hurr-category").innerText = hurricane.category;
+  document.getElementById("hurr-size").innerText = parseInt(hurricane.width * Math.PI) + '';
+  document.getElementById("hurr-speed").innerText = parseInt(hurricane.windSpeed) + '';
+  document.getElementById("hurr-sst").innerText = hurricane.sst + '';
 
   gameControls.changeCityStatus(pins.hurricaneCollision(hurricane), cities);
 };

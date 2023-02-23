@@ -49,7 +49,7 @@
     }
 
     #hurricane-info-leftcol {
-      margin-top: 30px;
+      margin-top: 20px;
       margin-left: 10px;
       line-height: 2rem;
     }
@@ -175,25 +175,53 @@
             <h5 class="card-title">Hurricane Statistics</h5>
             <div class="row">
               <div class="col" id="hurricane-info-leftcol">
-                <table>
+                <table style="width: 300px">
                   <tr>
-                    <td>X-Coordinate: <span id="x-coord"></span></td>
+                    <td>
+                      <h6>
+                        X-Coordinate: <span id="x-coord"></span>
+                      </h6>
+                    </td>
                   </tr>
 
                   <tr>
-                    <td>Y-Coordinate: <span id="x-coord"></span></td>
+                    <td>
+                      <h6>
+                        Y-Coordinate: <span id="y-coord"></span>
+                      </h6>
+                    </td>
                   </tr>
 
                   <tr>
-                    <td>Status: <span id="hurr-status"></span></td>
+                    <td>
+                      <h6>
+                        Category: <span id="hurr-category"></span>
+                      </h6>
+                    </td>
                   </tr>
 
                   <tr>
-                    <td>Size: <span id="hurr-size"></span></td>
+                    <td>
+                      <h6>
+                        Size: <span id="hurr-size"></span>
+                      </h6>
+                    </td>
                   </tr>
 
                   <tr>
-                    <td>Sea Surface Temperature: <span id="hurr-sst"></span></td>
+                    <td>
+                      <h6>
+                        Speed: <span id="hurr-speed" style="text-align: end; width: 30px"></span>mph
+                      </h6>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h6>
+                        Sea Surface Temperature: <span id="hurr-sst" style="text-align: end; width: 30px"></span><strong>&#x2109;</strong>
+                      </h6>
+                    </td>
                   </tr>
                 </table>
               </div>

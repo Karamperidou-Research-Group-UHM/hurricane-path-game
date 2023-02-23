@@ -5,6 +5,8 @@ export default class Hurricane extends GameObject {
   /** Creates a new Hurricane object. */
   constructor(x, y, width, height, image, gameArea, isImage, category, sst) {
     super(x, y, width, height, image, gameArea, isImage);
+    this.x = x;
+    this.y = y;
     this.category = category;
     this.sst = sst;
     this.speed = 0.5;
@@ -137,15 +139,13 @@ export default class Hurricane extends GameObject {
         }
       }
     }
+
     this.windTimer += 1;
     this.updateCategory();
     const ctx = this.gameArea.context;
     ctx.fillStyle = this.color;
     ctx.globalAlpha = 0.7;
-    ctx.font = 'bold 25px lato';
     ctx.beginPath();
-    ctx.fillText(`SST: ${this.sst}F`, (this.x - sst_xPosition), (this.y + 60));
-    ctx.fillText(this.category === 0 ? `Low Pressure System` : `Category ${this.category}`, (this.x - 50), (this.y + 85));
     ctx.ellipse(this.x, this.y, this.width, this.height, 0, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
