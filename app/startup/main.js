@@ -6,7 +6,7 @@ import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
 import GameObject from '../gameobjects/gameObject.js';
-import { getWindData } from '../api/noaaWeatherAPI.js';
+import { getWindData, testAPI } from '../api/noaaWeatherAPI.js';
 
 let gameControls = new GameControls();
 let testData = new TestData();
@@ -146,6 +146,7 @@ const startGame = () => {
   pins = new Pins(gameArea, 13, 16);
   pins.createPins();
   getWindData();
+  //testAPI();
 
   // Starts the game area.
   gameArea.start();
