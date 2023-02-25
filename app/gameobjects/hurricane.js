@@ -7,6 +7,7 @@ export default class Hurricane extends GameObject {
     super(x, y, width, height, image, gameArea, isImage);
     this.x = x;
     this.y = y;
+    this.prevCategory = 0;
     this.category = category;
     this.sst = sst;
     this.speed = 0.5;
@@ -21,6 +22,7 @@ export default class Hurricane extends GameObject {
     this.tempMin = 80;
     this.tempTimer = 0;
     this.closeToEquator = false;
+    this.activityLog = [];
   }
 
   /** Gives the hurricane a new angle. */
@@ -53,10 +55,25 @@ export default class Hurricane extends GameObject {
     }
   }
 
+  /** Gets activity log of hurricane behaviour, if it increased/decreased in category or if it decays */
+  getActivity(prev, curr) {
+    if (prev > curr) {
+      this.activityLog.unshift(`Hurricane decreased from Category ${prev} to ${curr}`);
+    } else if (prev < curr) {
+      this.activityLog.unshift(`Hurricane increased from Category ${prev} to ${curr}`);
+    } else if (curr === 0) {
+      this.activityLog.unshift(`Hurricane transformed into a Low Pressure System`);
+    }
+
+    document.getElementById("hurr-activity").innerText = this.activityLog.join('\n');
+  }
+
   /** Sets the category of the hurricane based on the wind speed of its closest wind arrow. */
   updateCategory() {
     // Checks if there is a closest wind arrow.
     if (this.closestWindArrow !== null) {
+      // Tracks previous category to compare to current category
+      this.prevCategory = this.category;
       // Wind strength indicators for categories divided by 1.2 for scale reasons.
       if (this.windSpeed < 74) {
         this.category = 0;
@@ -71,16 +88,23 @@ export default class Hurricane extends GameObject {
       } else if (this.windSpeed >= 156) {
         this.category = 5;
       }
+
+      // Checks if the current category changed
+      if (this.prevCategory !== this.category) {
+        this.getActivity(this.prevCategory, this.category);
+      }
     }
   }
 
   /** Reset hurricane to initial position and size. */
   resetHurricane() {
+    this.speed = 1;
     this.x = this.initialPoint.x;
     this.y = this.initialPoint.y;
     this.width = this.initialWidth;
     this.height = this.initialWidth;
-    this.speed = 1;
+    this.activityLog = [];
+    document.getElementById("hurr-activity").innerText = "";
   }
 
   /** Checks current sea surface temperature. */
@@ -108,13 +132,6 @@ export default class Hurricane extends GameObject {
 
   /** Updates the Hurricane object. */
   update() {
-    let sst_xPosition = 0;
-    if (this.sst >= 0 && this.sst <= 99) {
-        sst_xPosition = 40;
-    } else if (this.sst > 99) {
-        sst_xPosition = 50;
-    }
-
     // Wind speeds only increase if the current sst is larger than 80 degrees and is not close to the equator, otherwise decrease.
     if (this.sst >= this.tempMin && !this.closeToEquator) {
       // Checks if wind speed can be updated by growth rate.
@@ -142,6 +159,7 @@ export default class Hurricane extends GameObject {
 
     this.windTimer += 1;
     this.updateCategory();
+
     const ctx = this.gameArea.context;
     ctx.fillStyle = this.color;
     ctx.globalAlpha = 0.7;
