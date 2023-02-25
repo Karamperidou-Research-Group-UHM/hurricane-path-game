@@ -35,13 +35,10 @@ export default class Pins {
     const oahuPin = new PinObject(415, 185, this.width, this.height, safeImage, this.gameArea, true);
     const mexicoCityPin = new PinObject(690, 197, this.width, this.height, safeImage, this.gameArea, true);
     const losAngelesPin = new PinObject(600, 105, this.width, this.height, safeImage, this.gameArea, true);
-    const sydneyPin = new PinObject(170, 462, this.width, this.height, safeImage, this.gameArea, true);
     const tokyoPin = new PinObject(115, 110, this.width, this.height, safeImage, this.gameArea, true);
     const manilaPin = new PinObject(30, 225, this.width, this.height, safeImage, this.gameArea, true);
-    const pngPin = new PinObject(135, 320, this.width, this.height, safeImage, this.gameArea, true);
-    const fijiPin = new PinObject(297, 377, this.width, this.height, safeImage, this.gameArea, true);
     const vancouverPin = new PinObject(585, 20, this.width, this.height, safeImage, this.gameArea, true);
-    this.pinList.push(oahuPin, mexicoCityPin, losAngelesPin, sydneyPin, tokyoPin, manilaPin, pngPin, fijiPin, vancouverPin);
+    this.pinList.push(oahuPin, mexicoCityPin, losAngelesPin, tokyoPin, manilaPin, vancouverPin);
   }
 
   /** Changes marker if the pin has been hit by the hurricane */

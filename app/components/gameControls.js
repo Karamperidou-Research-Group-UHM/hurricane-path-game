@@ -93,11 +93,8 @@ export default class GameControls {
    *    x = 415: Oahu Pin
    *    x = 690: Mexico City Pin
    *    x = 600: Los Angeles Pin
-   *    x = 170: Sydney Pin
    *    x = 115: Tokyo Pin
    *    x = 30: Manila Pin
-   *    x = 135: Papua New Guinea Pin
-   *    x = 297: Fiji Pin
    *    x = 585: Vancouver Pin
    * */
   changeCityStatus(hitList, cities) {
@@ -108,18 +105,12 @@ export default class GameControls {
         this.setHit(cities[1]);
       } else if (hitList[i].x === 600) {
         this.setHit(cities[2]);
-      } else if (hitList[i].x === 170) {
-        this.setHit(cities[3]);
       } else if (hitList[i].x === 115) {
-        this.setHit(cities[4]);
+        this.setHit(cities[3]);
       } else if (hitList[i].x === 30) {
-        this.setHit(cities[5]);
-      } else if (hitList[i].x === 135) {
-        this.setHit(cities[6]);
-      } else if (hitList[i].x === 297) {
-        this.setHit(cities[7]);
+        this.setHit(cities[4]);
       } else if (hitList[i].x === 585) {
-        this.setHit(cities[8]);
+        this.setHit(cities[5]);
       }
     }
   }
