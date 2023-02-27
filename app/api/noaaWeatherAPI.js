@@ -1,34 +1,31 @@
 export const getWindData = async () => {
   const startLat = 50;
-  const endLat = -40;
-  const startLong = -120;
-  const endLong = 120;
+  const startLong = 120;
   const windData = [];
-  let stopFetching = false;
 
-  if (!stopFetching) {
-    // Loops through all possible lat, long points and fetches wind direction for each.
-    for (let i = startLong; i < endLong; i += 15) {
-      for (let j = startLat; j > endLat; j -= 9) {
-        let allData = [];
-        // Fetches stations in lat: 120E - 80W and log: 60N - 45S.
-        await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${j}&longitude=${i}&current_weather=true`)
-          .then(data => data.json())
-          .then(dataJson => allData = dataJson)
-          .then(() => windData.push({
-            lat: j,
-            long: i,
-            windDir: allData.current_weather.winddirection,
-          }))
-          .then(() => console.log(windData))
-          .catch(error => console.log(error));
+  // Loops through all possible lat, long points and fetches wind direction for each.
+  for (let i = 0; i < 10; i++) {
+    let long = (i * 12) + startLong;
 
-
-        if (windData.length >= 70) {
-          stopFetching = true;
-          break;
-        }
-      }
+    if (i > 5) {
+      long = -1 * (i * 12) + startLong;
+    } else if (i === 5) {
+      long -= 1;
+    }
+    for (let j = 0; j < 7; j++) {
+      const lat = -1 * (j * 13) + startLat;
+      let allData = [];
+      // Fetches stations in lat: 120E - 80W and log: 60N - 45S.
+      await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current_weather=true`)
+        .then(data => data.json())
+        .then(dataJson => allData = dataJson)
+        .then(() => windData.push({
+          lat: lat,
+          long: long,
+          windDir: allData.current_weather.winddirection,
+        }))
+        .then(() => console.log(windData))
+        .catch(error => console.log(error));
     }
   }
 };
