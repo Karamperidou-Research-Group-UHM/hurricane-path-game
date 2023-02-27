@@ -1,17 +1,20 @@
+/** Gets 70 data points containing wind direction from API. */
 export const getWindData = async () => {
   const startLat = 50;
   const startLong = 120;
   const windData = [];
 
-  // Loops through all possible lat, long points and fetches wind direction for each.
+  // Longitude points.
   for (let i = 0; i < 10; i++) {
     let long = (i * 12) + startLong;
 
+    // Checks if longitude is at 180 and needs to be decreased.
     if (i > 5) {
       long = -1 * (i * 12) + startLong;
     } else if (i === 5) {
       long -= 1;
     }
+    // Latitude points.
     for (let j = 0; j < 7; j++) {
       const lat = -1 * (j * 13) + startLat;
       let allData = [];
