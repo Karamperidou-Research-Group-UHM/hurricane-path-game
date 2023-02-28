@@ -145,7 +145,7 @@ const startGame = () => {
   // Loads the major city/country markers
   pins = new Pins(gameArea, 13, 16);
   pins.createPins();
-  getWindData();
+  getWindData('summer');
   //testAPI();
 
   // Starts the game area.

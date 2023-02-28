@@ -4,17 +4,18 @@ export const getWindData = async (season) => {
   let endDate = '';
   // Sets the start and end date based on the season.
   if (season === 'Spring') {
-    startDate = '2022-03-01';
-    endDate = '2022-05-31';
+    // NEEDS TO BE CHANGED ONCE THE SPRING EQUINOX IN 2023 HAPPENS!
+    startDate = '2023-02-26';
+    endDate = '2022-02-28';
   } else if (season === 'Summer') {
-    startDate = '2022-06-01';
-    endDate = '2022-08-31';
+    startDate = '2022-06-21';
+    endDate = '2022-06-22';
   } else if (season === 'Fall') {
-    startDate = '2022-09-01';
-    endDate = '2022-11-30';
+    startDate = '2022-09-22';
+    endDate = '2022-09-23';
   } else {
-    startDate = '2022-12-01';
-    endDate = '2023-2-28';
+    startDate = '2022-12-21';
+    endDate = '2022-12-22';
   }
   const startLat = 50;
   const startLong = 120;
@@ -35,7 +36,7 @@ export const getWindData = async (season) => {
       const lat = -1 * (j * 13) + startLat;
       let allData = [];
       // Fetches stations in lat: 120E - 80W and log: 60N - 45S.
-      await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current_weather=true`)
+      await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&start_date=${startDate}&end_date=${endDate}&current_weather=true`)
         .then(data => data.json())
         .then(dataJson => allData = dataJson)
         .then(() => windData.push({
