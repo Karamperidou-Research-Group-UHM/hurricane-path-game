@@ -1,5 +1,21 @@
 /** Gets 70 data points containing wind direction from API. */
-export const getWindData = async () => {
+export const getWindData = async (season) => {
+  let startDate = '';
+  let endDate = '';
+  // Sets the start and end date based on the season.
+  if (season === 'Spring') {
+    startDate = '2022-03-01';
+    endDate = '2022-05-31';
+  } else if (season === 'Summer') {
+    startDate = '2022-06-01';
+    endDate = '2022-08-31';
+  } else if (season === 'Fall') {
+    startDate = '2022-09-01';
+    endDate = '2022-11-30';
+  } else {
+    startDate = '2022-12-01';
+    endDate = '2023-2-28';
+  }
   const startLat = 50;
   const startLong = 120;
   const windData = [];
