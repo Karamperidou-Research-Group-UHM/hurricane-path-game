@@ -120,8 +120,8 @@ export default class Hurricane extends GameObject {
 
   /** Checks the position of the hurricane in proximity to the equator and decreases itself if it comes by it. */
   checkPos(equator) {
-    // Checks if the hurricane is within 50 px of the equator.
-    if (this.y > equator.y - 50) {
+    // Checks if the hurricane is within 10 px of the equator.
+    if (this.y > equator.y - 20) {
       this.width -= (0.1 + (this.sst / 100)) / 4;
       this.height -= (0.1 + (this.sst / 100)) / 4;
       this.closeToEquator = true;
