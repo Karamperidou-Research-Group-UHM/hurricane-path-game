@@ -130,7 +130,7 @@ const startGame = () => {
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressure.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressure.png', gameArea, true, 'low');
 
-  equator = new GameObject(0, 310, 850, 2, 'black', gameArea, false);
+  equator = new GameObject(0, 266, 850, 2, 'black', gameArea, false);
 
   const windData = getWindData('summer');
 
