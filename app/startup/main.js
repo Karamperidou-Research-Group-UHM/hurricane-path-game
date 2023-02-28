@@ -132,6 +132,8 @@ const startGame = () => {
 
   equator = new GameObject(0, 310, 850, 2, 'black', gameArea, false);
 
+  const windData = getWindData('summer');
+
   // Loads wind arrows.
   testData.windTestData(windArrowData);
   windArrows = new WindArrows(windArrowData, gameArea, highPressureSys, lowPressureSys, hurricane);
@@ -145,7 +147,6 @@ const startGame = () => {
   // Loads the major city/country markers
   pins = new Pins(gameArea, 13, 16);
   pins.createPins();
-  getWindData('summer');
   //testAPI();
 
   // Starts the game area.
