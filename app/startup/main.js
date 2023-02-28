@@ -6,6 +6,7 @@ import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
 import GameObject from '../gameobjects/gameObject.js';
+import { getWindData, testAPI } from '../api/noaaWeatherAPI.js';
 
 let gameControls = new GameControls();
 let testData = new TestData();
@@ -131,6 +132,8 @@ const startGame = () => {
 
   equator = new GameObject(0, 310, 850, 2, 'black', gameArea, false);
 
+  const windData = getWindData('summer');
+
   // Loads wind arrows.
   testData.windTestData(windArrowData);
   windArrows = new WindArrows(windArrowData, gameArea, highPressureSys, lowPressureSys, hurricane);
@@ -144,6 +147,7 @@ const startGame = () => {
   // Loads the major city/country markers
   pins = new Pins(gameArea, 13, 16);
   pins.createPins();
+  //testAPI();
 
   // Starts the game area.
   gameArea.start();
