@@ -7,6 +7,7 @@ import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
 import GameObject from '../gameobjects/gameObject.js';
 import { getWindData, testAPI } from '../api/noaaWeatherAPI.js';
+import { coordinatesToLatLong } from '../components/coodinateConversion.js';
 
 let gameControls = new GameControls();
 let testData = new TestData();
@@ -72,6 +73,8 @@ const cities = ["honolulu", "mexico-city", "los-angeles", "tokyo", "manila", "va
 const mouseDownEvents = (event) => {
   x = event.clientX;
   y = event.clientY;
+  console.log(x, y);
+  coordinatesToLatLong(x, y);
   screenPressed = true;
 };
 

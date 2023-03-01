@@ -44,7 +44,7 @@ export const getWindData = async (season) => {
           long: long,
           windDir: allData.current_weather.winddirection,
         }))
-        .then(() => console.log(windData))
+        // .then(() => console.log(windData))
         .catch(error => console.log(error));
     }
   }
