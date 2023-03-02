@@ -82,4 +82,8 @@ Some of the game's visual elements were found on the internet, below are the sou
 [2]: https://www.pngitem.com/pimgs/m/236-2361239_location-pin-white-maps-marker-png-transparent-png.png
 
 ### Screenshots
-**1st Iteration:** foundational initialization, added visuals, first draft of hurricane movement and interaction with pressure systems.
+**1st Iteration:** Foundational initialization, added visuals, first draft of hurricane movement and interaction with pressure systems.
+
+**2nd Iteration:** Fixed bugs, consulted with advisor for suggestions, added foundation for feature development.
+
+**3rd Iteration:** Adjusted game to only operate in the Northern Pacific Ocean due to the Coriolis Effect to make it more realistic. Began to add real data through APIs.
