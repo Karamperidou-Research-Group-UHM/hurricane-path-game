@@ -88,10 +88,18 @@ export default class Hurricane extends GameObject {
   /** Gets activity log of hurricane behaviour, if it increased/decreased in category or if it decays */
   getActivity(prev, curr) {
     if (prev > curr) {
-      this.activityLog.unshift(`Hurricane decreased from Category ${prev} to ${curr}`);
+      if (prev !== 0 && curr !== 0) {
+        this.activityLog.unshift(`Hurricane decreased from Category ${prev} to ${curr}`);
+      } if (prev === 0 || curr === 0) {
+        this.activityLog.unshift(`Hurricane decreased from a Category ${prev} to a LPS`);
+      }
     } else if (prev < curr) {
-      this.activityLog.unshift(`Hurricane increased from Category ${prev} to ${curr}`);
-    } else if (curr === 0) {
+      if (prev !== 0 && curr !== 0) {
+        this.activityLog.unshift(`Hurricane increased from Category ${prev} to ${curr}`);
+      } if (curr === 0 || prev === 0) {
+        this.activityLog.unshift(`Hurricane increased from a Low Pressure System to a Category ${curr}`);
+      }
+    } else if (curr === 0 || prev === 0) {
       this.activityLog.unshift(`Hurricane transformed into a Low Pressure System`);
     }
 
