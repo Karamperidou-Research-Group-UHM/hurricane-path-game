@@ -212,7 +212,6 @@ const updateGame = () => {
   for (city_index; city_index < cities.length; city_index++) {
     document.getElementById(cities[city_index]).innerText = "SAFE";
   }
-
   city_index = 0;
   for (city_index; city_index < cities.length; city_index++) {
     document.getElementById(cities[city_index]).style.color = "green";
@@ -226,6 +225,7 @@ const updateGame = () => {
   document.getElementById("hurr-speed").innerText = parseInt(hurricane.windSpeed) + '';
   document.getElementById("hurr-sst").innerText = hurricane.sst + '';
 
+  hurricane.getHitCity(pins.hurricaneCollision(hurricane));
   gameControls.changeCityStatus(pins.hurricaneCollision(hurricane), cities);
 };
 

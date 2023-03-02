@@ -55,6 +55,36 @@ export default class Hurricane extends GameObject {
     }
   }
 
+  /** Adds "HIT" location to activity log
+   *  Guide:
+   *    x = 415: Oahu Pin
+   *    x = 690: Mexico City Pin
+   *    x = 600: Los Angeles Pin
+   *    x = 115: Tokyo Pin
+   *    x = 30: Manila Pin
+   *    x = 585: Vancouver Pin
+   * */
+  getHitCity(hitList) {
+    for (let i = 0; i < hitList.length; i++) {
+      if (hitList[i].x === 415 && !this.activityLog.includes(`Hurricane hit Honolulu, HI`)) {
+        this.activityLog.unshift(`Hurricane hit Honolulu, HI`);
+      } else if (hitList[i].x === 690 && !this.activityLog.includes(`Hurricane hit Mexico City, Mexico`)) {
+        this.activityLog.unshift(`Hurricane hit Mexico City, Mexico`);
+      } else if (hitList[i].x === 600 && !this.activityLog.includes(`Hurricane hit Los Angeles, CA`)) {
+        this.activityLog.unshift(`Hurricane hit Los Angeles, CA`);
+      } else if (hitList[i].x === 115 && !this.activityLog.includes(`Hurricane hit Tokyo, Japan`)) {
+        this.activityLog.unshift(`Hurricane hit Tokyo, Japan`);
+      } else if (hitList[i].x === 30 && !this.activityLog.includes(`Hurricane hit Manila, Philippines`)) {
+        this.activityLog.unshift(`Hurricane hit Manila, Philippines`);
+      } else if (hitList[i].x === 585 && !this.activityLog.includes(`Hurricane hit Vancouver, Canada`)) {
+        this.activityLog.unshift(`Hurricane hit Vancouver, Canada`);
+      }
+    }
+
+    this.activityLog.filter((item, i, ar) => ar.indexOf(item) === i);
+    document.getElementById("hurr-activity").innerText = this.activityLog.join('\n');
+  }
+
   /** Gets activity log of hurricane behaviour, if it increased/decreased in category or if it decays */
   getActivity(prev, curr) {
     if (prev > curr) {
