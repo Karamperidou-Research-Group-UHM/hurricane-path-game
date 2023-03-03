@@ -5,8 +5,8 @@ export const getWindData = async (season) => {
   // Sets the start and end date based on the season.
   if (season === 'Spring') {
     // NEEDS TO BE CHANGED ONCE THE SPRING EQUINOX IN 2023 HAPPENS!
-    startDate = '2023-02-26';
-    endDate = '2022-02-28';
+    startDate = '2023-03-01';
+    endDate = '2022-03-02';
   } else if (season === 'Summer') {
     startDate = '2022-06-21';
     endDate = '2022-06-22';
