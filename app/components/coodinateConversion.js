@@ -14,3 +14,17 @@ export const coordinatesToLatLong = (x, y) => {
   }
   return { lon: Math.round(lon * 100) / 100, lat: Math.round(lat * 100) / 100 };
 };
+
+/** Calculates the x and y coordinates given longitude and latitude. */
+export const latLongToCoordinates = (lon, lat) => {
+  // Checks if longitude is negative.
+  if (lon < 0) {
+    // Adjusts longitude to be positive by adding the different of the absolute value on lon by 180 and adding 180.
+    lon = (180 - Math.abs(lon)) + 180;
+  }
+
+  // Converts x and y from lon and lat.
+  let x = (lon - 102) / 0.19;
+  let y = (lat - 61) / -0.210;
+  return { x: Math.floor(x), y: Math.floor(y) };
+};
