@@ -24,7 +24,6 @@ export const getWindData = async (season) => {
   // Longitude points.
   for (let i = 0; i < 10; i++) {
     let long = (i * 12) + startLong;
-
     // Checks if longitude is at 180 and needs to be decreased.
     if (i > 5) {
       long = -1 * (i * 12) + startLong;
@@ -44,10 +43,23 @@ export const getWindData = async (season) => {
           long: long,
           windDir: allData.current_weather.winddirection,
         }))
-        // .then(() => console.log(windData))
         .catch(error => console.log(error));
     }
   }
+};
+
+export const getWindDataPoint = async (lat, long, startDate, endDate) => {
+  // Fetches stations in lat: 120E - 80W and log: 60N - 45S.
+  await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&start_date=${startDate}&end_date=${endDate}&current_weather=true`)
+    .then(data => data.json())
+    .then(datajson => console.log(datajson))
+    /*.then(dataJson => allData = dataJson)
+    .then(() => windData.push({
+      lat: lat,
+      long: long,
+      windDir: allData.current_weather.winddirection,
+    })) */
+    .catch(error => console.log(error));
 };
 
 export const testAPI= () => {
