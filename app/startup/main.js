@@ -115,7 +115,8 @@ const loadToMainCanvas = () => {
   destCtx.drawImage(gameArea.offCanvas, 0, 0);
 };
 
-const startGame = () => {
+const startGame = (windData) => {
+  console.log(windData);
   /** Create all objects in this area. */
   hurricane = new Hurricane(600, 180, 5, 5, 'grey', gameArea, false, category[0], sst);
 
@@ -198,12 +199,11 @@ const loadData = async () => {
           windDir: allData.current_weather.winddirection,
         }))
         .then(() => {
-
           if (windData.length === 70) {
             console.log('Complete!!');
-            startGame();
+            startGame(windData);
           }
-          console.log(windData);
+          console.log(`Loading... ${((i * 7) / 70) * 100}%`);
         })
         .catch(error => console.log(error));
     }
