@@ -116,7 +116,6 @@ const loadToMainCanvas = () => {
 };
 
 const startGame = (windData) => {
-  console.log(windData);
   /** Create all objects in this area. */
   hurricane = new Hurricane(600, 180, 5, 5, 'grey', gameArea, false, category[0], sst);
 
