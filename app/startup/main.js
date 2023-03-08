@@ -118,7 +118,8 @@ const loadToMainCanvas = () => {
 
 const startGame = (windData) => {
   /** Create all objects in this area. */
-  hurricane = new Hurricane(600, 180, 5, 5, 'grey', gameArea, false, category[0], sst);
+  const hurricaneStartPos = latLongToCoordinates(-125, 30);
+  hurricane = new Hurricane(hurricaneStartPos.x, hurricaneStartPos.y, 5, 5, 'grey', gameArea, false, category[0], sst);
   const windDataCoordinates = []
 
   for (let i = 0; i < windData.length; i++) {
