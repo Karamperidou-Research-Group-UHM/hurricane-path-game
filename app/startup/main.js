@@ -130,8 +130,6 @@ const startGame = (windData) => {
     })
   }
 
-  console.log(windDataCoordinates);
-
   // Loads the seasons label and pressure systems
   pins = new Pins(gameArea, '../images/red-pin.png', 13, 16);
   pins.createPins();
