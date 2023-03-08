@@ -7,6 +7,7 @@ import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
 import GameObject from '../gameobjects/gameObject.js';
 import { getWindData, getWindDataPoint, testAPI } from '../api/noaaWeatherAPI.js';
+import { latLongToCoordinates } from '../components/coodinateConversion.js';
 
 let gameControls = new GameControls();
 let testData = new TestData();
@@ -118,6 +119,18 @@ const loadToMainCanvas = () => {
 const startGame = (windData) => {
   /** Create all objects in this area. */
   hurricane = new Hurricane(600, 180, 5, 5, 'grey', gameArea, false, category[0], sst);
+  const windDataCoordinates = []
+
+  for (let i = 0; i < windData.length; i++) {
+    const coordinates = latLongToCoordinates(windData[i].long, windData[i].lat);
+    windDataCoordinates.push({
+      x: coordinates.x,
+      y: coordinates.y,
+      windDir: windData[i].windDir,
+    })
+  }
+
+  console.log(windDataCoordinates);
 
   // Loads the wind arrows
   windArrows = new WindArrows(gameArea);
