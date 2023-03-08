@@ -122,19 +122,17 @@ const startGame = (windData) => {
   const windDataCoordinates = []
 
   for (let i = 0; i < windData.length; i++) {
-    const coordinates = latLongToCoordinates(windData[i].long, windData[i].lat);
+    const xycoordinates = latLongToCoordinates(windData[i].long, windData[i].lat);
     windDataCoordinates.push({
-      x: coordinates.x,
-      y: coordinates.y,
+      x: xycoordinates.x,
+      y: xycoordinates.y,
       windDir: windData[i].windDir,
     })
   }
 
-  console.log(windDataCoordinates);
-
   // Loads the wind arrows
-  windArrows = new WindArrows(gameArea);
-  windArrows.createWindArrows();
+  // windArrows = new WindArrows(gameArea);
+  // windArrows.createWindArrows();
 
   // Loads the seasons label and pressure systems
   pins = new Pins(gameArea, '../images/red-pin.png', 13, 16);
@@ -146,7 +144,7 @@ const startGame = (windData) => {
 
   // Loads wind arrows.
   testData.windTestData(windArrowData);
-  windArrows = new WindArrows(windArrowData, gameArea, highPressureSys, lowPressureSys, hurricane);
+  windArrows = new WindArrows(windDataCoordinates, gameArea, highPressureSys, lowPressureSys, hurricane);
   windArrows.createWindArrows();
 
   // Loads heat map.
@@ -193,7 +191,7 @@ const loadData = async () => {
     let long = (i * 12) + startLong;
     // Checks if longitude is at 180 and needs to be decreased.
     if (i > 5) {
-      long = -1 * (i * 12) + startLong;
+      long = (((i * 12)) + startLong - 180) - 180;
     } else if (i === 5) {
       long -= 1;
     }
@@ -212,10 +210,12 @@ const loadData = async () => {
         }))
         .then(() => {
           if (windData.length === 70) {
+            console.log(`Loading... 100%`);
             console.log('Complete!!');
             startGame(windData);
+          } else {
+            console.log(`Loading... ${((i * 7) / 70) * 100}%`);
           }
-          console.log(`Loading... ${((i * 7) / 70) * 100}%`);
         })
         .catch(error => console.log(error));
     }
