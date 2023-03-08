@@ -130,9 +130,7 @@ const startGame = (windData) => {
     })
   }
 
-  // Loads the wind arrows
-  // windArrows = new WindArrows(gameArea);
-  // windArrows.createWindArrows();
+  console.log(windDataCoordinates);
 
   // Loads the seasons label and pressure systems
   pins = new Pins(gameArea, '../images/red-pin.png', 13, 16);
@@ -163,7 +161,7 @@ const startGame = (windData) => {
 
 /** Loads all objects and starts the game. */
 const loadData = async () => {
-  let season = 'summer';
+  let season = 'Fall';
 
   let startDate = '';
   let endDate = '';
@@ -200,13 +198,13 @@ const loadData = async () => {
       const lat = -1 * (j * 13) + startLat;
       let allData = [];
       // Fetches stations in lat: 120E - 80W and log: 60N - 45S.
-      await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&start_date=${startDate}&end_date=${endDate}&current_weather=true`)
+      await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${long}&start_date=${startDate}&end_date=${endDate}&hourly=winddirection_10m`)
         .then(data => data.json())
         .then(dataJson => allData = dataJson)
         .then(() => windData.push({
           lat: lat,
           long: long,
-          windDir: allData.current_weather.winddirection,
+          windDir: allData.hourly.winddirection_10m[0],
         }))
         .then(() => {
           if (windData.length === 70) {
