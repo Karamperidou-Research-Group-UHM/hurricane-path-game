@@ -97,7 +97,7 @@ export default class Hurricane extends GameObject {
       if (prev !== 0 && curr !== 0) {
         this.activityLog.unshift(`Hurricane increased from Category ${prev} to ${curr}`);
       } if (curr === 0 || prev === 0) {
-        this.activityLog.unshift(`Hurricane increased from a Low Pressure System to a Category ${curr}`);
+        this.activityLog.unshift(`Hurricane increased from a LPS to a Category ${curr}`);
       }
     } else if (curr === 0 || prev === 0) {
       this.activityLog.unshift(`Hurricane transformed into a Low Pressure System`);

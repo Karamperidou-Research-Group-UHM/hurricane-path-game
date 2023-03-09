@@ -287,9 +287,13 @@ const updateGame = () => {
   }
 
   // Updates hurricane information section with it's corresponding id
+  if (hurricane.category === 0) {
+    document.getElementById("hurr-category").innerText = 'LPS';
+  } else {
+    document.getElementById("hurr-category").innerText = hurricane.category;
+  }
   document.getElementById("x-coord").innerText = (parseInt(hurricane.x)) + '';
   document.getElementById("y-coord").innerText = (parseInt(hurricane.y)) + '';
-  document.getElementById("hurr-category").innerText = hurricane.category;
   document.getElementById("hurr-size").innerText = parseInt(hurricane.width * Math.PI) + '';
   document.getElementById("hurr-speed").innerText = parseInt(hurricane.windSpeed) + '';
   document.getElementById("hurr-sst").innerText = hurricane.sst + '';
