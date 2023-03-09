@@ -1,18 +1,16 @@
 canvas {
     margin: 20px;
     border: 1px solid black;
-    /* background-image: url("../images/pacific.png"); */
     background-image: url("../images/long-lat-pacific-map.png");
     border-radius: 5px;
     background-repeat: no-repeat;
-    background-position: -20px;
+    background-size: cover;
+    height: 580px !important;
 }
 
 #right-col {
-    position: relative;
-    top: -565px;
+    margin: 20px;
     left: -200px;
-    margin: 10px 0 10px 10px;
     width: 410px!important;
     max-width: 410px;
 }
@@ -23,24 +21,27 @@ canvas {
 }
 
 #hurricane-info {
+    top: -625px;
     left: -420px;
-    height: 300px;
+    height: 290px !important;
     width: 800px !important;
     max-width: 800px;
 }
 
 #controls {
-    margin-top: 5px;
-    top: -250px;
-    left: 145px;
-    width: 410px !important;
-    max-width: 410px;
+    top: -615px;
+    left: -434px;
+    width: 450px !important;
+    max-width: 450px;
+    height: 280px !important;
 }
 
 #city-card {
-    margin-top: 15px;
-    top: -5px;
-    height: 291px;
+    top: -615px;
+    height: 280px !important;
+    width: 340px !important;
+    max-width: 340px;
+    left: 25px;
 }
 
 #hurricane-info-leftcol {

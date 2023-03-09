@@ -17,67 +17,6 @@
       <div class="col">
         <script type="module" src="main.js"></script>
       </div>
-      <div class="col">
-        <div class="card" id="controls">
-          <div class="card-body">
-            <h5 class="card-title">Controls</h5>
-            <table>
-              <tr>
-                <td>High Pressure System Size:</td>
-                <td>
-                  <button type="button" class="btn btn-primary" id="high+">+</button>
-                </td>
-                <td><span id="high-pressure-size">1x</span></td>
-                <td>
-                  <button type="button" class="btn btn-primary" id="high-">-</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Low Pressure System Size:</td>
-                <td>
-                  <button type="button" class="btn btn-primary" id="low+">+</button>
-                </td>
-                <td><span id="low-pressure-size">1x</span></td>
-                <td>
-                  <button type="button" class="btn btn-primary" id="low-">-</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Temperature Change:</td>
-                <td>
-                  <button type="button" class="btn btn-primary" id="temp+">+</button>
-                </td>
-                <td><span id="temp-text">0</span></td>
-                <td>
-                  <button type="button" class="btn btn-primary" id="temp-">-</button>
-                </td>
-              </tr>
-              <div class="row row-cols-4" style="margin-bottom: 45px">
-                <div class="col">
-                  <button type="button" class="btn btn-outline-primary" style="padding: .5rem">Winter</button>
-                </div>
-
-                <div class="col">
-                  <button type="button" class="btn btn-outline-primary" style="padding: .5rem">Spring</button>
-                </div>
-
-                <div class="col">
-                  <button type="button" class="btn btn-outline-primary" style="padding: .5rem">Summer</button>
-                </div>
-
-                <div class="col">
-                  <button type="button" class="btn btn-outline-primary" style="padding: .5rem">Fall</button>
-                </div>
-              </div>
-
-              <tr>
-                <td><button type="button" class="btn btn-danger" style="width: 80%" id="reset">Reset</button></td>
-                <td><button type="button" class="btn btn-primary" style="width: 250%" id="start" >Start</button></td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </div>
       <div class="col" id="right-col">
         <div class="card" id="hurricane-info">
           <div class="card-body">
@@ -144,55 +83,117 @@
           </div>
         </div>
 
-        <div class="card" id="city-card">
-          <div class="card-body">
-            <h5 class="card-title">Locations</h5>
-            <table id="city">
-              <tr>
-                <td>
-                  <h6 style="margin-top: 10px; margin-bottom: 10px;">Honolulu, HI: <span id="honolulu"></span></h6>
-                </td>
-              </tr>
+        <div class="row-cols-2">
+          <div class="col">
+            <div class="card" id="controls">
+              <div class="card-body">
+                <h5 class="card-title">Controls</h5>
+                <table>
+                  <tr>
+                    <td>High Pressure System Size:</td>
+                    <td>
+                      <button type="button" class="btn btn-primary" id="high+">+</button>
+                    </td>
+                    <td><span id="high-pressure-size">1x</span></td>
+                    <td>
+                      <button type="button" class="btn btn-primary" id="high-">-</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Low Pressure System Size:</td>
+                    <td>
+                      <button type="button" class="btn btn-primary" id="low+">+</button>
+                    </td>
+                    <td><span id="low-pressure-size">1x</span></td>
+                    <td>
+                      <button type="button" class="btn btn-primary" id="low-">-</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Temperature Change:</td>
+                    <td>
+                      <button type="button" class="btn btn-primary" id="temp+">+</button>
+                    </td>
+                    <td><span id="temp-text">0</span></td>
+                    <td>
+                      <button type="button" class="btn btn-primary" id="temp-">-</button>
+                    </td>
+                  </tr>
+                  <div class="row row-cols-4" style="margin-bottom: 45px">
+                    <div class="col">
+                      <button type="button" class="btn btn-outline-primary" style="padding: .5rem">Winter</button>
+                    </div>
 
-              <tr>
-                <td>
-                  <h6 style="margin-bottom: 10px">Los Angeles, CA: <span id="los-angeles"></span></h6>
-                </td>
-              </tr>
+                    <div class="col">
+                      <button type="button" class="btn btn-outline-primary" style="padding: .5rem">Spring</button>
+                    </div>
 
-              <tr>
-                <td>
-                  <h6 style="margin-bottom: 10px">Mexico City, Mexico: <span id="mexico-city"></span></h6>
-                </td>
-              </tr>
+                    <div class="col">
+                      <button type="button" class="btn btn-outline-primary" style="padding: .5rem">Summer</button>
+                    </div>
 
-              <tr>
-                <td>
-                  <h6 style="margin-bottom: 10px">Vancouver, Canada: <span id="vancouver"></span></h6>
-                </td>
-              </tr>
+                    <div class="col">
+                      <button type="button" class="btn btn-outline-primary" style="padding: .5rem">Fall</button>
+                    </div>
+                  </div>
 
-              <tr>
-                <td>
-                  <h6 style="margin-bottom: 10px">Manila, Philippines: <span id="manila"></span></h6>
-                </td>
-              </tr>
+                  <tr>
+                    <td><button type="button" class="btn btn-danger" style="width: 80%" id="reset">Reset</button></td>
+                    <td><button type="button" class="btn btn-primary" style="width: 250%" id="start" >Start</button></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
 
-              <tr>
-                <td>
-                  <h6 style="margin-bottom: 10px">Tokyo, Japan: <span id="tokyo"></span></h6>
-                </td>
-              </tr>
+          <div class="col">
+            <div class="card" id="city-card">
+              <div class="card-body">
+                <h5 class="card-title">Locations</h5>
+                <table id="city">
+                  <tr>
+                    <td>
+                      <h6 style="margin-top: 10px; margin-bottom: 10px;">Honolulu, HI: <span id="honolulu"></span></h6>
+                    </td>
+                  </tr>
 
-            </table>
+                  <tr>
+                    <td>
+                      <h6 style="margin-bottom: 10px">Los Angeles, CA: <span id="los-angeles"></span></h6>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h6 style="margin-bottom: 10px">Mexico City, Mexico: <span id="mexico-city"></span></h6>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h6 style="margin-bottom: 10px">Vancouver, Canada: <span id="vancouver"></span></h6>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h6 style="margin-bottom: 10px">Manila, Philippines: <span id="manila"></span></h6>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <h6 style="margin-bottom: 10px">Tokyo, Japan: <span id="tokyo"></span></h6>
+                    </td>
+                  </tr>
+
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <br />
-    <br />
-    <br />
 
     <div id="info-section">
       <div class="info-section-element">
