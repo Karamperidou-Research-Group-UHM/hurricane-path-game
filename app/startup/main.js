@@ -160,7 +160,7 @@ const startGame = (windData) => {
 
 /** Loads all objects and starts the game. */
 const loadData = async () => {
-  let season = 'Fall';
+  let season = 'Summer';
 
   let startDate = '';
   let endDate = '';
