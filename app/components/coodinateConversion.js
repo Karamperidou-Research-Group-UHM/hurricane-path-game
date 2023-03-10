@@ -24,7 +24,7 @@ export const latLongToCoordinates = (lon, lat) => {
   }
 
   // Converts x and y from lon and lat.
-  let x = (lon - 102) / 0.19;
-  let y = (lat - 61) / -0.210;
+  let x = ((lon - 102) / 0.19) - 23;
+  let y = ((lat - 61) / -0.210) + 22;
   return { x: Math.floor(x), y: Math.floor(y) };
 };
