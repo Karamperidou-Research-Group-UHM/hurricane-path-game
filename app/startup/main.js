@@ -118,7 +118,8 @@ const loadToMainCanvas = () => {
 
 const startGame = (windData) => {
   /** Create all objects in this area. */
-  hurricane = new Hurricane(600, 180, 5, 5, 'grey', gameArea, false, category[0], sst);
+  const hurricaneStartPos = latLongToCoordinates(-120, 30);
+  hurricane = new Hurricane(hurricaneStartPos.x, hurricaneStartPos.y, 5, 5, 'grey', gameArea, false, category[0], sst);
   const windDataCoordinates = []
 
   for (let i = 0; i < windData.length; i++) {
@@ -159,7 +160,7 @@ const startGame = (windData) => {
 
 /** Loads all objects and starts the game. */
 const loadData = async () => {
-  let season = 'Fall';
+  let season = 'Summer';
 
   let startDate = '';
   let endDate = '';
@@ -179,21 +180,19 @@ const loadData = async () => {
     endDate = '2022-12-22';
   }
   const startLat = 50;
-  const startLong = 120;
+  const startLong = 100;
   const windData = [];
 
   // Longitude points.
-  for (let i = 0; i < 10; i++) {
-    let long = (i * 12) + startLong;
+  for (let i = 0; i < 20; i++) {
+    let long = (i * 10) + startLong;
     // Checks if longitude is at 180 and needs to be decreased.
-    if (i > 5) {
-      long = (((i * 12)) + startLong - 180) - 180;
-    } else if (i === 5) {
-      long -= 1;
+    if (long > 180) {
+      long = (((i * 10)) + startLong - 180) - 180;
     }
     // Latitude points.
     for (let j = 0; j < 7; j++) {
-      const lat = -1 * (j * 13) + startLat;
+      const lat = -1 * (j * 15) + startLat;
       let allData = [];
       // Fetches stations in lat: 120E - 80W and log: 60N - 45S.
       await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${long}&start_date=${startDate}&end_date=${endDate}&hourly=winddirection_10m`)
@@ -205,12 +204,12 @@ const loadData = async () => {
           windDir: allData.hourly.winddirection_10m[0],
         }))
         .then(() => {
-          if (windData.length === 70) {
+          if (windData.length === 140) {
             console.log(`Loading... 100%`);
             console.log('Complete!!');
             startGame(windData);
           } else {
-            console.log(`Loading... ${((i * 7) / 70) * 100}%`);
+            console.log(`Loading... ${((i * 7) / 140) * 100}%`);
           }
         })
         .catch(error => console.log(error));
