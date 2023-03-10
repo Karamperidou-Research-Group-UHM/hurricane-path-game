@@ -184,11 +184,11 @@ const loadData = async () => {
   const windData = [];
 
   // Longitude points.
-  for (let i = 0; i < 15; i++) {
-    let long = (i * 20) + startLong;
+  for (let i = 0; i < 20; i++) {
+    let long = (i * 10) + startLong;
     // Checks if longitude is at 180 and needs to be decreased.
     if (long > 180) {
-      long = (((i * 20)) + startLong - 180) - 180;
+      long = (((i * 10)) + startLong - 180) - 180;
     }
     // Latitude points.
     for (let j = 0; j < 7; j++) {
@@ -204,12 +204,12 @@ const loadData = async () => {
           windDir: allData.hourly.winddirection_10m[0],
         }))
         .then(() => {
-          if (windData.length === 70) {
+          if (windData.length === 140) {
             console.log(`Loading... 100%`);
             console.log('Complete!!');
             startGame(windData);
           } else {
-            console.log(`Loading... ${((i * 7) / 70) * 100}%`);
+            console.log(`Loading... ${((i * 7) / 140) * 100}%`);
           }
         })
         .catch(error => console.log(error));
