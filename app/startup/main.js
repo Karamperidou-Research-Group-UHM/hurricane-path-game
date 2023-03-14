@@ -7,7 +7,7 @@ import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
 import GameObject from '../gameobjects/gameObject.js';
 import { getWindData, getWindDataPoint, testAPI } from '../api/noaaWeatherAPI.js';
-import { latLongToCoordinates } from '../components/coodinateConversion.js';
+import { coordinatesToLatLong, latLongToCoordinates } from '../components/coodinateConversion.js';
 
 let gameControls = new GameControls();
 let testData = new TestData();
@@ -73,6 +73,7 @@ const cities = ["honolulu", "mexico-city", "los-angeles", "tokyo", "manila", "va
 const mouseDownEvents = (event) => {
   x = event.clientX;
   y = event.clientY;
+  console.log(coordinatesToLatLong(x, y));
   screenPressed = true;
 };
 
@@ -137,7 +138,7 @@ const startGame = (windData) => {
   highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressure.png', gameArea, true, 'high');
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressure.png', gameArea, true, 'low');
 
-  equator = new GameObject(0, 266, 850, 2, 'black', gameArea, false);
+  equator = new GameObject(0, 345, 850, 2, 'black', gameArea, false);
 
   // Loads wind arrows.
   testData.windTestData(windArrowData);
@@ -204,7 +205,7 @@ const loadData = async () => {
           windDir: allData.hourly.winddirection_10m[0],
         }))
         .then(() => {
-          if (windData.length === 140) {
+          if (windData.length === 7) {
             console.log(`Loading... 100%`);
             console.log('Complete!!');
             startGame(windData);
