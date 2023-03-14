@@ -1,11 +1,11 @@
 /** Calculates the longitude and latitude given x, y coordinates. */
 export const coordinatesToLatLong = (x, y) => {
-  // Top Left Corner: (Long: 120, Lat: 40) -> (102, 96) and Bottom Left Corner: (Long: 120, Lat: -40) -> (102, 476).
-  // Top Right Corner: (Long: -120, Lat: 40) -> (722, 96) and Bottom Right Corner: (Long: 120, Lat: -40) -> (722, 476).
-  // Lat, Long width = 120, Coordinates width = 620.
+  // Top Left Corner: (Long: 100, Lat: 60) -> (21, 90) and Bottom Left Corner: (Long: 120, Lat: -40) -> (102, 476).
+  // Top Right Corner: (Long: -120, Lat: 60) -> (813, 90) and Bottom Right Corner: (Long: 120, Lat: -40) -> (722, 476).
+  // Lat, Long width = 140, Coordinates width = 792.
   // Lat, Long height = 80, Coordinates height = 380.
   // Converts the longitude and latitude.
-  let lon = x * 0.19 + 102;
+  let lon = x * 0.176 + 96.3;
   let lat = y * -0.210 + 61;
   if (lon > 180) {
     const difference = lon - 180;
@@ -24,7 +24,7 @@ export const latLongToCoordinates = (lon, lat) => {
   }
 
   // Converts x and y from lon and lat.
-  let x = ((lon - 102) / 0.19) - 23;
-  let y = ((lat - 61) / -0.210) + 22;
+  let x = ((lon - 96.3) / 0.176);
+  let y = ((lat - 61) / -0.210);
   return { x: Math.floor(x), y: Math.floor(y) };
 };

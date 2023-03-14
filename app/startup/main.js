@@ -73,6 +73,7 @@ const cities = ["honolulu", "mexico-city", "los-angeles", "tokyo", "manila", "va
 const mouseDownEvents = (event) => {
   x = event.clientX;
   y = event.clientY;
+  console.log(x, y);
   console.log(coordinatesToLatLong(x, y));
   screenPressed = true;
 };
