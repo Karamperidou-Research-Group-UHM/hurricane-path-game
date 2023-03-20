@@ -177,8 +177,8 @@ export default class Hurricane extends GameObject {
           // Increases wind speed by its current growth rate.
           this.windSpeed += 2 * this.growthRate;
 
-          // Only increases radius if less than 100.
-          if (this.width < 100) {
+          // Only increases radius if less than 50.
+          if (this.width < 50) {
             this.width += this.growthRate;
             this.height += this.growthRate;
           }
