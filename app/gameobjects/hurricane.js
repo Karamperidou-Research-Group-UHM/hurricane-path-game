@@ -174,14 +174,19 @@ export default class Hurricane extends GameObject {
     if (this.sst >= this.tempMin && !this.closeToEquator) {
       // Checks if wind speed can be updated by growth rate.
       if (this.windTimer % Math.floor(this.windBuffer) === 0) {
+
+        // Maximum windSpeed is 215 mph.
+        if (this.windSpeed < 215)
+        {
           // Increases wind speed by its current growth rate.
           this.windSpeed += 2 * this.growthRate;
+        }
 
-          // Only increases radius if less than 50.
-          if (this.width < 50) {
-            this.width += this.growthRate;
-            this.height += this.growthRate;
-          }
+        // Only increases radius if less than 50.
+        if (this.width < 50) {
+          this.width += this.growthRate;
+          this.height += this.growthRate;
+        }
       }
     } else {
       // Only reduces wind speed if its greater than 60.
