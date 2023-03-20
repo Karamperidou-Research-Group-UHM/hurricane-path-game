@@ -191,11 +191,11 @@ export default class Hurricane extends GameObject {
     } else {
       // Only reduces wind speed if its greater than 60.
       if (this.windSpeed > 60) {
-        this.windSpeed -= 0.1 + (this.sst / 100);
+        this.windSpeed -= 0.1 + (this.sst / 60);
         // Only reduces radius if its greater than its initial radius.
         if (this.width > this.initialWidth) {
-          this.width -= (0.1 + (this.sst / 100)) / 4;
-          this.height -= (0.1 + (this.sst / 100)) / 4;
+          this.width -= (0.1 + (this.sst / 60)) / 4;
+          this.height -= (0.1 + (this.sst / 60)) / 4;
         }
       }
     }
