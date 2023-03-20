@@ -120,7 +120,7 @@ const loadToMainCanvas = () => {
 
 const startGame = (windData) => {
   /** Create all objects in this area. */
-  const hurricaneStartPos = latLongToCoordinates(-120, 30);
+  const hurricaneStartPos = latLongToCoordinates(-136, 30);
   hurricane = new Hurricane(hurricaneStartPos.x, hurricaneStartPos.y, 5, 5, 'grey', gameArea, false, category[0], sst);
   const windDataCoordinates = []
 
@@ -206,7 +206,7 @@ const loadData = async () => {
           windDir: allData.hourly.winddirection_10m[0],
         }))
         .then(() => {
-          if (windData.length === 7) {
+          if (windData.length === 140) {
             console.log(`Loading... 100%`);
             console.log('Complete!!');
             startGame(windData);
