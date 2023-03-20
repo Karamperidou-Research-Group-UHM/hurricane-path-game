@@ -3,7 +3,7 @@ export default class TestData {
   heatMapTestData(coordinates) {
     for (let i = 0; i < 825; i++) {
       for (let j = 0; j < 526; j++) {
-        let randomTemp = Math.floor(Math.random() * (((j / 2) + 10) - ((j / 2) - 10)) + (j / 2) - 10);
+        let randomTemp = Math.floor(Math.random() * (((j / 2.5) + 10) - ((j / 2.5) - 10)) + (j / 2.5) - 10);
         // Reduces temperature is heat point is past 345 in the y-axis.
         if (j > 345) {
           randomTemp -= (j - 346);
