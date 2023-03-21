@@ -6,7 +6,6 @@ import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
 import GameObject from '../gameobjects/gameObject.js';
-import { getWindData, getWindDataPoint, testAPI } from '../api/noaaWeatherAPI.js';
 import { coordinatesToLatLong, latLongToCoordinates } from '../components/coodinateConversion.js';
 
 let gameControls = new GameControls();
