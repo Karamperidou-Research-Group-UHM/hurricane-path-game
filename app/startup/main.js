@@ -235,7 +235,7 @@ const updateObjects = () => {
   gameControls.changeLowSize(0);
 
   /** Update all objects in this area. */
-  hurricane.update();
+  hurricane.update(gameStart);
   highPressureSys.update();
   lowPressureSys.update();
   equator.update();

@@ -169,39 +169,42 @@ export default class Hurricane extends GameObject {
   }
 
   /** Updates the Hurricane object. */
-  update() {
-    // Wind speeds only increase if the current sst is larger than 80 degrees and is not close to the equator, otherwise decrease.
-    if (this.sst >= this.tempMin && !this.closeToEquator) {
-      // Checks if wind speed can be updated by growth rate.
-      if (this.windTimer % Math.floor(this.windBuffer) === 0) {
+  update(gameStart) {
+    // Checks if the game started.
+    if (gameStart) {
+      // Wind speeds only increase if the current sst is larger than 80 degrees and is not close to the equator, otherwise decrease.
+      if (this.sst >= this.tempMin && !this.closeToEquator) {
+        // Checks if wind speed can be updated by growth rate.
+        if (this.windTimer % Math.floor(this.windBuffer) === 0) {
 
-        // Maximum windSpeed is 215 mph.
-        if (this.windSpeed < 215)
-        {
-          // Increases wind speed by its current growth rate.
-          this.windSpeed += 2 * this.growthRate;
+          // Maximum windSpeed is 215 mph.
+          if (this.windSpeed < 215)
+          {
+            // Increases wind speed by its current growth rate.
+            this.windSpeed += 2 * this.growthRate;
+          }
+
+          // Only increases radius if less than 50.
+          if (this.width < 50) {
+            this.width += this.growthRate;
+            this.height += this.growthRate;
+          }
         }
-
-        // Only increases radius if less than 50.
-        if (this.width < 50) {
-          this.width += this.growthRate;
-          this.height += this.growthRate;
+      } else {
+        // Only reduces wind speed if its greater than 60.
+        if (this.windSpeed > 60) {
+          this.windSpeed -= 0.1 + (this.sst / 60);
+          // Only reduces radius if its greater than its initial radius.
+          if (this.width > this.initialWidth) {
+            this.width -= (0.1 + (this.sst / 60)) / 4;
+            this.height -= (0.1 + (this.sst / 60)) / 4;
+          }
         }
       }
-    } else {
-      // Only reduces wind speed if its greater than 60.
-      if (this.windSpeed > 60) {
-        this.windSpeed -= 0.1 + (this.sst / 60);
-        // Only reduces radius if its greater than its initial radius.
-        if (this.width > this.initialWidth) {
-          this.width -= (0.1 + (this.sst / 60)) / 4;
-          this.height -= (0.1 + (this.sst / 60)) / 4;
-        }
-      }
+
+      this.windTimer += 1;
+      this.updateCategory();
     }
-
-    this.windTimer += 1;
-    this.updateCategory();
 
     const ctx = this.gameArea.context;
     ctx.fillStyle = this.color;
