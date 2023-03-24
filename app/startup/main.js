@@ -292,8 +292,9 @@ const updateGame = () => {
   } else {
     document.getElementById("hurr-category").innerText = hurricane.category;
   }
-  document.getElementById("x-coord").innerText = (parseInt(hurricane.x)) + '';
-  document.getElementById("y-coord").innerText = (parseInt(hurricane.y)) + '';
+  let hurricaneCoords = coordinatesToLatLong(hurricane.x, hurricane.y);
+  document.getElementById("lat").innerText = (parseInt(hurricaneCoords.lat)) + '';
+  document.getElementById("lon").innerText = (parseInt(hurricaneCoords.lon)) + '';
   document.getElementById("hurr-size").innerText = parseInt(hurricane.width * Math.PI) + '';
   document.getElementById("hurr-speed").innerText = parseInt(hurricane.windSpeed) + '';
   document.getElementById("hurr-sst").innerText = hurricane.sst + '';
