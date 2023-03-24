@@ -4,7 +4,7 @@ import xarray as xr
 
 def getSSTData(season):
     # Opens the data set.
-    ds = xr.open_dataset('data/{}.nc'.format(season), decode_times=False)
+    ds = xr.open_dataset('sstdata/data/{}.nc'.format(season.lower()), decode_times=False)
     df = ds.to_dataframe()
     
     # Flattens the multiindex.
@@ -52,14 +52,14 @@ def getSSTData(season):
     data_json = []
     lats = np.array(all_pacific_data['lat'])
     lons = np.array(all_pacific_data['lon'])
-    sst = np.array(all_pacific_data['sst'])
+    ssts = np.array(all_pacific_data['sst'])
 
     # Creates an array of dictionaries which include lat, lon, and sst.
     for i in range(len(lats)):
         data_dict = {
             'lat': lats[i],
             'lon': lons[i],
-            'sst': sst[i]
+            'sst': ssts[i]
         }
         
         data_json.append(data_dict)
