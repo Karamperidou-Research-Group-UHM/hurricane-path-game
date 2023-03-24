@@ -3,6 +3,9 @@ import numpy as np
 import xarray as xr
 
 def getSSTData(season):
+    ''' Gets the SST data for latitude points: 80 to -60 and longitude points: 120 to -120 for a 
+        specific season by reading from one of the NOAA datasets.'''
+    
     # Opens the data set.
     ds = xr.open_dataset('sstdata/data/{}.nc'.format(season.lower()), decode_times=False)
     df = ds.to_dataframe()
