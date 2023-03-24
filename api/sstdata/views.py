@@ -7,7 +7,7 @@ from rest_framework import status
 class SSTView(APIView):
     def get(self, request, season):
         # Checks if the season entered is valid.
-        if (season.lower() != 'spring' or season.lower() != 'summer' or season.lower() != 'fall' or season.lower() != 'winter'):
+        if (season.lower() != 'spring' and season.lower() != 'summer' and season.lower() != 'fall' and season.lower() != 'winter'):
             return Response({'status': 'error'})
         else:
-            return Response({'season entered': season})
+            return Response({'season entered': season.lower()})
