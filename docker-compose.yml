@@ -1,0 +1,13 @@
+version: '3.8'
+# All the containers.
+services:
+  api:
+    # Builds the image for the api.
+    build: ./api
+    # Runs django server.
+    command:  python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./api:/api
+    # Maps host port to container port. 
+    ports:
+      - "8000:8000"
