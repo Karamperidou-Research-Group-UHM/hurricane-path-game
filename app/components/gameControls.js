@@ -90,26 +90,26 @@ export default class GameControls {
 
   /** Changes the text of the city to "HIT" if it's marker collides with the hurricane
    *  Guide:
-   *    x = 415: Oahu Pin
-   *    x = 690: Mexico City Pin
-   *    x = 600: Los Angeles Pin
-   *    x = 115: Tokyo Pin
-   *    x = 30: Manila Pin
-   *    x = 585: Vancouver Pin
+   *    x = 526: Oahu Pin
+   *    x = 710: Los Angeles Pin
+   *    x = 717: Seattle Pin
+   *    x = 192: Tokyo Pin
+   *    x = 80: Hong Kong
+   *    x = 105: Manila Pin
    * */
   changeCityStatus(hitList, cities) {
     for (let i = 0; i < hitList.length; i++) {
-      if (hitList[i].x === 415) {
+      if (hitList[i].x === 526) {
         this.setHit(cities[0]);
-      } else if (hitList[i].x === 690) {
+      } else if (hitList[i].x === 710) {
         this.setHit(cities[1]);
-      } else if (hitList[i].x === 600) {
+      } else if (hitList[i].x === 717) {
         this.setHit(cities[2]);
-      } else if (hitList[i].x === 115) {
+      } else if (hitList[i].x === 192) {
         this.setHit(cities[3]);
-      } else if (hitList[i].x === 30) {
+      } else if (hitList[i].x === 80) {
         this.setHit(cities[4]);
-      } else if (hitList[i].x === 585) {
+      } else if (hitList[i].x === 105) {
         this.setHit(cities[5]);
       }
     }

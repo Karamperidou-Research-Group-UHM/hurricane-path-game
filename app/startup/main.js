@@ -66,7 +66,7 @@ let sst = 1;
 let category = [1, 2, 3, 4, 5];
 let coordinates = [];
 let windArrowData = [];
-const cities = ["honolulu", "mexico-city", "los-angeles", "tokyo", "manila", "vancouver"];
+const cities = ["honolulu", "seattle", "los-angeles", "tokyo", "hongkong", "manila"];
 
 /** All mouse down events. */
 const mouseDownEvents = (event) => {
