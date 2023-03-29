@@ -2,8 +2,14 @@ import pandas as pd
 import numpy as np
 import xarray as xr
 
-def get_mean_wind_data(season, vector_component):
+def get_mean_wind_data(season, wind_vector_component):
     '''Gets the mean wind data for the given wind vector component (u or v) and the given season.'''
+
+    # Checks which wind vector was inputted and sets vector_component to the correct string.
+    if (wind_vector_component == 'u'):
+        vector_component = 'uwnd'
+    else:
+        vector_component = 'vwnd'
 
     # Default date.
     data_date = '2020-03-01'
@@ -87,8 +93,8 @@ def get_wind_direction_data(season):
        and returns a json object of of the lat, lon, and wind direction.'''
     
     # Gets the u and v wind vectors for the given season.
-    u_wind_data = get_mean_wind_data(season, 'uwnd')
-    v_wind_data = get_mean_wind_data(season, 'vwnd')
+    u_wind_data = get_mean_wind_data(season, 'u')
+    v_wind_data = get_mean_wind_data(season, 'v')
     
     data_json = []
     wind_directions = []
