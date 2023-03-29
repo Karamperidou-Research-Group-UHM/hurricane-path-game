@@ -1,6 +1,10 @@
+import pandas as pd
+import numpy as np
+import xarray as xr
+
 def get_mean_wind_data(season, vector_component):
     '''Gets the mean wind data for the given wind vector component (u or v) and the given season.'''
-    
+
     # Default date.
     data_date = '2020-03-01'
     
@@ -77,3 +81,33 @@ def get_mean_wind_data(season, vector_component):
 
     return mean_wind_data_type
 
+
+def get_wind_direction_data(season):
+    '''Calculates the wind direction from the u and v wind vectors given at each lat and longitude point 
+       and returns a json object of of the lat, lon, and wind direction.'''
+    
+    # Gets the u and v wind vectors for the given season.
+    u_wind_data = get_mean_wind_data(season, 'uwnd')
+    v_wind_data = get_mean_wind_data(season, 'vwnd')
+    
+    data_json = []
+    wind_directions = []
+    lats = np.array(u_wind_data['lat'])
+    lons = np.array(u_wind_data['lon'])
+    u_winds = np.array(u_wind_data['uwnd'])
+    v_winds = np.array(v_wind_data['vwnd'])
+    
+    # Creates an array of dictionaries which include lat, lon, and uwnd.
+    for i in range(len(lats)):
+        # Computes the angle of the wind based on the coordindate from the u and v wind vectors.
+        wind_direction = np.arctan2(v_winds[i], u_winds[i])
+        
+        data_dict = {
+            'lat': lats[i],
+            'lon': lons[i],
+            'windir': wind_direction
+        }
+        
+        data_json.append(data_dict)
+        
+    return data_json
