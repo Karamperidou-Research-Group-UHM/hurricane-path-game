@@ -25,7 +25,7 @@ def get_mean_wind_data(season, wind_vector_component):
         data_date = '2020-12-01'
         
     # Opens the data set corresponding to the correct wind vector component given.
-    ds = xr.open_dataset('data/{}.mon.ltm.1991-2020.nc'.format(vector_component), decode_times=True)
+    ds = xr.open_dataset('winddata/data/{}.mon.ltm.1991-2020.nc'.format(vector_component), decode_times=True)
     df = ds.to_dataframe()
     
     # Flattens the multiindex.
