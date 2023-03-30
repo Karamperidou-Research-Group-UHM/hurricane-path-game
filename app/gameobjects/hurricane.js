@@ -151,7 +151,7 @@ export default class Hurricane extends GameObject {
     if (this.tempTimer % 20 === 0) {
       // Gets the current sst of the heat point closest to the hurricane.
       const currentSST = tempCoordinates.find(heatPoint => (this.x >= heatPoint.x - 1 && this.x <= heatPoint.x + 1) && (this.y >= heatPoint.y - 1 && this.y <= heatPoint.y + 1));
-      this.sst = currentSST.temp;
+      this.sst = currentSST.sst;
     }
     this.tempTimer += 1;
   }

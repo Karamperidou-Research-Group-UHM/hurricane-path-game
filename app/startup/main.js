@@ -10,7 +10,6 @@ import { coordinatesToLatLong, latLongToCoordinates } from '../components/coodin
 import { getSSTData, getWindData } from '../api/climateDataAPI.js';
 
 let gameControls = new GameControls();
-let testData = new TestData();
 let heatMap;
 let screenPressed = false;
 let x = 0;
@@ -66,7 +65,8 @@ let pins;
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
 let coordinates = [];
-let windArrowData = [];
+const windDataCoordinates = [];
+const sstDataCoordinates = [];
 const cities = ["honolulu", "seattle", "los-angeles", "tokyo", "hongkong", "manila"];
 
 /** All mouse down events. */
@@ -124,7 +124,6 @@ const startGame = async (windData) => {
   const sstData = await getSSTData('fall');
 
   // Converts the lat and lon for each wind direction data point to x, y coordinates.
-  const windDataCoordinates = [];
   for (let i = 0; i < windDirData.length; i++) {
     const xycoordinates = latLongToCoordinates(windDirData[i].lon, windDirData[i].lat);
     windDataCoordinates.push({
@@ -135,7 +134,6 @@ const startGame = async (windData) => {
   }
 
   // Converts the lat and lon for each sst data point to x, y coordinates.
-  const sstDataCoordinates = [];
   for (let i = 0; i < sstData.length; i++) {
     const xycoordinates = latLongToCoordinates(sstData[i].lon, sstData[i].lat);
     sstDataCoordinates.push({
@@ -162,8 +160,8 @@ const startGame = async (windData) => {
   windArrows.createWindArrows();
 
   // Loads heat map.
-  testData.heatMapTestData(coordinates);
-  heatMap = new HeatMap(coordinates, gameArea);
+  // testData.heatMapTestData(coordinates);
+  heatMap = new HeatMap(sstDataCoordinates, gameArea);
   loadToMainCanvas();
 
   // Loads the major city/country markers
@@ -195,7 +193,7 @@ const updateObjects = () => {
   highPressureSys.update();
   lowPressureSys.update();
   equator.update();
-  hurricane.checkSST(coordinates);
+  hurricane.checkSST(sstDataCoordinates);
   hurricane.checkPos(equator);
 }
 
