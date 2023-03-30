@@ -139,7 +139,7 @@ const startGame = async (windData) => {
     sstDataCoordinates.push({
       x: xycoordinates.x,
       y: xycoordinates.y,
-      sst: sstData.sst,
+      sst: sstData[i].sst,
     })
   }
 

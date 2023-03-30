@@ -4,8 +4,8 @@ export default class HeatPoint {
   constructor(x, y, temp, gameArea) {
     this.x = x;
     this.y = y;
-    this.width = 5;
-    this.height = 5;
+    this.width = 12;
+    this.height = 12;
     this.temp = temp;
     this.gameArea = gameArea;
   }
@@ -43,7 +43,7 @@ export default class HeatPoint {
     const pointColor = this.setColor();
     const ctx = this.gameArea.context2;
     ctx.beginPath();
-    ctx.globalAlpha = 0.05;
+    ctx.globalAlpha = 0.7;
     ctx.fillStyle = pointColor;
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.closePath();
