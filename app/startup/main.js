@@ -124,13 +124,24 @@ const startGame = async (windData) => {
   const sstData = await getSSTData('fall');
 
   // Converts the lat and lon for each wind direction data point to x, y coordinates.
-  const windDataCoordinates = []
+  const windDataCoordinates = [];
   for (let i = 0; i < windDirData.length; i++) {
     const xycoordinates = latLongToCoordinates(windDirData[i].lon, windDirData[i].lat);
     windDataCoordinates.push({
       x: xycoordinates.x,
       y: xycoordinates.y,
       windDir: (windDirData[i].windir * (180 / Math.PI)),
+    })
+  }
+
+  // Converts the lat and lon for each sst data point to x, y coordinates.
+  const sstDataCoordinates = [];
+  for (let i = 0; i < sstData.length; i++) {
+    const xycoordinates = latLongToCoordinates(sstData[i].lon, sstData[i].lat);
+    sstDataCoordinates.push({
+      x: xycoordinates.x,
+      y: xycoordinates.y,
+      sst: sstData.sst,
     })
   }
 
@@ -146,8 +157,7 @@ const startGame = async (windData) => {
 
   equator = new GameObject(0, 345, 850, 2, 'black', gameArea, false);
 
-  // Loads wind arrows.
-  // testData.windTestData(windArrowData);
+  // Loads wind arrow objects.
   windArrows = new WindArrows(windDataCoordinates, gameArea, highPressureSys, lowPressureSys, hurricane);
   windArrows.createWindArrows();
 
