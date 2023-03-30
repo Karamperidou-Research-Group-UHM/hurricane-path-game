@@ -130,15 +130,13 @@ const startGame = async (windData) => {
     windDataCoordinates.push({
       x: xycoordinates.x,
       y: xycoordinates.y,
-      windDir: windDirData[i].windir,
+      windDir: (windDirData[i].windir * (180 / Math.PI)),
     })
   }
 
   /** Create all objects in this area. */
   const hurricaneStartPos = latLongToCoordinates(-136, 30);
   hurricane = new Hurricane(hurricaneStartPos.x, hurricaneStartPos.y, 5, 5, 'grey', gameArea, false, category[0], sst);
-
-
 
   // Loads the seasons label and pressure systems
   pins = new Pins(gameArea, '../images/red-pin.png', 13, 16);
@@ -149,7 +147,7 @@ const startGame = async (windData) => {
   equator = new GameObject(0, 345, 850, 2, 'black', gameArea, false);
 
   // Loads wind arrows.
-  testData.windTestData(windArrowData);
+  // testData.windTestData(windArrowData);
   windArrows = new WindArrows(windDataCoordinates, gameArea, highPressureSys, lowPressureSys, hurricane);
   windArrows.createWindArrows();
 
