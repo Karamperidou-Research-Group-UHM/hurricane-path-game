@@ -185,8 +185,11 @@ const loadData = async () => {
   const startLong = 100;
   let windData = [];
 
-  getWindData('fall');
-  getSSTData('fall');
+  const windDirFallData = await getWindData('fall');
+  const sstFallData = await getSSTData('fall');
+  console.log(windDirFallData);
+  console.log(sstFallData);
+
 
   // Longitude points.
   for (let i = 0; i < 20; i++) {
