@@ -6,7 +6,7 @@ from .getWindData import get_wind_direction_data
 
 # Create your views here.
 class WindDataView(APIView):
-    def get(self, season):
+    def get(self, request, season):
         '''Returns a json of all wind direction data for latitude points: 80 to -60 and 
             longitude points: 120 to -120 for the season given.'''
 
