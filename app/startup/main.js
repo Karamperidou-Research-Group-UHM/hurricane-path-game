@@ -7,6 +7,7 @@ import Pins from '../components/pins.js';
 import TestData from '../components/testData.js';
 import GameObject from '../gameobjects/gameObject.js';
 import { coordinatesToLatLong, latLongToCoordinates } from '../components/coodinateConversion.js';
+import { getSSTData, getWindData } from '../api/climateDataAPI.js';
 
 let gameControls = new GameControls();
 let testData = new TestData();
@@ -182,7 +183,10 @@ const loadData = async () => {
   }
   const startLat = 50;
   const startLong = 100;
-  const windData = [];
+  let windData = [];
+
+  getWindData('fall');
+  getSSTData('fall');
 
   // Longitude points.
   for (let i = 0; i < 20; i++) {
