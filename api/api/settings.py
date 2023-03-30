@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'sstdata',
+    'winddata',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True  

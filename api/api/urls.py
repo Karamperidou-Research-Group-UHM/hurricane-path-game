@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('sstdata/', include('sstdata.urls')),
+    path('winddata/', include('winddata.urls')),
 ]
