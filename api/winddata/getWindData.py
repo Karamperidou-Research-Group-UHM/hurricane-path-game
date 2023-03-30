@@ -59,7 +59,7 @@ def get_mean_wind_data(season, wind_vector_component):
         lons.append(data['lon'].mean())
 
     # Groups the data by lat and lon and calls get_avg_winds for each lat and lon group.
-    grouped_wind_data = season_wind.groupby(['lat', 'lon']).apply(lambda x: get_avg_winds(x))
+    season_wind.groupby(['lat', 'lon']).apply(lambda x: get_avg_winds(x))
 
     # Creates a new dataframe with the data.
     mean_wind_data_type = pd.DataFrame({'lat': lats, 'lon': lons, vector_component: mean_winds, 'season': season})
@@ -97,7 +97,6 @@ def get_wind_direction_data(season):
     v_wind_data = get_mean_wind_data(season, 'v')
     
     data_json = []
-    wind_directions = []
     lats = np.array(u_wind_data['lat'])
     lons = np.array(u_wind_data['lon'])
     u_winds = np.array(u_wind_data['uwnd'])
@@ -108,6 +107,7 @@ def get_wind_direction_data(season):
         # Computes the angle of the wind based on the coordindate from the u and v wind vectors.
         wind_direction = np.arctan2(v_winds[i], u_winds[i])
         
+        # Creates a dictionary with fields, lat, lon, and windir.
         data_dict = {
             'lat': lats[i],
             'lon': lons[i],

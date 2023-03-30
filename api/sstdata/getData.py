@@ -7,7 +7,7 @@ def getSSTData(season):
         specific season by reading from one of the NOAA datasets.'''
     
     # Opens the data set.
-    ds = xr.open_dataset('sstdata/data/{}.nc'.format(season.lower()), decode_times=False)
+    ds = xr.open_dataset('sstdata/data/{}.nc'.format(season), decode_times=False)
     df = ds.to_dataframe()
     
     # Flattens the multiindex.
