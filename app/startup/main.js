@@ -118,20 +118,27 @@ const loadToMainCanvas = () => {
   destCtx.drawImage(gameArea.offCanvas, 0, 0);
 };
 
-const startGame = (windData) => {
-  /** Create all objects in this area. */
-  const hurricaneStartPos = latLongToCoordinates(-136, 30);
-  hurricane = new Hurricane(hurricaneStartPos.x, hurricaneStartPos.y, 5, 5, 'grey', gameArea, false, category[0], sst);
-  const windDataCoordinates = []
+const startGame = async (windData) => {
+  // Gets the climate data from the api.
+  const windDirData = await getWindData('fall');
+  const sstData = await getSSTData('fall');
 
-  for (let i = 0; i < windData.length; i++) {
-    const xycoordinates = latLongToCoordinates(windData[i].long, windData[i].lat);
+  // Converts the lat and lon for each wind direction data point to x, y coordinates.
+  const windDataCoordinates = []
+  for (let i = 0; i < windDirData.length; i++) {
+    const xycoordinates = latLongToCoordinates(windDirData[i].lon, windDirData[i].lat);
     windDataCoordinates.push({
       x: xycoordinates.x,
       y: xycoordinates.y,
-      windDir: windData[i].windDir,
+      windDir: windDirData[i].windir,
     })
   }
+
+  /** Create all objects in this area. */
+  const hurricaneStartPos = latLongToCoordinates(-136, 30);
+  hurricane = new Hurricane(hurricaneStartPos.x, hurricaneStartPos.y, 5, 5, 'grey', gameArea, false, category[0], sst);
+
+
 
   // Loads the seasons label and pressure systems
   pins = new Pins(gameArea, '../images/red-pin.png', 13, 16);
@@ -159,71 +166,6 @@ const startGame = (windData) => {
   // Starts the game area.
   gameArea.start();
 }
-
-/** Loads all objects and starts the game. */
-const loadData = async () => {
-  let season = 'Summer';
-
-  let startDate = '';
-  let endDate = '';
-  // Sets the start and end date based on the season.
-  if (season === 'Spring') {
-    // NEEDS TO BE CHANGED ONCE THE SPRING EQUINOX IN 2023 HAPPENS!
-    startDate = '2023-03-01';
-    endDate = '2022-03-02';
-  } else if (season === 'Summer') {
-    startDate = '2022-06-21';
-    endDate = '2022-06-22';
-  } else if (season === 'Fall') {
-    startDate = '2022-09-22';
-    endDate = '2022-09-23';
-  } else {
-    startDate = '2022-12-21';
-    endDate = '2022-12-22';
-  }
-  const startLat = 50;
-  const startLong = 100;
-  let windData = [];
-
-  const windDirFallData = await getWindData('fall');
-  const sstFallData = await getSSTData('fall');
-  console.log(windDirFallData);
-  console.log(sstFallData);
-
-
-  // Longitude points.
-  for (let i = 0; i < 20; i++) {
-    let long = (i * 10) + startLong;
-    // Checks if longitude is at 180 and needs to be decreased.
-    if (long > 180) {
-      long = (((i * 10)) + startLong - 180) - 180;
-    }
-    // Latitude points.
-    for (let j = 0; j < 7; j++) {
-      const lat = -1 * (j * 15) + startLat;
-      let allData = [];
-      // Fetches stations in lat: 120E - 80W and log: 60N - 45S.
-      await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${long}&start_date=${startDate}&end_date=${endDate}&hourly=winddirection_10m`)
-        .then(data => data.json())
-        .then(dataJson => allData = dataJson)
-        .then(() => windData.push({
-          lat: lat,
-          long: long,
-          windDir: allData.hourly.winddirection_10m[0],
-        }))
-        .then(() => {
-          if (windData.length === 140) {
-            console.log(`Loading... 100%`);
-            console.log('Complete!!');
-            startGame(windData);
-          } else {
-            console.log(`Loading... ${((i * 7) / 140) * 100}%`);
-          }
-        })
-        .catch(error => console.log(error));
-    }
-  }
-};
 
 /** Updates all game object on the canvas. */
 const updateObjects = () => {
@@ -379,5 +321,5 @@ startButton.addEventListener("click", () => gameStart = true);
 resetButton.addEventListener("click", () => resetGame());
 
 // Starts the game when the window loads.
-window.addEventListener('load', loadData);
+window.addEventListener('load', startGame);
 
