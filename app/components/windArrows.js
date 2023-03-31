@@ -16,7 +16,7 @@ export default class WindArrows {
   createWindArrows() {
     // Creates WindArrow objects for each element in windArrowData and pushes them to windArrows array.
     for (let i = 0; i < this.windArrowData.length; i++) {
-      const windArrow = new WindArrow(this.windArrowData[i].x, this.windArrowData[i].y, 42, 30, '../images/WindArrow.png', this.gameArea, true, this.windArrowData[i].windDir, this.highPressureSystem, this.lowPressureSystem, this.hurricane);
+      const windArrow = new WindArrow(this.windArrowData[i].x, this.windArrowData[i].y, 21, 15, '../images/WindArrow.png', this.gameArea, true, this.windArrowData[i].windDir, this.highPressureSystem, this.lowPressureSystem, this.hurricane);
       this.windArrows.push(windArrow);
     }
   }
