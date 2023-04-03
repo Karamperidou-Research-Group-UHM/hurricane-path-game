@@ -38,8 +38,8 @@ def get_mean_wind_data(season, wind_vector_component):
     wind_data = wind_data.drop(['level', 'time', 'nbnds', 'valid_yr_count'], axis=1)
     
     # Filters out all unnecessary latitude values.
-    wind_data = wind_data[wind_data['lat'] < 80]
-    wind_data = wind_data[wind_data['lat'] > -60]
+    wind_data = wind_data[wind_data['lat'] < 60]
+    wind_data = wind_data[wind_data['lat'] > -20]
     
     # Filters out all unncessary longitude values.
     wind_data = wind_data[wind_data['lon'] >= 120]
