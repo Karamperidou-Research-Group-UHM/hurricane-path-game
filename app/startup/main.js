@@ -64,7 +64,6 @@ let equator;
 let pins;
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
-let coordinates = [];
 const windDataCoordinates = [];
 const sstDataCoordinates = [];
 const cities = ["honolulu", "seattle", "los-angeles", "tokyo", "hongkong", "manila"];
@@ -73,8 +72,8 @@ const cities = ["honolulu", "seattle", "los-angeles", "tokyo", "hongkong", "mani
 const mouseDownEvents = (event) => {
   x = event.clientX;
   y = event.clientY;
-  console.log(x, y);
-  console.log(coordinatesToLatLong(x, y));
+  let rect = gameArea.canvas.getBoundingClientRect();
+  console.log(x - rect.left, y - rect.top);
   screenPressed = true;
 };
 
@@ -125,7 +124,7 @@ const startGame = async (windData) => {
 
   // Converts the lat and lon for each wind direction data point to x, y coordinates.
   for (let i = 0; i < windDirData.length; i++) {
-    const xycoordinates = latLongToCoordinates(windDirData[i].lon, windDirData[i].lat);
+    const xycoordinates = latLongToCoordinates(windDirData[i].lon, windDirData[i].lat, gameArea);
     windDataCoordinates.push({
       x: xycoordinates.x,
       y: xycoordinates.y,
@@ -135,7 +134,7 @@ const startGame = async (windData) => {
 
   // Converts the lat and lon for each sst data point to x, y coordinates.
   for (let i = 0; i < sstData.length; i++) {
-    const xycoordinates = latLongToCoordinates(sstData[i].lon, sstData[i].lat);
+    const xycoordinates = latLongToCoordinates(sstData[i].lon, sstData[i].lat, gameArea);
     sstDataCoordinates.push({
       x: xycoordinates.x,
       y: xycoordinates.y,
@@ -144,7 +143,7 @@ const startGame = async (windData) => {
   }
 
   /** Create all objects in this area. */
-  const hurricaneStartPos = latLongToCoordinates(-136, 30);
+  const hurricaneStartPos = latLongToCoordinates(-136, 30, gameArea);
   hurricane = new Hurricane(hurricaneStartPos.x, hurricaneStartPos.y, 5, 5, 'grey', gameArea, false, category[0], sst);
 
   // Loads the seasons label and pressure systems
@@ -247,7 +246,7 @@ const updateGame = () => {
   } else {
     document.getElementById("hurr-category").innerText = hurricane.category;
   }
-  let hurricaneCoords = coordinatesToLatLong(hurricane.x, hurricane.y);
+  let hurricaneCoords = coordinatesToLatLong(hurricane.x, hurricane.y, gameArea);
   document.getElementById("lat").innerText = (parseInt(hurricaneCoords.lat)) + '';
   document.getElementById("lon").innerText = (parseInt(hurricaneCoords.lon)) + '';
   document.getElementById("hurr-size").innerText = parseInt(hurricane.width * Math.PI) + '';

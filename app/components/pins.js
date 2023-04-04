@@ -33,22 +33,22 @@ export default class Pins {
   createPins() {
     const safeImage = '../images/green-pin.png';
 
-    const oahu = latLongToCoordinates(-157.8, 21.5);
+    const oahu = latLongToCoordinates(-157.8, 21.5, this.gameArea);
     const oahuPin = new PinObject((oahu.x - 75), (oahu.y - 65), this.width, this.height, safeImage, this.gameArea, true);
 
-    const seattle = latLongToCoordinates(-122, 47.6);
+    const seattle = latLongToCoordinates(-122, 47.6, this.gameArea);
     const seattlePin = new PinObject((seattle.x - 95), (seattle.y - 50), this.width, this.height, safeImage, this.gameArea, true);
 
-    const la = latLongToCoordinates(-118, 34);
+    const la = latLongToCoordinates(-118, 34, this.gameArea);
     const losAngelesPin = new PinObject((la.x - 110), (la.y - 60), this.width, this.height, safeImage, this.gameArea, true);
 
-    const tokyo = latLongToCoordinates(139, 35.65);
+    const tokyo = latLongToCoordinates(139, 35.65, this.gameArea);
     const tokyoPin = new PinObject((tokyo.x - 50), (tokyo.y - 50), this.width, this.height, safeImage, this.gameArea, true);
 
-    const hongkong = latLongToCoordinates(114, 22);
+    const hongkong = latLongToCoordinates(114, 22, this.gameArea);
     const hongKongPin = new PinObject((hongkong.x - 20), (hongkong.y - 70), this.width, this.height, safeImage, this.gameArea, true);
 
-    const manila = latLongToCoordinates(121, 14.6);
+    const manila = latLongToCoordinates(121, 14.6, this.gameArea);
     const manilaPin = new PinObject((manila.x - 35), (manila.y - 60), this.width, this.height, safeImage, this.gameArea, true);
 
     this.pinList.push(oahuPin, seattlePin, tokyoPin, losAngelesPin, hongKongPin, manilaPin);

@@ -1,12 +1,13 @@
 /** Calculates the longitude and latitude given x, y coordinates. */
-export const coordinatesToLatLong = (x, y) => {
+export const coordinatesToLatLong = (x, y, gameArea) => {
   // Top Left Corner: (Long: 100, Lat: 60) -> (21, 90) and Bottom Left Corner: (Long: 120, Lat: -20) -> (21, 507).
   // Top Right Corner: (Long: -120, Lat: 60) -> (813, 90) and Bottom Right Corner: (Long: 120, Lat: -20) -> (813, 507).
   // Lat, Long width = 140, Coordinates width = 792.
   // Lat, Long height = 80, Coordinates height = 417.
   // Converts the longitude and latitude.
-  let lon = x * 0.176 + 96.3;
-  let lat = y * -0.19 + 77;
+  const rect = gameArea.canvas.getBoundingClientRect();
+  let lon = (x - rect.left) * 0.178 + 100.3;
+  let lat = (y - rect.top) * -0.19 + 77;
   if (lon > 180) {
     const difference = lon - 180;
     lon = 180 - difference;
@@ -16,7 +17,7 @@ export const coordinatesToLatLong = (x, y) => {
 };
 
 /** Calculates the x and y coordinates given longitude and latitude. */
-export const latLongToCoordinates = (lon, lat) => {
+export const latLongToCoordinates = (lon, lat, gameArea) => {
   // Checks if longitude is negative.
   if (lon < 0) {
     // Adjusts longitude to be positive by adding the different of the absolute value on lon by 180 and adding 180.
@@ -24,7 +25,8 @@ export const latLongToCoordinates = (lon, lat) => {
   }
 
   // Converts x and y from lon and lat.
-  let x = ((lon - 96.3) / 0.176);
+  const rect = gameArea.canvas.getBoundingClientRect();
+  let x = ((lon - 100.3) / 0.178);
   let y = ((lat - 77) / -0.19);
-  return { x: Math.floor(x), y: Math.floor(y) };
+  return { x: Math.floor(x) - rect.left, y: Math.floor(y) - rect.top };
 };
