@@ -6,8 +6,8 @@ export const coordinatesToLatLong = (x, y, gameArea) => {
   // Lat, Long height = 80, Coordinates height = 417.
   // Converts the longitude and latitude.
   const rect = gameArea.canvas.getBoundingClientRect();
-  const start = 100;
-  let lon = ((x / 102) * 20) + start;
+  const startLon = 100;
+  let lon = ((x / 102) * 20) + startLon;
   let lat = (y - rect.top) * -0.19 + 77;
   if (lon > 180) {
     const difference = lon - 180;
@@ -27,8 +27,9 @@ export const latLongToCoordinates = (lon, lat, gameArea) => {
 
   // Converts x and y from lon and lat.
   const rect = gameArea.canvas.getBoundingClientRect();
-  const start = 100;
-  let x = ((lon - start) / 20) * 102;
-  let y = ((lat - 77) / -0.19);
+  const startLon = 100;
+  const startLat = 140;
+  let x = ((lon - startLon) / 20) * 102;
+  let y = -1 * ((lat - 60) / 20) * 102 + 45;
   return { x: x - rect.left, y: y - rect.top };
 };

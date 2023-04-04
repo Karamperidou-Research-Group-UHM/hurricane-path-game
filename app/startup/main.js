@@ -147,7 +147,7 @@ const startGame = async (windData) => {
   }
 
   /** Create all objects in this area. */
-  const hurricaneStartPos = latLongToCoordinates(-120, 30, gameArea);
+  const hurricaneStartPos = latLongToCoordinates(-120, 20, gameArea);
   hurricane = new Hurricane(hurricaneStartPos.x, hurricaneStartPos.y, 5, 5, 'grey', gameArea, false, category[0], sst);
 
   // Loads the seasons label and pressure systems
@@ -173,7 +173,7 @@ const startGame = async (windData) => {
   //testAPI();
 
   const sqrCood = latLongToCoordinates(120, 60, gameArea);
-  square = new GameObject(sqrCood.x - 15, sqrCood.y - 15, 15, 15, 'red', gameArea, false);
+  square = new GameObject(sqrCood.x, sqrCood.y, 15, 15, 'red', gameArea, false);
   // Starts the game area.
   gameArea.start();
 }
