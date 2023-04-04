@@ -67,13 +67,17 @@ let category = [1, 2, 3, 4, 5];
 const windDataCoordinates = [];
 const sstDataCoordinates = [];
 const cities = ["honolulu", "seattle", "los-angeles", "tokyo", "hongkong", "manila"];
+let square = null;
 
 /** All mouse down events. */
 const mouseDownEvents = (event) => {
   x = event.clientX;
   y = event.clientY;
   let rect = gameArea.canvas.getBoundingClientRect();
+  const latLon = coordinatesToLatLong(x - rect.left, y - rect.top, gameArea)
   console.log(x - rect.left, y - rect.top);
+  console.log(latLon);
+  // console.log(latLongToCoordinates(latLon.lon, latLon.lat, gameArea));
   screenPressed = true;
 };
 
@@ -143,7 +147,7 @@ const startGame = async (windData) => {
   }
 
   /** Create all objects in this area. */
-  const hurricaneStartPos = latLongToCoordinates(-136, 30, gameArea);
+  const hurricaneStartPos = latLongToCoordinates(-120, 30, gameArea);
   hurricane = new Hurricane(hurricaneStartPos.x, hurricaneStartPos.y, 5, 5, 'grey', gameArea, false, category[0], sst);
 
   // Loads the seasons label and pressure systems
@@ -168,6 +172,8 @@ const startGame = async (windData) => {
   pins.createPins();
   //testAPI();
 
+  const sqrCood = latLongToCoordinates(120, 60, gameArea);
+  square = new GameObject(sqrCood.x - 15, sqrCood.y - 15, 15, 15, 'red', gameArea, false);
   // Starts the game area.
   gameArea.start();
 }
@@ -194,6 +200,7 @@ const updateObjects = () => {
   equator.update();
   hurricane.checkSST(sstDataCoordinates);
   hurricane.checkPos(equator);
+  square.update();
 }
 
 /** Updates the game area of the game. */

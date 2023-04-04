@@ -34,7 +34,7 @@ export default class Pins {
     const safeImage = '../images/green-pin.png';
 
     const oahu = latLongToCoordinates(-157.8, 21.5, this.gameArea);
-    const oahuPin = new PinObject((oahu.x - 75), (oahu.y - 65), this.width, this.height, safeImage, this.gameArea, true);
+    const oahuPin = new PinObject(oahu.x, oahu.y, this.width, this.height, safeImage, this.gameArea, true);
 
     const seattle = latLongToCoordinates(-122, 47.6, this.gameArea);
     const seattlePin = new PinObject((seattle.x - 95), (seattle.y - 50), this.width, this.height, safeImage, this.gameArea, true);
