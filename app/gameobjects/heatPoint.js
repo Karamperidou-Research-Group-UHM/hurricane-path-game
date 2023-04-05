@@ -4,8 +4,8 @@ export default class HeatPoint {
   constructor(x, y, temp, gameArea) {
     this.x = x;
     this.y = y;
-    this.width = 12;
-    this.height = 12;
+    this.width = 15;
+    this.height = 15;
     this.temp = temp;
     this.gameArea = gameArea;
   }
