@@ -104,8 +104,8 @@ def get_wind_direction_data(season):
     
     # Creates an array of dictionaries which include lat, lon, and uwnd.
     for i in range(len(lats)):
-        # Checks if longitude is divisible by 10.
-        if (lons[i] % 10 == 0):
+        # Checks if longitude is divisible by 10 and if the latitude is divisible by 5.
+        if (lons[i] % 10 == 0 and lats[i] % 5 == 0):
             # Computes the angle of the wind based on the coordindate from the u and v wind vectors.
             wind_direction = np.arctan2(v_winds[i], u_winds[i])
             
