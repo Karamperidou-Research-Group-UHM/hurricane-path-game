@@ -4,7 +4,6 @@ import PressureSystem from '../gameobjects/pressureSystem.js';
 import GameControls from '../components/gameControls.js';
 import HeatMap from '../components/heatmap.js';
 import Pins from '../components/pins.js';
-import TestData from '../components/testData.js';
 import GameObject from '../gameobjects/gameObject.js';
 import { coordinatesToLatLong, latLongToCoordinates } from '../components/coodinateConversion.js';
 import { getSSTData, getWindData } from '../api/climateDataAPI.js';

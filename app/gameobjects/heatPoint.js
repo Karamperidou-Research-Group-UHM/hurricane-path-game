@@ -4,15 +4,15 @@ export default class HeatPoint {
   constructor(x, y, temp, gameArea) {
     this.x = x;
     this.y = y;
-    this.width = 15;
-    this.height = 15;
+    this.width = 10.3;
+    this.height = 10.3;
     this.temp = temp;
     this.gameArea = gameArea;
   }
 
   /** Returns the correct rgb color value for the heat point. */
   setColor() {
-    const maxTemp = 134;
+    const maxTemp = 91;
     const tempDifference = maxTemp - this.temp;
     let r = 254;
     let g = 50;
@@ -43,7 +43,7 @@ export default class HeatPoint {
     const pointColor = this.setColor();
     const ctx = this.gameArea.context2;
     ctx.beginPath();
-    ctx.globalAlpha = 0.55;
+    ctx.globalAlpha = 0.6;
     ctx.fillStyle = pointColor;
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.closePath();
