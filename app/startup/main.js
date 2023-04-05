@@ -146,7 +146,7 @@ const startGame = async (windData) => {
   }
 
   /** Create all objects in this area. */
-  const hurricaneStartPos = latLongToCoordinates(-120, 20, gameArea);
+  const hurricaneStartPos = latLongToCoordinates(-117, 25, gameArea);
   hurricane = new Hurricane(hurricaneStartPos.x, hurricaneStartPos.y, 5, 5, 'grey', gameArea, false, category[0], sst);
 
   // Loads the seasons label and pressure systems
