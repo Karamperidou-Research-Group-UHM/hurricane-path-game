@@ -7,8 +7,8 @@ from .getWindData import get_wind_direction_data
 # Create your views here.
 class WindDataView(APIView):
     def get(self, request, season):
-        '''Returns a json of all wind direction data for latitude points: 60 to -20 and 
-            longitude points: 120 to -120 for the season given.'''
+        '''Returns a json of all wind direction data for latitude points: 70 to -30 and 
+            longitude points: 110 to -125 for the season given.'''
 
         # Checks if the correct season was given.
         if (season.lower() != 'spring' and season.lower() != 'summer' and season.lower() != 'fall' and season.lower() != 'winter'):
