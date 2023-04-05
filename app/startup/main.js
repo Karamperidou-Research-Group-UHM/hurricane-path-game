@@ -122,7 +122,7 @@ const loadToMainCanvas = () => {
 const startGame = async (windData) => {
   // Gets the climate data from the api.
   const windDirData = await getWindData('fall');
-  const sstData = await getSSTData('fall');
+  const sstData = await getSSTData('summer');
 
   // Converts the lat and lon for each wind direction data point to x, y coordinates.
   for (let i = 0; i < windDirData.length; i++) {

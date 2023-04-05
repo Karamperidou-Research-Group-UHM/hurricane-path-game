@@ -12,25 +12,26 @@ export default class HeatPoint {
 
   /** Returns the correct rgb color value for the heat point. */
   setColor() {
-    const maxTemp = 91;
+    const maxTemp = 85;
     const tempDifference = maxTemp - this.temp;
     let r = 254;
     let g = 50;
     let b = 50;
+    let changeAmount = 24;
 
     // Change rgb values the number of times the temp is different than the max temp.
     for (let i = 0; i < tempDifference; i++) {
       // Changes rgb values based on what i is.
-      if (i < 51) {
-        g += 4;
-      } else if (i > 51 && i <= 102) {
-        r -= 4;
-      } else if (i > 102 && i <= 153) {
-        b += 4;
-      } else if (i > 204 && i <= 255) {
-        g -= 4;
-      } else if (i > 306 && i <= 357) {
-        r += 4;
+      if (i < 10) {
+        g += changeAmount;
+      } else if (i > 10 && i <= 25) {
+        r -= changeAmount;
+      } else if (i > 25 && i <= 35) {
+        b += changeAmount;
+      } else if (i > 35 && i <= 45) {
+        g -= changeAmount;
+      } else if (i > 45 && i <= 50) {
+        r += changeAmount;
       }
     }
 
