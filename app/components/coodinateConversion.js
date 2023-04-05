@@ -30,6 +30,6 @@ export const latLongToCoordinates = (lon, lat, gameArea) => {
   const startLon = 100;
   const startLat = 140;
   let x = ((lon - startLon) / 20) * 102;
-  let y = -1 * ((lat - 60) / 20) * 102 + 45;
+  let y = -1 * ((lat - 60) / 20) * 102 + 47;
   return { x: x - rect.left, y: y - rect.top };
 };

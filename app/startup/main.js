@@ -67,7 +67,6 @@ let category = [1, 2, 3, 4, 5];
 const windDataCoordinates = [];
 const sstDataCoordinates = [];
 const cities = ["honolulu", "seattle", "los-angeles", "tokyo", "hongkong", "manila"];
-let square = null;
 
 /** All mouse down events. */
 const mouseDownEvents = (event) => {
@@ -170,10 +169,7 @@ const startGame = async (windData) => {
   // Loads the major city/country markers
   pins = new Pins(gameArea, 13, 16);
   pins.createPins();
-  //testAPI();
 
-  const sqrCood = latLongToCoordinates(120, 60, gameArea);
-  square = new GameObject(sqrCood.x, sqrCood.y, 15, 15, 'red', gameArea, false);
   // Starts the game area.
   gameArea.start();
 }
@@ -200,7 +196,6 @@ const updateObjects = () => {
   equator.update();
   hurricane.checkSST(sstDataCoordinates);
   hurricane.checkPos(equator);
-  square.update();
 }
 
 /** Updates the game area of the game. */
