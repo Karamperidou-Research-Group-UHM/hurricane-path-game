@@ -27,8 +27,8 @@ def getSSTData(season):
     pacific_data = pacific_data[pacific_data['lat'] > -60]
     
     # Filters out all unnecessary longitude values.
-    all_pacific_data = pacific_data[pacific_data['lon'] >= 120]
-    all_pacific_data = all_pacific_data[all_pacific_data['lon'] <= 240]
+    all_pacific_data = pacific_data[pacific_data['lon'] >= 100]
+    all_pacific_data = all_pacific_data[all_pacific_data['lon'] <= 260]
     
     
     correct_lon = [] 
