@@ -61,6 +61,7 @@ let lowPressureSys;
 let windArrows;
 let equator;
 let pins;
+let currentSeason = 'Spring';
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
 const windDataCoordinates = [];
@@ -120,9 +121,10 @@ const loadToMainCanvas = () => {
 };
 
 const startGame = async (windData) => {
+
   // Gets the climate data from the api.
-  const windDirData = await getWindData('fall');
-  const sstData = await getSSTData('summer');
+  const windDirData = await getWindData(currentSeason);
+  const sstData = await getSSTData(currentSeason);
 
   // Converts the lat and lon for each wind direction data point to x, y coordinates.
   for (let i = 0; i < windDirData.length; i++) {
@@ -144,6 +146,15 @@ const startGame = async (windData) => {
     })
   }
 
+  // Loads wind arrow objects.
+  windArrows = new WindArrows(windDataCoordinates, gameArea, highPressureSys, lowPressureSys, hurricane);
+  windArrows.createWindArrows();
+
+  // Loads heat map.
+  // testData.heatMapTestData(coordinates);
+  heatMap = new HeatMap(sstDataCoordinates, gameArea);
+  loadToMainCanvas();
+
   /** Create all objects in this area. */
   const hurricaneStartPos = latLongToCoordinates(-117, 25, gameArea);
   hurricane = new Hurricane(hurricaneStartPos.x, hurricaneStartPos.y, 5, 5, 'grey', gameArea, false, category[0], sst);
@@ -155,15 +166,6 @@ const startGame = async (windData) => {
   lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressure.png', gameArea, true, 'low');
 
   equator = new GameObject(0, 345, 850, 2, 'black', gameArea, false);
-
-  // Loads wind arrow objects.
-  windArrows = new WindArrows(windDataCoordinates, gameArea, highPressureSys, lowPressureSys, hurricane);
-  windArrows.createWindArrows();
-
-  // Loads heat map.
-  // testData.heatMapTestData(coordinates);
-  heatMap = new HeatMap(sstDataCoordinates, gameArea);
-  loadToMainCanvas();
 
   // Loads the major city/country markers
   pins = new Pins(gameArea, 13, 16);
@@ -198,7 +200,7 @@ const updateObjects = () => {
 }
 
 /** Updates the game area of the game. */
-const updateGame = () => {
+const updateGame = async () => {
   if (gameStart) {
     // Clears the game area every refresh.
     gameArea.clear();
@@ -282,6 +284,11 @@ const low2 = document.getElementById("low-");
 const temp1 = document.getElementById("temp+");
 const temp2 = document.getElementById("temp-");
 
+const spring = document.getElementById("spring");
+const summer = document.getElementById("summer");
+const fall = document.getElementById("fall");
+const winter = document.getElementById("winter");
+
 const startButton = document.getElementById("start");
 const resetButton = document.getElementById("reset");
 
@@ -303,6 +310,7 @@ low1.addEventListener("click", () => {
   // If game has not started, reload the screen.
   gameStart ? loaded = true : loaded = false;
 });
+
 low2.addEventListener("click", () => {
   gameControls.changeLowSize(-5)
   // If game has not started, reload the screen.
@@ -321,6 +329,26 @@ temp2.addEventListener("click", () => {
   gameControls.changeTemp(-5, heatMap)
   // If game has not started, reload the screen.
   gameStart ? loaded = true : loaded = false;
+});
+
+spring.addEventListener("click", () => {
+  currentSeason = 'Spring';
+  resetGame();
+});
+
+summer.addEventListener("click", () => {
+  currentSeason = 'Summer';
+  resetGame();
+});
+
+fall.addEventListener("click", () => {
+  currentSeason = 'Fall';
+  resetGame();
+});
+
+winter.addEventListener("click", () => {
+  currentSeason = 'Winter';
+  resetGame();
 });
 
 startButton.addEventListener("click", () => gameStart = true);
