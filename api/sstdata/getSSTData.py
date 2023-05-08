@@ -28,8 +28,8 @@ def getSSTData(season):
     # Removes unnecessary dimensions.
     dataset = dataset.drop_dims('nbnds').copy()
     
-    # Creates a time range for the time series from 1854 to the year at the end of the dataset by months.
-    timerange = pd.date_range('1981-01', freq='MS', periods=len(dataset.time)) 
+    # Creates a time range for the time series from 1991 to 2020 by months.
+    timerange = pd.date_range('1991-01', freq='MS', periods=len(dataset.time)) 
     
     # Sets the time coordinate in dataset to the timerange.
     dataset.coords['time'] = timerange
