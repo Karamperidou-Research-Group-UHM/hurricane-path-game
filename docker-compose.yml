@@ -13,7 +13,7 @@ services:
       - "8000:8000"
 
   web:
-    build: ./app/startup
+    build: ./app
     restart: always
     ports:
       - "8080:80"
