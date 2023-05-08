@@ -11,3 +11,11 @@ services:
     # Maps host port to container port. 
     ports:
       - "8000:8000"
+
+  web:
+    build: ./app/startup
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
