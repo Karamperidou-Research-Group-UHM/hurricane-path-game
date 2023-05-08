@@ -2,99 +2,71 @@ import pandas as pd
 import numpy as np
 import xarray as xr
 
-def get_mean_wind_data(season, wind_vector_component):
-    '''Gets the mean wind data for the given wind vector component (u or v) and the given season.'''
-
-    # Checks which wind vector was inputted and sets vector_component to the correct string.
-    if (wind_vector_component == 'u'):
-        vector_component = 'uwnd'
-    else:
-        vector_component = 'vwnd'
-
-    # Default date.
-    data_date = '2020-03-01'
+def get_wind_vector_data(season, wind_vector):
+    '''Gets the mean wind data for the given wind vector component (uwnd or vwnd) and the given season.'''
+    # Opens the netcdf file for the correct wind vector data and stores it as a dataset.
+    url = 'winddata/data/{}.mon.ltm.1991-2020.nc'.format(wind_vector.lower())
+    dataset = xr.open_dataset(url, decode_times=False)
     
-    # Sets the correct date based on the season given.
-    if (season == 'spring'):
-        data_date = '2020-03-01'
-    elif (season == 'summer'):
-        data_date = '2020-06-01'
-    elif (season == 'fall'):
-        data_date = '2020-09-01'
-    elif (season == 'winter'):
-        data_date = '2020-12-01'
+    # Gets the wind variable of the dataset.
+    wind_data = dataset[wind_vector.lower()]
+    
+    # Gets the correct latitude and longitude.
+    wind_data = wind_data.sel(lon=slice(100, 260), lat=slice(60, -40))
+    
+    wind_data_seasonal_mean = []
+    
+    # Selects the correct months of the season for the data and takes the mean uwnd for the season.
+    if season.lower() == 'spring':
+        wind_data_seasonal_mean = wind_data[2:5].mean('time')
+    elif season.lower() == 'summer':
+        wind_data_seasonal_mean = wind_data[5:8].mean('time')
+    elif season.lower() == 'fall':
+        wind_data_seasonal_mean = wind_data[8:11].mean('time')
+    elif season.lower() == 'winter':
+        wind_data_seasonal_mean = wind_data[[11, 0, 1]].mean('time')
         
-    # Opens the data set corresponding to the correct wind vector component given.
-    ds = xr.open_dataset('winddata/data/{}.mon.ltm.1991-2020.nc'.format(vector_component), decode_times=True)
-    df = ds.to_dataframe()
+        
+    # Convertes to dataframe and flattens the multiindex.
+    wind_dataframe = wind_data_seasonal_mean.to_dataframe()
+    wind_dataframe = wind_dataframe.reset_index()
     
+    # Gets the correct level range.
+    wind_dataframe = wind_dataframe[(wind_dataframe['level'] >= 300) & (wind_dataframe['level'] <= 700)]
+    
+    # Groups by lat and lon and takes the mean of the uwnd and level.
+    wind_dataframe_means = wind_dataframe.groupby(['lon','lat']).mean()
     # Flattens the multiindex.
-    df = df.reset_index()
-    
-    # Filters out winds that are not in the 500 mb level. 
-    wind_data = df[df['level'] == 500]
-    
-    # Drops unnecessary rows.
-    wind_data = wind_data.drop(['level', 'time', 'nbnds', 'valid_yr_count'], axis=1)
-    
-    # Filters out all unnecessary latitude values.
-    wind_data = wind_data[wind_data['lat'] < 70]
-    wind_data = wind_data[wind_data['lat'] > -30]
-    
-    # Filters out all unncessary longitude values.
-    wind_data = wind_data[wind_data['lon'] >= 110]
-    wind_data = wind_data[wind_data['lon'] <= 250]
-    
-    # Gets the wind data from the correct season.
-    season_wind = wind_data[wind_data['climatology_bounds'] == data_date]
-
-    mean_winds = []
-    lats = []
-    lons = []
-
-    # Adds the mean winds and lat and lon to the three arrays.
-    def get_avg_winds(data):
-        mean_winds.append(data[vector_component].mean())
-        lats.append(data['lat'].mean())
-        lons.append(data['lon'].mean())
-
-    # Groups the data by lat and lon and calls get_avg_winds for each lat and lon group.
-    season_wind.groupby(['lat', 'lon']).apply(lambda x: get_avg_winds(x))
-
-    # Creates a new dataframe with the data.
-    mean_wind_data_type = pd.DataFrame({'lat': lats, 'lon': lons, vector_component: mean_winds, 'season': season})
+    wind_dataframe_means = wind_dataframe_means.reset_index()
     
     correct_lon = [] 
 
     # Converts all longitude to correct values.
-    for lon in mean_wind_data_type['lon']:
-
+    for lon in wind_dataframe_means['lon']:
         if (lon > 180):
             converted_lon = -1 * (180 - (lon - 180))
         else:
             converted_lon = lon
         correct_lon.append(converted_lon)
+        
+    # Adds a correct longitude column to the dataframe.
+    wind_dataframe_means['correct-lon'] = correct_lon
+    # Drops the original longitude and level columns.
+    wind_dataframe_means = wind_dataframe_means.drop(['lon', 'level'], axis=1)
+    # Renames the correct lon column to lon.
+    wind_dataframe_means = wind_dataframe_means.rename(columns={'correct-lon': 'lon'})
+    # Rearranges the columns.
+    wind_dataframe_means = wind_dataframe_means.reindex(columns=['lat', 'lon', wind_vector.lower()])
     
-    # Adds the correct longitude values as a column.
-    mean_wind_data_type['correct-lon'] = correct_lon
-    
-    # Drops the old longitude column and renames the new one to lon.
-    mean_wind_data_type = mean_wind_data_type.drop(['lon'], axis=1)
-    mean_wind_data_type = mean_wind_data_type.rename(columns={'correct-lon': 'lon'})
-    
-    # Reorders columns.
-    mean_wind_data_type = mean_wind_data_type.reindex(columns=['lat', 'lon', vector_component, 'season'])
-
-    return mean_wind_data_type
+    return wind_dataframe_means
 
 
 def get_wind_direction_data(season):
     '''Calculates the wind direction from the u and v wind vectors given at each lat and longitude point 
        and returns a json object of of the lat, lon, and wind direction.'''
-    
     # Gets the u and v wind vectors for the given season.
-    u_wind_data = get_mean_wind_data(season, 'u')
-    v_wind_data = get_mean_wind_data(season, 'v')
+    u_wind_data = get_wind_vector_data(season, 'uwnd')
+    v_wind_data = get_wind_vector_data(season, 'vwnd')
     
     data_json = []
     lats = np.array(u_wind_data['lat'])
@@ -104,12 +76,11 @@ def get_wind_direction_data(season):
     
     # Creates an array of dictionaries which include lat, lon, and uwnd.
     for i in range(len(lats)):
-        # Checks if longitude is divisible by 10 and if the latitude is divisible by 5.
-        if (lons[i] % 10 == 0 and lats[i] % 5 == 0):
+
+        if lons[i] % 10 == 0 and lats[i] % 5 == 0:
             # Computes the angle of the wind based on the coordindate from the u and v wind vectors.
             wind_direction = np.arctan2(v_winds[i], u_winds[i])
             
-            # Creates a dictionary with fields, lat, lon, and windir.
             data_dict = {
                 'lat': lats[i],
                 'lon': lons[i],
