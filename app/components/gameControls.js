@@ -60,22 +60,22 @@ export default class GameControls {
 
   /** Converts the given data into 1x-5x to display on the control panel
    *  Guide:
-   *    1x: 6400
-   *    2x: 7225
-   *    3x: 8100
-   *    4x: 9025
-   *    5x: 10000
+   *    1x: 3000
+   *    2x: 4500
+   *    3x: 6000
+   *    4x: 7500
+   *    5x: 9000
    * */
   convertObjectSizeData(size) {
-    if (size === 6400) {
+    if (size <= 3000) {
       return 1;
-    } else if (size === 7225) {
+    } else if (size <= 4500) {
       return 2;
-    } else if (size === 8100) {
+    } else if (size <= 6000) {
       return 3;
-    } else if (size === 9025) {
+    } else if (size <= 7500) {
       return 4;
-    } else if (size === 10000) {
+    } else if (size <= 9000) {
       return 5;
     } else {
       return 1;
