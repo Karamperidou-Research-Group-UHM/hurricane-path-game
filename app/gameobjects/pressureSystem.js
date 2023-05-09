@@ -41,14 +41,7 @@ export default class PressureSystem extends GameObject {
     }
   }
 
-  /** Returns the size of the given pressure system
-   *  Guide:
-   *    1x: 6400
-   *    2x: 7225
-   *    3x: 8100
-   *    4x: 9025
-   *    5x: 10000
-   * */
+  /** Returns the size of the given pressure system */
   getSize() {
       return this.radiusX * this.radiusY;
   }

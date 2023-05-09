@@ -151,8 +151,8 @@ const startGame = async (windData) => {
   // Loads the seasons label and pressure systems
   pins = new Pins(gameArea, '../images/red-pin.png', 13, 16);
   pins.createPins();
-  highPressureSys = new PressureSystem(500, 120, 80, 80, '../images/HighPressure.png', gameArea, true, 'high');
-  lowPressureSys = new PressureSystem(120, 300, 80, 80, '../images/LowPressure.png', gameArea, true, 'low');
+  highPressureSys = new PressureSystem(500, 120, 50, 50, '../images/HighPressure.png', gameArea, true, 'high');
+  lowPressureSys = new PressureSystem(120, 300, 50, 50, '../images/LowPressure.png', gameArea, true, 'low');
 
   equator = new GameObject(0, 345, 850, 2, 'black', gameArea, false);
 
