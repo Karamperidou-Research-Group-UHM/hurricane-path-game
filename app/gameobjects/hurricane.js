@@ -23,8 +23,6 @@ export default class Hurricane extends GameObject {
     this.tempTimer = 0;
     this.closeToEquator = false;
     this.activityLog = [];
-
-    console.log(this.x);
   }
 
   /** Gives the hurricane a new angle. */
