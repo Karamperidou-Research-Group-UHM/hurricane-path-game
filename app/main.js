@@ -120,7 +120,7 @@ const loadToMainCanvas = () => {
   destCtx.drawImage(gameArea.offCanvas, 0, 0);
 };
 
-const startGame = async (windData) => {
+const startGame = async () => {
   // Gets the climate data from the api.
   const windDirData = await getWindData(season);
   const sstData = await getSSTData(season);
@@ -283,6 +283,11 @@ const low2 = document.getElementById("low-");
 const temp1 = document.getElementById("temp+");
 const temp2 = document.getElementById("temp-");
 
+const spring = document.getElementById('spring');
+const summer = document.getElementById('summer');
+const fall = document.getElementById('fall');
+const winter = document.getElementById('winter');
+
 const startButton = document.getElementById("start");
 const resetButton = document.getElementById("reset");
 
@@ -322,6 +327,10 @@ temp2.addEventListener("click", () => {
   gameControls.changeTemp(-5, heatMap)
   // If game has not started, reload the screen.
   gameStart ? loaded = true : loaded = false;
+});
+
+spring.addEventListener("click", () => {
+
 });
 
 startButton.addEventListener("click", () => gameStart = true);

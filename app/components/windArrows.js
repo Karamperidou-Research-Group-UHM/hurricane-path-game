@@ -21,6 +21,18 @@ export default class WindArrows {
     }
   }
 
+  /** Replaces the old wind arrows with new ones. */
+  newWindArrows(newWindArrows) {
+    // Resets the wind arrows array.
+    this.windArrows = [];
+
+    // Adds the new wind arrows to the wind arrows array.
+    for (let i = 0; i < this.newWindArrows.length; i++) {
+      const windArrow = new WindArrow(this.newWindArrows[i].x, this.newWindArrows[i].y, 27.3, 19.5, '../images/WindArrow.png', this.gameArea, true, this.newWindArrows[i].windDir, this.highPressureSystem, this.lowPressureSystem, this.hurricane);
+      this.windArrows.push(windArrow);
+    }
+  }
+
   /** Updates the wind arrow game objects in the wind arrows array. */
   updateWindArrows() {
     for (let i = 0; i < this.windArrows.length; i++) {
