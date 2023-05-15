@@ -28,12 +28,12 @@ const gameArea = {
   // Sets up the canvas properties and refreshes game area every 20 ms.
   start : function () {
     this.canvas.width = 825;
-    this.canvas.height = 526;
+    this.canvas.height = 360;
     this.context = this.canvas.getContext("2d");
     document.body.insertBefore(this.canvas, document.body.childNodes[0]);
 
     this.offCanvas.width = 825;
-    this.offCanvas.height = 526;
+    this.offCanvas.height = 360;
     this.context2 = this.offCanvas.getContext("2d");
 
     // Calls updateGame every 20 milliseconds (refreshes game area every 20 ms).
