@@ -9,6 +9,7 @@ import { coordinatesToLatLong, latLongToCoordinates } from './components/coodina
 import { getSSTData, getWindData } from './api/climateDataAPI.js';
 
 let gameControls = new GameControls();
+let season = 'summer';
 let heatMap;
 let screenPressed = false;
 let x = 0;
@@ -121,8 +122,8 @@ const loadToMainCanvas = () => {
 
 const startGame = async (windData) => {
   // Gets the climate data from the api.
-  const windDirData = await getWindData('fall');
-  const sstData = await getSSTData('summer');
+  const windDirData = await getWindData(season);
+  const sstData = await getSSTData(season);
 
   // Converts the lat and lon for each wind direction data point to x, y coordinates.
   for (let i = 0; i < windDirData.length; i++) {
