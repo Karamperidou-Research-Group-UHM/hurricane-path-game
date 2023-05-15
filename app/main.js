@@ -1,12 +1,12 @@
-import Hurricane from '../gameobjects/hurricane.js';
-import WindArrows from '../components/windArrows.js';
-import PressureSystem from '../gameobjects/pressureSystem.js';
-import GameControls from '../components/gameControls.js';
-import HeatMap from '../components/heatmap.js';
-import Pins from '../components/pins.js';
-import GameObject from '../gameobjects/gameObject.js';
-import { coordinatesToLatLong, latLongToCoordinates } from '../components/coodinateConversion.js';
-import { getSSTData, getWindData } from '../api/climateDataAPI.js';
+import Hurricane from './gameobjects/hurricane'
+import WindArrows from './components/windArrows.js';
+import PressureSystem from './gameobjects/pressureSystem.js';
+import GameControls from './components/gameControls.js';
+import HeatMap from './components/heatmap.js';
+import Pins from './components/pins.js';
+import GameObject from './gameobjects/gameObject.js';
+import { coordinatesToLatLong, latLongToCoordinates } from './components/coodinateConversion.js';
+import { getSSTData, getWindData } from './api/climateDataAPI.js';
 
 let gameControls = new GameControls();
 let heatMap;
