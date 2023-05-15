@@ -51,10 +51,14 @@ export default class GameControls {
     document.getElementById("high+").disabled = false;
     document.getElementById("low+").disabled = false;
 
-    // Enables temp buttons and start button and disables reset button.
+    // Enables temp buttons, season buttons, and start button and disables reset button.
     document.getElementById("start").disabled = false;
     document.getElementById("temp+").disabled = false;
     document.getElementById("temp-").disabled = false;
+    document.getElementById("spring-button").disabled = false;
+    document.getElementById("summer-button").disabled = false;
+    document.getElementById("fall-button").disabled = false;
+    document.getElementById("winter-button").disabled = false;
     document.getElementById("reset").disabled = true;
   }
 
@@ -142,11 +146,19 @@ export default class GameControls {
       document.getElementById("start").disabled = true;
       document.getElementById("temp+").disabled = true;
       document.getElementById("temp-").disabled = true;
+      document.getElementById("spring-button").disabled = true;
+      document.getElementById("summer-button").disabled = true;
+      document.getElementById("fall-button").disabled = true;
+      document.getElementById("winter-button").disabled = true;
       document.getElementById("reset").disabled = false;
     } else {
       document.getElementById("start").disabled = false;
       document.getElementById("temp+").disabled = false;
       document.getElementById("temp-").disabled = false;
+      document.getElementById("spring-button").disabled = false;
+      document.getElementById("summer-button").disabled = false;
+      document.getElementById("fall-button").disabled = false;
+      document.getElementById("winter-button").disabled = false;
       document.getElementById("reset").disabled = true;
     }
   }

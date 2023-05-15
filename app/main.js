@@ -64,8 +64,8 @@ let equator;
 let pins;
 let sst = 1;
 let category = [1, 2, 3, 4, 5];
-const windDataCoordinates = [];
-const sstDataCoordinates = [];
+let windDataCoordinates = [];
+let sstDataCoordinates = [];
 const cities = ["honolulu", "seattle", "los-angeles", "tokyo", "hongkong", "manila"];
 
 /** All mouse down events. */
@@ -74,8 +74,6 @@ const mouseDownEvents = (event) => {
   y = event.clientY;
   let rect = gameArea.canvas.getBoundingClientRect();
   const latLon = coordinatesToLatLong(x - rect.left, y - rect.top, gameArea)
-  console.log(x - rect.left, y - rect.top);
-  console.log(latLon);
   // console.log(latLongToCoordinates(latLon.lon, latLon.lat, gameArea));
   screenPressed = true;
 };
@@ -260,7 +258,8 @@ const updateGame = () => {
 };
 
 /** Resets the game */
-const resetGame = () => {
+const resetGame = async () => {
+  console.log('sup');
   gameArea.clear();
   initialLoad = true;
   loaded = false;
@@ -271,6 +270,35 @@ const resetGame = () => {
   highPressureSys.resetPressureSystem();
   lowPressureSys.resetPressureSystem();
   pins.resetPins();
+
+  // Gets the climate data from the api.
+  const windDirData = await getWindData(season);
+  const sstData = await getSSTData(season);
+
+  windDataCoordinates = [];
+  sstDataCoordinates = [];
+
+  // Converts the lat and lon for each wind direction data point to x, y coordinates.
+  for (let i = 0; i < windDirData.length; i++) {
+    const xycoordinates = latLongToCoordinates(windDirData[i].lon, windDirData[i].lat, gameArea);
+    windDataCoordinates.push({
+      x: xycoordinates.x,
+      y: xycoordinates.y,
+      windDir: (windDirData[i].windir * (180 / Math.PI)),
+    })
+  }
+
+  // Converts the lat and lon for each sst data point to x, y coordinates.
+  for (let i = 0; i < sstData.length; i++) {
+    const xycoordinates = latLongToCoordinates(sstData[i].lon, sstData[i].lat, gameArea);
+    sstDataCoordinates.push({
+      x: xycoordinates.x,
+      y: xycoordinates.y,
+      sst: sstData[i].sst,
+    })
+  }
+
+  windArrows.newWindArrows(windDataCoordinates);
 }
 
 // Game Control Button Listeners.
@@ -283,16 +311,17 @@ const low2 = document.getElementById("low-");
 const temp1 = document.getElementById("temp+");
 const temp2 = document.getElementById("temp-");
 
-const spring = document.getElementById('spring');
-const summer = document.getElementById('summer');
-const fall = document.getElementById('fall');
-const winter = document.getElementById('winter');
+const spring = document.getElementById("spring-button");
+const summer = document.getElementById("summer-button");
+const fall = document.getElementById("fall-button");
+const winter = document.getElementById("winter-button");
 
 const startButton = document.getElementById("start");
 const resetButton = document.getElementById("reset");
 
 // Display panel of sizes and temperature
 high1.addEventListener("click", () => {
+  console.log('hey');
   gameControls.changeHighSize(5);
   // If game has not started, reload the screen.
   gameStart ? loaded = true : loaded = false;
@@ -329,9 +358,7 @@ temp2.addEventListener("click", () => {
   gameStart ? loaded = true : loaded = false;
 });
 
-spring.addEventListener("click", () => {
-
-});
+spring.addEventListener("click", () => gameStart = true);
 
 startButton.addEventListener("click", () => gameStart = true);
 resetButton.addEventListener("click", () => resetGame());
