@@ -1,4 +1,4 @@
-import Hurricane from './gameobjects/hurricane'
+import Hurricane from './gameobjects/hurricane.js'
 import WindArrows from './components/windArrows.js';
 import PressureSystem from './gameobjects/pressureSystem.js';
 import GameControls from './components/gameControls.js';

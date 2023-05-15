@@ -1,6 +1,6 @@
 # Runs the static site on the nginx web server.
 FROM nginx
 # Copies all files into the nginx image file.
-COPY . /usr/share/nginx/html
+COPY . api/* components/* gameobjects/* images/* /usr/share/nginx/html
 # Replaces the default nginx.conf file with the one in app directory.
-COPY nginx.conf /etc/nginx/nginx.conf 
+COPY nginx.conf /etc/nginx/nginx.conf
