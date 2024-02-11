@@ -5,6 +5,7 @@
 
 ## Table of Contents
 #### General 
+* [Deployment Instructions](#Deployment Instructions)
 * [Introduction](#Introduction)
 * [Purpose](#Purpose)
 * [Setup](#setup)
@@ -21,6 +22,14 @@
 ---------------------------------------
 
 ## General
+### Deployment Instructions
+In order to use this application please follow the steps below:
+1. Clone the repo on to your local machine.
+2. Download Docker onto your machine if you do not have it already.
+3. Navigate to the root folder and run the command: ```docker-compose build``` to build the docker images.
+4. Then run ```docker-compose up``` to create the docker containers from the images.
+5. Go to localhost:8080 to view the page.
+6. Run ```docker-compose down``` when finished to destroy the existing docker containers.
 ### Introduction
 This game is brought to you by the Department of Atmospheric Sciences at the University of Hawaii at Manoa.
 
